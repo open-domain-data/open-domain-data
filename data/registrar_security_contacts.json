@@ -1,0 +1,33 @@
+{
+  "dataset": "registrar_security_contacts",
+  "version": "2026.05",
+  "license": "CC-BY-4.0",
+  "last_checked": "2026-05-25T04:12:00Z",
+  "count": 3,
+  "records": [
+    {
+      "registrar_id": "cloudflare-registrar",
+      "abuse_email": "registrar-abuse@cloudflare.com",
+      "security_txt": "present",
+      "policy_url": "https://www.cloudflare.com/abuse/",
+      "verification_status": "public_sources",
+      "last_checked": "2026-05-25T04:12:00Z"
+    },
+    {
+      "registrar_id": "namecheap",
+      "abuse_email": "abuse@namecheap.com",
+      "security_txt": "present",
+      "policy_url": "https://www.namecheap.com/legal/general/abuse-policy/",
+      "verification_status": "public_sources",
+      "last_checked": "2026-05-25T04:12:00Z"
+    },
+    {
+      "registrar_id": "porkbun",
+      "abuse_email": "abuse@porkbun.com",
+      "security_txt": "absent",
+      "policy_url": "https://porkbun.com/abuse",
+      "verification_status": "public_sources",
+      "last_checked": "2026-05-25T04:12:00Z"
+    }
+  ]
+}

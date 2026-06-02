@@ -1,0 +1,70 @@
+{
+  "$id": "https://opendomaindata.org/schemas/registrar.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Registrar",
+  "description": "Canonical record for an ICANN-accredited domain registrar.",
+  "version": "2026.05",
+  "type": "object",
+  "required": ["id", "iana_id", "name", "status", "sources", "verification_status", "last_checked"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Stable slug identifier."
+    },
+    "iana_id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "IANA-assigned registrar ID."
+    },
+    "name": {
+      "type": "string",
+      "description": "Legal entity name."
+    },
+    "rdap_base": {
+      "type": "string",
+      "format": "uri",
+      "description": "RDAP service base URL."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["active", "inactive", "terminated"]
+    },
+    "country": {
+      "type": "string",
+      "description": "ISO 3166-1 alpha-2 country code."
+    },
+    "website": {
+      "type": "string",
+      "format": "uri"
+    },
+    "aliases": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": ["iana", "rdap", "registrar_docs", "submission"]
+      }
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unknown",
+        "public_sources",
+        "independently_tested",
+        "registrar_submitted",
+        "registrar_verified",
+        "deprecated"
+      ]
+    },
+    "last_checked": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false
+}

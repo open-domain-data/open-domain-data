@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Mirrored from /data and /schemas by scripts/sync-data.mjs.
+# Canonical source lives in /data and /schemas — do not commit the mirror.
+/public/api/
+/public/schemas/

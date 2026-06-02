@@ -1,0 +1,49 @@
+{
+  "dataset": "registrars",
+  "version": "2026.05",
+  "license": "CC-BY-4.0",
+  "last_checked": "2026-05-31T04:12:00Z",
+  "schema": "https://opendomaindata.org/schemas/registrar.schema.json",
+  "count": 3,
+  "records": [
+    {
+      "id": "cloudflare-registrar",
+      "iana_id": 1910,
+      "name": "Cloudflare, Inc.",
+      "rdap_base": "https://rdap.cloudflare.com",
+      "status": "active",
+      "country": "US",
+      "website": "https://www.cloudflare.com/products/registrar/",
+      "aliases": ["cloudflare", "cf-registrar"],
+      "sources": ["iana", "rdap", "registrar_docs"],
+      "verification_status": "independently_tested",
+      "last_checked": "2026-05-31T04:12:00Z"
+    },
+    {
+      "id": "namecheap",
+      "iana_id": 1068,
+      "name": "Namecheap, Inc.",
+      "rdap_base": "https://rdap.namecheap.com",
+      "status": "active",
+      "country": "US",
+      "website": "https://www.namecheap.com",
+      "aliases": ["namecheap-inc"],
+      "sources": ["iana", "rdap", "registrar_docs"],
+      "verification_status": "independently_tested",
+      "last_checked": "2026-05-31T04:12:00Z"
+    },
+    {
+      "id": "porkbun",
+      "iana_id": 1861,
+      "name": "Porkbun LLC",
+      "rdap_base": "https://rdap.porkbun.com",
+      "status": "active",
+      "country": "US",
+      "website": "https://porkbun.com",
+      "aliases": ["porkbun-llc"],
+      "sources": ["iana", "rdap", "registrar_docs", "submission"],
+      "verification_status": "registrar_verified",
+      "last_checked": "2026-05-30T04:12:00Z"
+    }
+  ]
+}

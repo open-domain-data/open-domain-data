@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Methodology questions
+    url: https://opendomaindata.org/methodology
+    about: How datasets are collected, verified and versioned.
+  - name: Security report
+    url: https://github.com/open-domain-data/open-domain-data/security/policy
+    about: Report a vulnerability privately.

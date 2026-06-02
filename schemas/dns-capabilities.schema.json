@@ -1,0 +1,35 @@
+{
+  "$id": "https://opendomaindata.org/schemas/dns-capabilities.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DnsCapabilities",
+  "description": "DNS feature support per registrar.",
+  "version": "2026.05",
+  "type": "object",
+  "required": ["registrar_id", "dnssec", "sources", "verification_status", "last_checked"],
+  "properties": {
+    "registrar_id": { "type": "string" },
+    "dnssec": { "type": "string", "enum": ["supported", "unsupported", "partial"] },
+    "alias_aname": { "type": "boolean" },
+    "caa": { "type": "boolean" },
+    "api_record_management": { "type": "boolean" },
+    "record_types": { "type": "array", "items": { "type": "string" } },
+    "ttl_min_seconds": { "type": "integer", "minimum": 0 },
+    "sources": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["iana", "rdap", "registrar_docs", "submission"] }
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unknown",
+        "public_sources",
+        "independently_tested",
+        "registrar_submitted",
+        "registrar_verified",
+        "deprecated"
+      ]
+    },
+    "last_checked": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

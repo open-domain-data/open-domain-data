@@ -1,0 +1,46 @@
+{
+  "dataset": "dns_capabilities",
+  "version": "2026.05",
+  "license": "CC-BY-4.0",
+  "last_checked": "2026-05-27T04:12:00Z",
+  "schema": "https://opendomaindata.org/schemas/dns-capabilities.schema.json",
+  "count": 3,
+  "records": [
+    {
+      "registrar_id": "cloudflare-registrar",
+      "dnssec": "supported",
+      "alias_aname": true,
+      "caa": true,
+      "api_record_management": true,
+      "record_types": ["A", "AAAA", "CNAME", "MX", "TXT", "SRV", "CAA", "NS"],
+      "ttl_min_seconds": 60,
+      "sources": ["registrar_docs", "rdap"],
+      "verification_status": "independently_tested",
+      "last_checked": "2026-05-27T04:12:00Z"
+    },
+    {
+      "registrar_id": "namecheap",
+      "dnssec": "supported",
+      "alias_aname": true,
+      "caa": true,
+      "api_record_management": true,
+      "record_types": ["A", "AAAA", "CNAME", "MX", "TXT", "SRV", "CAA", "NS"],
+      "ttl_min_seconds": 60,
+      "sources": ["registrar_docs"],
+      "verification_status": "independently_tested",
+      "last_checked": "2026-05-27T04:12:00Z"
+    },
+    {
+      "registrar_id": "porkbun",
+      "dnssec": "supported",
+      "alias_aname": true,
+      "caa": true,
+      "api_record_management": true,
+      "record_types": ["A", "AAAA", "CNAME", "MX", "TXT", "SRV", "CAA", "NS", "TLSA"],
+      "ttl_min_seconds": 600,
+      "sources": ["registrar_docs", "submission"],
+      "verification_status": "registrar_verified",
+      "last_checked": "2026-05-27T04:12:00Z"
+    }
+  ]
+}

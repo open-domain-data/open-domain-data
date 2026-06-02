@@ -1,0 +1,66 @@
+{
+  "dataset": "tld_pricing",
+  "version": "2026.06",
+  "license": "CC-BY-4.0",
+  "last_checked": "2026-06-01T04:12:00Z",
+  "schema": "https://opendomaindata.org/schemas/pricing.schema.json",
+  "currency": "USD",
+  "count": 5,
+  "records": [
+    {
+      "registrar_id": "cloudflare-registrar",
+      "tld": "com",
+      "register_usd": 9.77,
+      "renew_usd": 9.77,
+      "transfer_usd": 9.77,
+      "promotional": false,
+      "sources": ["registrar_docs"],
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-01T04:12:00Z"
+    },
+    {
+      "registrar_id": "namecheap",
+      "tld": "com",
+      "register_usd": 5.98,
+      "renew_usd": 14.98,
+      "transfer_usd": 9.48,
+      "promotional": true,
+      "sources": ["registrar_docs"],
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-01T04:12:00Z"
+    },
+    {
+      "registrar_id": "porkbun",
+      "tld": "com",
+      "register_usd": 9.13,
+      "renew_usd": 11.06,
+      "transfer_usd": 9.13,
+      "promotional": false,
+      "sources": ["registrar_docs", "submission"],
+      "verification_status": "registrar_verified",
+      "last_checked": "2026-06-01T04:12:00Z"
+    },
+    {
+      "registrar_id": "cloudflare-registrar",
+      "tld": "dev",
+      "register_usd": 12.18,
+      "renew_usd": 12.18,
+      "transfer_usd": 12.18,
+      "promotional": false,
+      "sources": ["registrar_docs"],
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-01T04:12:00Z"
+    },
+    {
+      "registrar_id": "porkbun",
+      "tld": "dev",
+      "register_usd": 11.69,
+      "renew_usd": 11.69,
+      "transfer_usd": 11.69,
+      "promotional": false,
+      "sources": ["registrar_docs", "submission"],
+      "verification_status": "registrar_verified",
+      "last_checked": "2026-06-01T04:12:00Z"
+    }
+  ]
+}

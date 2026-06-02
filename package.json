@@ -1,0 +1,40 @@
+{
+  "name": "open-domain-data",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Open, versioned datasets for the domain infrastructure ecosystem.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/open-domain-data/open-domain-data.git"
+  },
+  "homepage": "https://opendomaindata.org",
+  "bugs": "https://github.com/open-domain-data/open-domain-data/issues",
+  "scripts": {
+    "sync": "node scripts/sync-data.mjs",
+    "validate": "node scripts/validate.mjs",
+    "prebuild": "node scripts/sync-data.mjs",
+    "predev": "node scripts/sync-data.mjs",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run lint && npm run validate"
+  },
+  "dependencies": {
+    "next": "14.2.15",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "20.14.10",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.15",
+    "typescript": "5.5.3"
+  }
+}

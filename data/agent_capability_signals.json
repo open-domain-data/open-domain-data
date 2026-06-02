@@ -1,0 +1,52 @@
+{
+  "dataset": "agent_capability_signals",
+  "version": "2026.05",
+  "license": "CC-BY-4.0",
+  "last_checked": "2026-05-30T04:12:00Z",
+  "note": "Signals only. Open Domain Data does not score or rank registrars based on these signals.",
+  "count": 3,
+  "records": [
+    {
+      "registrar_id": "cloudflare-registrar",
+      "api_available": true,
+      "scoped_tokens": true,
+      "oauth_support": false,
+      "dns_api": true,
+      "webhooks": false,
+      "audit_logs": true,
+      "human_approval_flow": false,
+      "sandbox": false,
+      "openapi_spec": true,
+      "verification_status": "public_sources",
+      "last_checked": "2026-05-30T04:12:00Z"
+    },
+    {
+      "registrar_id": "namecheap",
+      "api_available": true,
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "dns_api": true,
+      "webhooks": false,
+      "audit_logs": false,
+      "human_approval_flow": false,
+      "sandbox": true,
+      "openapi_spec": false,
+      "verification_status": "registrar_submitted",
+      "last_checked": "2026-05-30T04:12:00Z"
+    },
+    {
+      "registrar_id": "porkbun",
+      "api_available": true,
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "dns_api": true,
+      "webhooks": false,
+      "audit_logs": false,
+      "human_approval_flow": false,
+      "sandbox": false,
+      "openapi_spec": false,
+      "verification_status": "registrar_submitted",
+      "last_checked": "2026-05-30T04:12:00Z"
+    }
+  ]
+}

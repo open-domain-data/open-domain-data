@@ -1,0 +1,55 @@
+{
+  "dataset": "registrar_api_capabilities",
+  "version": "2026.05",
+  "license": "CC-BY-4.0",
+  "last_checked": "2026-05-28T04:12:00Z",
+  "schema": "https://opendomaindata.org/schemas/api-capabilities.schema.json",
+  "count": 3,
+  "records": [
+    {
+      "registrar_id": "cloudflare-registrar",
+      "api_available": true,
+      "auth_model": "api_key",
+      "scoped_tokens": true,
+      "oauth_support": false,
+      "webhooks": false,
+      "sandbox_url": null,
+      "openapi_spec": "https://developers.cloudflare.com/api/",
+      "rate_limit": "1200 req/5min per account",
+      "docs_url": "https://developers.cloudflare.com/registrar/",
+      "sources": ["registrar_docs"],
+      "verification_status": "public_sources",
+      "last_checked": "2026-05-28T04:12:00Z"
+    },
+    {
+      "registrar_id": "namecheap",
+      "api_available": true,
+      "auth_model": "api_key",
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "webhooks": false,
+      "sandbox_url": "https://api.sandbox.namecheap.com",
+      "openapi_spec": null,
+      "rate_limit": "20 req/min per IP",
+      "docs_url": "https://www.namecheap.com/support/api/intro/",
+      "sources": ["registrar_docs"],
+      "verification_status": "public_sources",
+      "last_checked": "2026-05-28T04:12:00Z"
+    },
+    {
+      "registrar_id": "porkbun",
+      "api_available": true,
+      "auth_model": "api_key",
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "webhooks": false,
+      "sandbox_url": null,
+      "openapi_spec": null,
+      "rate_limit": "10 req/10s",
+      "docs_url": "https://porkbun.com/api/json/v3/documentation",
+      "sources": ["registrar_docs", "submission"],
+      "verification_status": "registrar_submitted",
+      "last_checked": "2026-05-30T04:12:00Z"
+    }
+  ]
+}

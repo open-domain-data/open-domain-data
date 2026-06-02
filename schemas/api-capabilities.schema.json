@@ -1,0 +1,41 @@
+{
+  "$id": "https://opendomaindata.org/schemas/api-capabilities.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RegistrarApiCapabilities",
+  "description": "Documented API surface for a single registrar.",
+  "version": "2026.05",
+  "type": "object",
+  "required": ["registrar_id", "api_available", "docs_url", "sources", "verification_status", "last_checked"],
+  "properties": {
+    "registrar_id": { "type": "string", "description": "Foreign key to registrars.id." },
+    "api_available": { "type": "boolean" },
+    "auth_model": {
+      "type": "string",
+      "enum": ["api_key", "oauth2", "basic", "other", "none"]
+    },
+    "scoped_tokens": { "type": "boolean" },
+    "oauth_support": { "type": "boolean" },
+    "webhooks": { "type": "boolean" },
+    "sandbox_url": { "type": ["string", "null"], "format": "uri" },
+    "openapi_spec": { "type": ["string", "null"], "format": "uri" },
+    "rate_limit": { "type": "string" },
+    "docs_url": { "type": "string", "format": "uri" },
+    "sources": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["iana", "rdap", "registrar_docs", "submission"] }
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unknown",
+        "public_sources",
+        "independently_tested",
+        "registrar_submitted",
+        "registrar_verified",
+        "deprecated"
+      ]
+    },
+    "last_checked": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

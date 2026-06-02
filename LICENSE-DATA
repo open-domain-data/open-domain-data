@@ -1,0 +1,23 @@
+Open Domain Data — datasets, schemas, and methodology documents are licensed
+under the Creative Commons Attribution 4.0 International license (CC BY 4.0).
+
+You are free to:
+  - Share — copy and redistribute the material in any medium or format.
+  - Adapt — remix, transform, and build upon the material for any purpose,
+    even commercially.
+
+Under the following terms:
+  - Attribution — You must give appropriate credit, link to opendomaindata.org,
+    state the dataset version (e.g. `registrars@2026.05`) and indicate if
+    changes were made.
+  - Disclosure (recommended) — Products that build rankings or recommendations
+    from this data should disclose that they do so.
+
+Full license text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+This license applies to:
+  - All files under public/api/
+  - All files under public/schemas/
+  - The methodology documents.
+
+It does NOT apply to the website code, which is MIT licensed (see LICENSE).

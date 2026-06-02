@@ -1,0 +1,46 @@
+# Open Domain Data
+
+> Open, versioned datasets describing the domain infrastructure ecosystem.
+> Open Domain Data publishes structured datasets only. It does not rank
+> registrars, recommend providers, or sell domains.
+
+## What this project is
+Open Domain Data is an open-source project that publishes machine-readable
+datasets about domain registrars, registrar APIs, DNS capabilities, TLD
+pricing, RDAP metadata and security contacts. Every record carries a
+verification status, a source list and a timestamp.
+
+## What this project is NOT
+- Not a registrar.
+- Not a domain marketplace.
+- Not a ranking site. Open Domain Data does not score, rank or recommend
+  registrars. Ranking products are maintained separately and must
+  disclose how they use this data.
+
+## Datasets
+
+- registrars: /api/registrars.json
+- registrar_api_capabilities: /api/registrar_api_capabilities.json
+- dns_capabilities: /api/dns_capabilities.json
+- tld_pricing: /api/tld_pricing.json
+- rdap_metadata: /api/rdap_metadata.json
+- registrar_security_contacts: /api/registrar_security_contacts.json
+- agent_capability_signals: /api/agent_capability_signals.json
+
+## Schemas
+
+- /schemas/registrar.schema.json
+- /schemas/api-capabilities.schema.json
+- /schemas/dns-capabilities.schema.json
+- /schemas/pricing.schema.json
+
+## Docs
+- Methodology: /methodology
+- Verification statuses: /methodology#verification
+- Changelog: /changelog
+- Developer reference: /developers
+- Contribute: /contribute
+
+## License
+All datasets are published under CC BY 4.0. Cite as:
+Open Domain Data (2026). <dataset_name>, v<release>. opendomaindata.org.

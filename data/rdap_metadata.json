@@ -1,0 +1,33 @@
+{
+  "dataset": "rdap_metadata",
+  "version": "2026.05",
+  "license": "CC-BY-4.0",
+  "last_checked": "2026-05-29T04:12:00Z",
+  "count": 3,
+  "records": [
+    {
+      "registrar_id": "cloudflare-registrar",
+      "base_url": "https://rdap.cloudflare.com",
+      "conformance": "rfc7483",
+      "iana_bootstrapped": true,
+      "verification_status": "independently_tested",
+      "last_checked": "2026-05-29T04:12:00Z"
+    },
+    {
+      "registrar_id": "namecheap",
+      "base_url": "https://rdap.namecheap.com",
+      "conformance": "rfc7483",
+      "iana_bootstrapped": true,
+      "verification_status": "independently_tested",
+      "last_checked": "2026-05-29T04:12:00Z"
+    },
+    {
+      "registrar_id": "porkbun",
+      "base_url": "https://rdap.porkbun.com",
+      "conformance": "rfc7483",
+      "iana_bootstrapped": true,
+      "verification_status": "independently_tested",
+      "last_checked": "2026-05-29T04:12:00Z"
+    }
+  ]
+}
