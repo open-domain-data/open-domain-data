@@ -2,9 +2,9 @@
   "dataset": "agent_capability_signals",
   "version": "2026.05",
   "license": "CC-BY-4.0",
-  "last_checked": "2026-05-30T04:12:00Z",
-  "note": "Signals only. Open Domain Data does not score or rank registrars based on these signals.",
-  "count": 3,
+  "last_checked": "2026-06-21T12:00:00Z",
+  "note": "Signals only. Open Domain Data does not score or rank registrars based on these signals. `mcp_interface` records whether the registrar publishes an official Model Context Protocol server for domain operations (read-only or otherwise); it does not assess quality.",
+  "count": 7,
   "records": [
     {
       "registrar_id": "cloudflare-registrar",
@@ -17,8 +17,9 @@
       "human_approval_flow": false,
       "sandbox": false,
       "openapi_spec": true,
+      "mcp_interface": false,
       "verification_status": "public_sources",
-      "last_checked": "2026-05-30T04:12:00Z"
+      "last_checked": "2026-06-21T12:00:00Z"
     },
     {
       "registrar_id": "namecheap",
@@ -31,8 +32,9 @@
       "human_approval_flow": false,
       "sandbox": true,
       "openapi_spec": false,
+      "mcp_interface": false,
       "verification_status": "registrar_submitted",
-      "last_checked": "2026-05-30T04:12:00Z"
+      "last_checked": "2026-06-21T12:00:00Z"
     },
     {
       "registrar_id": "porkbun",
@@ -45,8 +47,69 @@
       "human_approval_flow": false,
       "sandbox": false,
       "openapi_spec": false,
+      "mcp_interface": false,
       "verification_status": "registrar_submitted",
-      "last_checked": "2026-05-30T04:12:00Z"
+      "last_checked": "2026-06-21T12:00:00Z"
+    },
+    {
+      "registrar_id": "godaddy",
+      "api_available": true,
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "dns_api": true,
+      "webhooks": false,
+      "audit_logs": false,
+      "human_approval_flow": false,
+      "sandbox": true,
+      "openapi_spec": false,
+      "mcp_interface": true,
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-21T12:00:00Z"
+    },
+    {
+      "registrar_id": "dynadot",
+      "api_available": true,
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "dns_api": true,
+      "webhooks": false,
+      "audit_logs": false,
+      "human_approval_flow": false,
+      "sandbox": true,
+      "openapi_spec": false,
+      "mcp_interface": false,
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-21T12:00:00Z"
+    },
+    {
+      "registrar_id": "spaceship",
+      "api_available": true,
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "dns_api": true,
+      "webhooks": false,
+      "audit_logs": false,
+      "human_approval_flow": false,
+      "sandbox": false,
+      "openapi_spec": false,
+      "mcp_interface": false,
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-21T12:00:00Z"
+    },
+    {
+      "registrar_id": "squarespace-domains",
+      "api_available": false,
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "dns_api": false,
+      "webhooks": false,
+      "audit_logs": false,
+      "human_approval_flow": false,
+      "sandbox": false,
+      "openapi_spec": false,
+      "mcp_interface": false,
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-21T12:00:00Z"
     }
   ]
 }
