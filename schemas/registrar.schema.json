@@ -91,6 +91,10 @@
           "last_checked": {
             "type": "string",
             "format": "date-time"
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional human-readable note describing how this specific field was checked — e.g. which registry column the value came from, or how the RDAP endpoint was probed."
           }
         },
         "additionalProperties": false

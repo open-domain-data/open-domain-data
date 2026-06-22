@@ -146,6 +146,7 @@ export default function RegistrarRecordPage({ params }: { params: { slug: string
                   <th>Value</th>
                   <th>Source</th>
                   <th>Verification</th>
+                  <th>How checked</th>
                   <th>Last checked</th>
                 </tr>
               </thead>
@@ -167,6 +168,9 @@ export default function RegistrarRecordPage({ params }: { params: { slug: string
                       </td>
                       <td>
                         <StatusBadge v={p.verification_status} />
+                      </td>
+                      <td style={{ fontSize: 11.5, color: "var(--od-ink-2)", maxWidth: 280 }}>
+                        {p.note ?? "—"}
                       </td>
                       <td className="mono" style={{ fontSize: 11.5, color: "var(--od-ink-2)" }}>
                         {p.last_checked.slice(0, 10)}

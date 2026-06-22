@@ -19,10 +19,10 @@
       "verification_status": "independently_tested",
       "last_checked": "2026-06-22T00:00:00Z",
       "field_provenance": {
-        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Read from the IANA registrar-ids registry CSV." },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Legal name as published by IANA." },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Mapped from IANA accreditation status (Accredited -> active)." },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z", "note": "Value from IANA; endpoint probed with a live RDAP domain query and returned a valid RDAP object (rdapConformance)." }
       }
     },
     {
@@ -38,10 +38,10 @@
       "verification_status": "independently_tested",
       "last_checked": "2026-06-22T00:00:00Z",
       "field_provenance": {
-        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Read from the IANA registrar-ids registry CSV." },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "IANA publishes the legal name as 'NameCheap, Inc.' (note the internal capital C)." },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Mapped from IANA accreditation status (Accredited -> active)." },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z", "note": "Value from IANA; endpoint probed with a live RDAP domain query and returned a valid RDAP object (rdapConformance)." }
       }
     },
     {
@@ -57,10 +57,10 @@
       "verification_status": "independently_tested",
       "last_checked": "2026-06-22T00:00:00Z",
       "field_provenance": {
-        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Read from the IANA registrar-ids registry CSV." },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Legal name as published by IANA." },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Mapped from IANA accreditation status (Accredited -> active)." },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z", "note": "Value from IANA (Porkbun's RDAP base is the non-obvious cart-before.porkbun.horse host); endpoint probed and returned a valid RDAP object (rdapConformance)." }
       }
     },
     {
@@ -72,14 +72,14 @@
       "country": "US",
       "website": "https://www.godaddy.com",
       "aliases": ["go-daddy", "godaddy-com"],
-      "sources": ["iana", "registrar_docs"],
+      "sources": ["iana", "rdap", "registrar_docs"],
       "verification_status": "independently_tested",
       "last_checked": "2026-06-22T00:00:00Z",
       "field_provenance": {
-        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Read from the IANA registrar-ids registry CSV." },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Legal name as published by IANA." },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Mapped from IANA accreditation status (Accredited -> active)." },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z", "note": "Value from IANA; endpoint probed and returned a valid RDAP error object (RDAP errorCode)." }
       }
     },
     {
@@ -91,30 +91,33 @@
       "country": "US",
       "website": "https://www.dynadot.com",
       "aliases": ["dynadot-inc", "dynadot-llc"],
-      "sources": ["iana", "registrar_docs"],
+      "sources": ["iana", "rdap", "registrar_docs"],
       "verification_status": "independently_tested",
       "last_checked": "2026-06-22T00:00:00Z",
       "field_provenance": {
-        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Read from the IANA registrar-ids registry CSV." },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Legal name as published by IANA." },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Mapped from IANA accreditation status (Accredited -> active)." },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z", "note": "Value from IANA; endpoint probed and returned a valid RDAP object (rdapConformance)." }
       }
     },
     {
       "id": "spaceship",
       "iana_id": 3862,
       "name": "Spaceship, Inc.",
+      "rdap_base": "https://rdap.spaceship.com/",
       "status": "active",
       "country": "US",
       "website": "https://www.spaceship.com",
       "aliases": ["spaceship-inc"],
-      "sources": ["iana"],
-      "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z",
+      "sources": ["iana", "rdap"],
+      "verification_status": "independently_tested",
+      "last_checked": "2026-06-22T00:00:00Z",
       "field_provenance": {
-        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "public_sources", "last_checked": "2026-06-21T12:00:00Z" },
-        "name": { "source_url": "https://www.spaceship.com", "verification_status": "public_sources", "last_checked": "2026-06-21T12:00:00Z" }
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Read from the IANA registrar-ids registry CSV." },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Legal name as published by IANA." },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Mapped from IANA accreditation status (Accredited -> active)." },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z", "note": "Previously blank; the IANA registry publishes rdap.spaceship.com and the endpoint was probed and returned a valid RDAP object (rdapConformance)." }
       }
     },
     {
@@ -126,14 +129,14 @@
       "country": "US",
       "website": "https://www.squarespace.com/domains",
       "aliases": ["squarespace", "squarespace-domains-ii"],
-      "sources": ["iana", "registrar_docs"],
+      "sources": ["iana", "rdap", "registrar_docs"],
       "verification_status": "independently_tested",
       "last_checked": "2026-06-22T00:00:00Z",
       "field_provenance": {
-        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
-        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Read from the IANA registrar-ids registry CSV." },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Legal name as published by IANA." },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "public_sources", "last_checked": "2026-06-22T00:00:00Z", "note": "Mapped from IANA accreditation status (Accredited -> active)." },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z", "note": "Value from IANA (note the .domains gTLD host); endpoint probed and returned a valid RDAP error object (RDAP errorCode)." }
       }
     }
   ]

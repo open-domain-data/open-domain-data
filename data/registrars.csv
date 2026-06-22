@@ -2,7 +2,7 @@ id,iana_id,name,rdap_base,status,country,sources,verification_status,last_checke
 cloudflare-registrar,1910,"Cloudflare, Inc.",https://rdap.cloudflare.com/rdap/v1/,active,US,"iana|rdap|registrar_docs",independently_tested,2026-06-22T00:00:00Z
 namecheap,1068,"NameCheap, Inc.",https://rdap.namecheap.com/,active,US,"iana|rdap|registrar_docs",independently_tested,2026-06-22T00:00:00Z
 porkbun,1861,"Porkbun LLC",https://cart-before.porkbun.horse/rdap/,active,US,"iana|rdap|registrar_docs|submission",independently_tested,2026-06-22T00:00:00Z
-godaddy,146,"GoDaddy.com, LLC",https://rdap.godaddy.com/v1/,active,US,"iana|registrar_docs",independently_tested,2026-06-22T00:00:00Z
-dynadot,472,"Dynadot Inc",https://rdap.dynadot.com/,active,US,"iana|registrar_docs",independently_tested,2026-06-22T00:00:00Z
-spaceship,3862,"Spaceship, Inc.",,active,US,"iana",public_sources,2026-06-21T12:00:00Z
-squarespace-domains,895,"Squarespace Domains II LLC",https://rdap.squarespace.domains/,active,US,"iana|registrar_docs",independently_tested,2026-06-22T00:00:00Z
+godaddy,146,"GoDaddy.com, LLC",https://rdap.godaddy.com/v1/,active,US,"iana|rdap|registrar_docs",independently_tested,2026-06-22T00:00:00Z
+dynadot,472,"Dynadot Inc",https://rdap.dynadot.com/,active,US,"iana|rdap|registrar_docs",independently_tested,2026-06-22T00:00:00Z
+spaceship,3862,"Spaceship, Inc.",https://rdap.spaceship.com/,active,US,"iana|rdap",independently_tested,2026-06-22T00:00:00Z
+squarespace-domains,895,"Squarespace Domains II LLC",https://rdap.squarespace.domains/,active,US,"iana|rdap|registrar_docs",independently_tested,2026-06-22T00:00:00Z
