@@ -5,7 +5,23 @@ Newest first. The format follows [Keep a Changelog](https://keepachangelog.com)
 and the project uses [Semantic Versioning](https://semver.org/) for schemas and
 calendar versioning (`YYYY.MM`) for datasets.
 
-## Unreleased
+## 2026.06 — 2026-06-22
+
+### `registrars@2026.06` · schema `registrar@2026.06`
+- Added per-field provenance (`field_provenance`) to the registrar schema. A
+  record can now carry, for any field, its own `source_url`,
+  `verification_status` and `last_checked`. Field-level provenance is
+  authoritative over the record-level fields for the field it describes.
+- Backfilled `field_provenance` for `iana_id`, `name`, `rdap_base` and `status`
+  across the sample registrars against the IANA registrar-ids registry.
+- Corrected `rdap_base` for every sample registrar to match the IANA bootstrap:
+  Porkbun's base is `cart-before.porkbun.horse`, not `rdap.porkbun.com`;
+  Cloudflare carries the `/rdap/v1/` path; and the IANA RDAP bases for GoDaddy,
+  Dynadot and Squarespace Domains were filled in (`rdap.godaddy.com/v1/`,
+  `rdap.dynadot.com/`, `rdap.squarespace.domains/`). Spaceship's RDAP base could
+  not be confirmed against the registry and is left blank with `public_sources`
+  provenance.
+- Documented field provenance in [`docs/data-dictionary.md`](./docs/data-dictionary.md).
 
 ### Sample expansion — 2026-06-21
 - Expanded the shipped illustrative sample from 3 to 7 registrars, adding

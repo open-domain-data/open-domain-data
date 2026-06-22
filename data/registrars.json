@@ -1,8 +1,8 @@
 {
   "dataset": "registrars",
-  "version": "2026.05",
+  "version": "2026.06",
   "license": "CC-BY-4.0",
-  "last_checked": "2026-06-21T12:00:00Z",
+  "last_checked": "2026-06-22T00:00:00Z",
   "schema": "https://opendomaindata.org/schemas/registrar.schema.json",
   "count": 7,
   "records": [
@@ -10,64 +10,96 @@
       "id": "cloudflare-registrar",
       "iana_id": 1910,
       "name": "Cloudflare, Inc.",
-      "rdap_base": "https://rdap.cloudflare.com",
+      "rdap_base": "https://rdap.cloudflare.com/rdap/v1/",
       "status": "active",
       "country": "US",
       "website": "https://www.cloudflare.com/products/registrar/",
       "aliases": ["cloudflare", "cf-registrar"],
       "sources": ["iana", "rdap", "registrar_docs"],
       "verification_status": "independently_tested",
-      "last_checked": "2026-05-31T04:12:00Z"
+      "last_checked": "2026-06-22T00:00:00Z",
+      "field_provenance": {
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+      }
     },
     {
       "id": "namecheap",
       "iana_id": 1068,
-      "name": "Namecheap, Inc.",
-      "rdap_base": "https://rdap.namecheap.com",
+      "name": "NameCheap, Inc.",
+      "rdap_base": "https://rdap.namecheap.com/",
       "status": "active",
       "country": "US",
       "website": "https://www.namecheap.com",
-      "aliases": ["namecheap-inc"],
+      "aliases": ["namecheap-inc", "namecheap"],
       "sources": ["iana", "rdap", "registrar_docs"],
       "verification_status": "independently_tested",
-      "last_checked": "2026-05-31T04:12:00Z"
+      "last_checked": "2026-06-22T00:00:00Z",
+      "field_provenance": {
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+      }
     },
     {
       "id": "porkbun",
       "iana_id": 1861,
       "name": "Porkbun LLC",
-      "rdap_base": "https://rdap.porkbun.com",
+      "rdap_base": "https://cart-before.porkbun.horse/rdap/",
       "status": "active",
       "country": "US",
       "website": "https://porkbun.com",
-      "aliases": ["porkbun-llc"],
+      "aliases": ["porkbun-llc", "porkbun"],
       "sources": ["iana", "rdap", "registrar_docs", "submission"],
-      "verification_status": "registrar_verified",
-      "last_checked": "2026-05-30T04:12:00Z"
+      "verification_status": "independently_tested",
+      "last_checked": "2026-06-22T00:00:00Z",
+      "field_provenance": {
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+      }
     },
     {
       "id": "godaddy",
       "iana_id": 146,
       "name": "GoDaddy.com, LLC",
+      "rdap_base": "https://rdap.godaddy.com/v1/",
       "status": "active",
       "country": "US",
       "website": "https://www.godaddy.com",
       "aliases": ["go-daddy", "godaddy-com"],
       "sources": ["iana", "registrar_docs"],
-      "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "verification_status": "independently_tested",
+      "last_checked": "2026-06-22T00:00:00Z",
+      "field_provenance": {
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+      }
     },
     {
       "id": "dynadot",
       "iana_id": 472,
       "name": "Dynadot Inc",
+      "rdap_base": "https://rdap.dynadot.com/",
       "status": "active",
       "country": "US",
       "website": "https://www.dynadot.com",
       "aliases": ["dynadot-inc", "dynadot-llc"],
       "sources": ["iana", "registrar_docs"],
-      "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "verification_status": "independently_tested",
+      "last_checked": "2026-06-22T00:00:00Z",
+      "field_provenance": {
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+      }
     },
     {
       "id": "spaceship",
@@ -79,19 +111,30 @@
       "aliases": ["spaceship-inc"],
       "sources": ["iana"],
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-21T12:00:00Z",
+      "field_provenance": {
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "public_sources", "last_checked": "2026-06-21T12:00:00Z" },
+        "name": { "source_url": "https://www.spaceship.com", "verification_status": "public_sources", "last_checked": "2026-06-21T12:00:00Z" }
+      }
     },
     {
       "id": "squarespace-domains",
       "iana_id": 895,
       "name": "Squarespace Domains II LLC",
+      "rdap_base": "https://rdap.squarespace.domains/",
       "status": "active",
       "country": "US",
       "website": "https://www.squarespace.com/domains",
       "aliases": ["squarespace", "squarespace-domains-ii"],
       "sources": ["iana", "registrar_docs"],
-      "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "verification_status": "independently_tested",
+      "last_checked": "2026-06-22T00:00:00Z",
+      "field_provenance": {
+        "iana_id": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "name": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+        "status": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+      }
     }
   ]
 }

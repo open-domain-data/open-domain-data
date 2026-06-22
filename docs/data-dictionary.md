@@ -15,6 +15,37 @@ Schema in `/schemas`.
 | `license`              | (file-level)            | yes      | Always `CC-BY-4.0` for datasets in this repository.                                                                                |
 | `version`              | (file-level, `YYYY.MM`) | yes      | Calendar version of the release the file belongs to.                                                                               |
 
+## Field provenance
+
+Provenance is recorded **per field**, not only per record. A record may carry a
+`field_provenance` object that maps a field name to where that specific value was
+checked:
+
+| Sub-field             | Type                 | Meaning                                                     |
+|-----------------------|----------------------|-------------------------------------------------------------|
+| `source_url`          | `string · uri`       | Primary source the field value was checked against.         |
+| `verification_status` | `enum`               | How that field was verified (same enum as the record).      |
+| `last_checked`        | `string · date-time` | When that field was last checked.                           |
+
+Example, from the `registrars` dataset:
+
+```json
+"field_provenance": {
+  "iana_id":   { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" },
+  "rdap_base": { "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids.xhtml", "verification_status": "independently_tested", "last_checked": "2026-06-22T00:00:00Z" }
+}
+```
+
+Rules:
+
+1. A field-level entry is **authoritative** over the record-level `sources`,
+   `verification_status` and `last_checked` for the field it describes.
+2. `field_provenance` is **optional**. A field with no entry inherits the
+   record-level provenance.
+3. `field_provenance` is JSON-only. The CSV mirror carries the flat record
+   fields; the nested provenance is available in the JSON file and on the
+   registrar detail page.
+
 ## Verification statuses
 
 Statuses are descriptive, not a quality score.

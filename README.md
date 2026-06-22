@@ -55,7 +55,7 @@ If you find a product violating these rules, please open an issue.
 
 | Dataset                       | Records | Version | Status                |
 |-------------------------------|---------|---------|------------------------|
-| `registrars`                  | 2,841   | 2026.05 | `independently_tested` |
+| `registrars`                  | 2,841   | 2026.06 | `independently_tested` |
 | `registrar_api_capabilities`  | 612     | 2026.05 | `public_sources`       |
 | `dns_capabilities`            | 612     | 2026.05 | `independently_tested` |
 | `tld_pricing`                 | 48,260  | 2026.06 | `public_sources`       |
