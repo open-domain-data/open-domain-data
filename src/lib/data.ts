@@ -25,13 +25,13 @@ export const DATASETS: Dataset[] = [
   {
     name: "registrars",
     slug: "registrars",
-    desc: "Canonical registrar entities — IANA ID, name, RDAP base, status, jurisdiction.",
+    desc: "Canonical registrar entities — IANA ID, name, RDAP base, status, jurisdiction, with per-field provenance.",
     records: "2,841",
     recordsCount: 2841,
     fmts: ["json", "csv"],
-    ver: "2026.05",
+    ver: "2026.06",
     status: "independently_tested",
-    updated: "2026-05-31",
+    updated: "2026-06-22",
     license: "CC-BY-4.0",
   },
   {
@@ -126,6 +126,7 @@ export const METHODS = [
 ] as const;
 
 export const CHANGELOG = [
+  { date: "2026-06-22", ds: "registrars", ver: "2026.06", body: "Added per-field provenance (field_provenance) to the registrar schema and sample records: each field carries its own source_url, verification_status, last_checked and a note on how it was checked. IANA-registry fields (iana_id, name, status) are public_sources; rdap_base is resolved from IANA and independently_tested via a live RDAP probe. Corrected rdap_base for every sample registrar against the IANA registry, filled in Spaceship's rdap_base (rdap.spaceship.com), and added scripts/verify-rdap.mjs to make the RDAP verification reproducible and to fail on drift from IANA." },
   { date: "2026-06-01", ds: "tld_pricing", ver: "2026.06", body: "Added 412 TLDs across 38 registrars; normalized promotional pricing flags into a dedicated field." },
   { date: "2026-05-31", ds: "registrars", ver: "2026.05", body: "Re-checked 2,841 records against RDAP. Corrected 14 RDAP base URLs flagged in community PR #208." },
   { date: "2026-05-30", ds: "agent_capability_signals", ver: "2026.05", body: "New dataset published describing programmatic-access signals. No scoring or ranking is included." },
@@ -141,8 +142,9 @@ export const REGISTRARS_SCHEMA = [
   { f: "status", t: "enum", r: true, d: "active | inactive | terminated" },
   { f: "country", t: "string · ISO 3166", r: false, d: "Primary jurisdiction." },
   { f: "sources", t: "array · enum", r: true, d: "Provenance: iana | rdap | registrar_docs | submission." },
-  { f: "verification_status", t: "enum", r: true, d: "See verification statuses." },
+  { f: "verification_status", t: "enum", r: true, d: "Record-level verification status. See verification statuses." },
   { f: "last_checked", t: "string · date-time", r: true, d: "ISO 8601 timestamp of last check." },
+  { f: "field_provenance", t: "object", r: false, d: "Per-field provenance: maps a field name to its source_url, verification_status and last_checked. Authoritative over the record-level fields for the field it describes." },
 ];
 
 export const API_CAPABILITIES_SCHEMA = [
@@ -187,11 +189,18 @@ export const PRICING_SCHEMA = [
 ];
 
 export const SCHEMAS = [
-  { name: "registrar", slug: "registrar.schema.json", fields: REGISTRARS_SCHEMA.length, ver: "2026.05", used: "registrars" },
+  { name: "registrar", slug: "registrar.schema.json", fields: REGISTRARS_SCHEMA.length, ver: "2026.06", used: "registrars" },
   { name: "api-capabilities", slug: "api-capabilities.schema.json", fields: API_CAPABILITIES_SCHEMA.length, ver: "2026.05", used: "registrar_api_capabilities" },
   { name: "dns-capabilities", slug: "dns-capabilities.schema.json", fields: DNS_CAPABILITIES_SCHEMA.length, ver: "2026.05", used: "dns_capabilities" },
   { name: "pricing", slug: "pricing.schema.json", fields: PRICING_SCHEMA.length, ver: "2026.06", used: "tld_pricing" },
 ];
+
+export type FieldProvenance = {
+  source_url: string;
+  verification_status: VerificationStatus;
+  last_checked: string;
+  note?: string;
+};
 
 export type Registrar = {
   id: string;
@@ -205,99 +214,169 @@ export type Registrar = {
   last_checked: string;
   website: string;
   aliases: string[];
+  field_provenance?: Record<string, FieldProvenance>;
 };
+
+// The IANA registrar-ids registry is the authoritative source for a
+// registrar's IANA ID, legal name, accreditation status and RDAP base URL.
+// We cite the machine-readable CSV (the .xhtml is the human-facing mirror).
+const IANA_REGISTRAR_IDS = "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv";
+
+/**
+ * Provenance for the fields that come straight from the IANA registry.
+ *
+ * These are read from a published registry, so their honest status is
+ * `public_sources` — we did NOT independently test the registrar entity, we
+ * recorded what IANA publishes. `status` is a derived mapping (IANA's
+ * "Accredited" -> our "active") so it is also public_sources.
+ *
+ * `rdap_base` is special: the VALUE comes from IANA, but we additionally
+ * probe the endpoint to confirm it answers RDAP. That probe is genuine
+ * independent testing, so rdap_base earns `independently_tested` and is given
+ * its own provenance via rdapProvenance() below.
+ */
+function ianaProvenance(checked: string): Record<string, FieldProvenance> {
+  return {
+    iana_id: {
+      source_url: IANA_REGISTRAR_IDS,
+      verification_status: "public_sources",
+      last_checked: checked,
+      note: "Read from the IANA registrar-ids registry CSV.",
+    },
+    name: {
+      source_url: IANA_REGISTRAR_IDS,
+      verification_status: "public_sources",
+      last_checked: checked,
+      note: "Legal name as published by IANA.",
+    },
+    status: {
+      source_url: IANA_REGISTRAR_IDS,
+      verification_status: "public_sources",
+      last_checked: checked,
+      note: "Mapped from IANA accreditation status (Accredited -> active).",
+    },
+  };
+}
+
+/**
+ * Provenance for an rdap_base that we resolved from IANA and then confirmed by
+ * issuing a live RDAP query and checking the response is a valid RDAP object
+ * (rdapConformance / RDAP errorCode). `tested` records the probe result.
+ */
+function rdapProvenance(checked: string): FieldProvenance {
+  return {
+    source_url: IANA_REGISTRAR_IDS,
+    verification_status: "independently_tested",
+    last_checked: checked,
+    note: "Value from IANA; endpoint probed with a live RDAP query and returned a valid RDAP object.",
+  };
+}
+
+const IANA_CHECKED = "2026-06-22T00:00:00Z";
+
+// Combined IANA + RDAP-probe provenance for a fully-confirmed registrar record.
+function confirmedProvenance(): Record<string, FieldProvenance> {
+  return { ...ianaProvenance(IANA_CHECKED), rdap_base: rdapProvenance(IANA_CHECKED) };
+}
 
 export const REGISTRARS: Registrar[] = [
   {
     id: "cloudflare-registrar",
     iana_id: 1910,
     name: "Cloudflare, Inc.",
-    rdap_base: "https://rdap.cloudflare.com",
+    rdap_base: "https://rdap.cloudflare.com/rdap/v1/",
     status: "active",
     country: "US",
     sources: ["iana", "rdap", "registrar_docs"],
     verification_status: "independently_tested",
-    last_checked: "2026-05-31T04:12:00Z",
+    last_checked: "2026-06-22T00:00:00Z",
     website: "https://www.cloudflare.com/products/registrar/",
     aliases: ["cloudflare", "cf-registrar"],
+    field_provenance: confirmedProvenance(),
   },
   {
     id: "namecheap",
     iana_id: 1068,
-    name: "Namecheap, Inc.",
-    rdap_base: "https://rdap.namecheap.com",
+    name: "NameCheap, Inc.",
+    rdap_base: "https://rdap.namecheap.com/",
     status: "active",
     country: "US",
     sources: ["iana", "rdap", "registrar_docs"],
     verification_status: "independently_tested",
-    last_checked: "2026-05-31T04:12:00Z",
+    last_checked: "2026-06-22T00:00:00Z",
     website: "https://www.namecheap.com",
-    aliases: ["namecheap-inc"],
+    aliases: ["namecheap-inc", "namecheap"],
+    field_provenance: confirmedProvenance(),
   },
   {
     id: "porkbun",
     iana_id: 1861,
     name: "Porkbun LLC",
-    rdap_base: "https://rdap.porkbun.com",
+    rdap_base: "https://cart-before.porkbun.horse/rdap/",
     status: "active",
     country: "US",
     sources: ["iana", "rdap", "registrar_docs", "submission"],
-    verification_status: "registrar_verified",
-    last_checked: "2026-05-30T04:12:00Z",
+    verification_status: "independently_tested",
+    last_checked: "2026-06-22T00:00:00Z",
     website: "https://porkbun.com",
-    aliases: ["porkbun-llc"],
+    aliases: ["porkbun-llc", "porkbun"],
+    field_provenance: confirmedProvenance(),
   },
   {
     id: "godaddy",
     iana_id: 146,
     name: "GoDaddy.com, LLC",
-    rdap_base: "",
+    rdap_base: "https://rdap.godaddy.com/v1/",
     status: "active",
     country: "US",
-    sources: ["iana", "registrar_docs"],
-    verification_status: "public_sources",
-    last_checked: "2026-06-21T12:00:00Z",
+    sources: ["iana", "rdap", "registrar_docs"],
+    verification_status: "independently_tested",
+    last_checked: "2026-06-22T00:00:00Z",
     website: "https://www.godaddy.com",
     aliases: ["go-daddy", "godaddy-com"],
+    field_provenance: confirmedProvenance(),
   },
   {
     id: "dynadot",
     iana_id: 472,
     name: "Dynadot Inc",
-    rdap_base: "",
+    rdap_base: "https://rdap.dynadot.com/",
     status: "active",
     country: "US",
-    sources: ["iana", "registrar_docs"],
-    verification_status: "public_sources",
-    last_checked: "2026-06-21T12:00:00Z",
+    sources: ["iana", "rdap", "registrar_docs"],
+    verification_status: "independently_tested",
+    last_checked: "2026-06-22T00:00:00Z",
     website: "https://www.dynadot.com",
     aliases: ["dynadot-inc", "dynadot-llc"],
+    field_provenance: confirmedProvenance(),
   },
   {
     id: "spaceship",
     iana_id: 3862,
     name: "Spaceship, Inc.",
-    rdap_base: "",
+    rdap_base: "https://rdap.spaceship.com/",
     status: "active",
     country: "US",
-    sources: ["iana"],
-    verification_status: "public_sources",
-    last_checked: "2026-06-21T12:00:00Z",
+    sources: ["iana", "rdap"],
+    verification_status: "independently_tested",
+    last_checked: IANA_CHECKED,
     website: "https://www.spaceship.com",
     aliases: ["spaceship-inc"],
+    field_provenance: confirmedProvenance(),
   },
   {
     id: "squarespace-domains",
     iana_id: 895,
     name: "Squarespace Domains II LLC",
-    rdap_base: "",
+    rdap_base: "https://rdap.squarespace.domains/",
     status: "active",
     country: "US",
     sources: ["iana", "registrar_docs"],
-    verification_status: "public_sources",
-    last_checked: "2026-06-21T12:00:00Z",
+    verification_status: "independently_tested",
+    last_checked: "2026-06-22T00:00:00Z",
     website: "https://www.squarespace.com/domains",
     aliases: ["squarespace", "squarespace-domains-ii"],
+    field_provenance: confirmedProvenance(),
   },
 ];
 

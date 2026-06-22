@@ -48,6 +48,7 @@ export default function RegistrarRecordPage({ params }: { params: { slug: string
       h: "On this entity",
       links: [
         { label: "Record", href: "#record", active: true },
+        { label: "Field provenance", href: "#provenance" },
         { label: "Appears in", href: "#appears" },
         { label: "API capabilities", href: "#api" },
         { label: "DNS capabilities", href: "#dns" },
@@ -128,6 +129,65 @@ export default function RegistrarRecordPage({ params }: { params: { slug: string
             ["last_checked", r.last_checked],
           ]}
         />
+
+        <H2A id="provenance">Field provenance</H2A>
+        <p className="od-body" style={{ fontSize: 13.5, marginBottom: 12 }}>
+          Provenance is recorded per field, not only per record. Each row below names the
+          primary source the value was checked against, how it was verified and when. Where a
+          field has its own provenance, it is authoritative over the record-level{" "}
+          <span className="mono">verification_status</span> for that field.
+        </p>
+        {r.field_provenance ? (
+          <div className="od-table--bordered">
+            <table className="od-table">
+              <thead>
+                <tr>
+                  <th>Field</th>
+                  <th>Value</th>
+                  <th>Source</th>
+                  <th>Verification</th>
+                  <th>How checked</th>
+                  <th>Last checked</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(r.field_provenance).map(([field, p]) => {
+                  const value = (r as unknown as Record<string, unknown>)[field];
+                  return (
+                    <tr key={field}>
+                      <td className="mono" style={{ fontSize: 12, color: "var(--od-ink-2)" }}>
+                        {field}
+                      </td>
+                      <td className="mono" style={{ fontSize: 12, color: "var(--od-ink)" }}>
+                        {String(value)}
+                      </td>
+                      <td>
+                        <a className="od-link mono" style={{ fontSize: 11.5 }} href={p.source_url}>
+                          {p.source_url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                        </a>
+                      </td>
+                      <td>
+                        <StatusBadge v={p.verification_status} />
+                      </td>
+                      <td style={{ fontSize: 11.5, color: "var(--od-ink-2)", maxWidth: 280 }}>
+                        {p.note ?? "—"}
+                      </td>
+                      <td className="mono" style={{ fontSize: 11.5, color: "var(--od-ink-2)" }}>
+                        {p.last_checked.slice(0, 10)}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <p className="od-micro">
+            No per-field provenance recorded for this record yet. Record-level{" "}
+            <span className="mono">sources</span> and <span className="mono">verification_status</span>{" "}
+            apply to all fields.
+          </p>
+        )}
 
         <H2A id="appears">Appears in datasets</H2A>
         <div className="od-table--bordered">
@@ -289,6 +349,7 @@ export default function RegistrarRecordPage({ params }: { params: { slug: string
             sources: r.sources,
             verification_status: r.verification_status,
             last_checked: r.last_checked,
+            field_provenance: r.field_provenance,
           }}
         />
       </DocShell>

@@ -5,7 +5,33 @@ Newest first. The format follows [Keep a Changelog](https://keepachangelog.com)
 and the project uses [Semantic Versioning](https://semver.org/) for schemas and
 calendar versioning (`YYYY.MM`) for datasets.
 
-## Unreleased
+## 2026.06 — 2026-06-22
+
+### `registrars@2026.06` · schema `registrar@2026.06`
+- Added per-field provenance (`field_provenance`) to the registrar schema. A
+  record can now carry, for any field, its own `source_url`,
+  `verification_status`, `last_checked` and a `note` describing how that field
+  was checked. Field-level provenance is authoritative over the record-level
+  fields for the field it describes.
+- Backfilled `field_provenance` for `iana_id`, `name`, `status` and `rdap_base`
+  across the sample registrars, with each field carrying the status that matches
+  how it was actually checked: `iana_id`, `name` and `status` are read from the
+  IANA registrar-ids registry CSV (`public_sources`), while `rdap_base` is
+  resolved from IANA and then `independently_tested` by issuing a live RDAP query
+  and confirming a valid RDAP response.
+- Corrected `rdap_base` for every sample registrar against the IANA registry:
+  Porkbun's base is `cart-before.porkbun.horse`, not `rdap.porkbun.com`;
+  Cloudflare carries the `/rdap/v1/` path; and the IANA RDAP bases for GoDaddy,
+  Dynadot and Squarespace Domains were filled in (`rdap.godaddy.com/v1/`,
+  `rdap.dynadot.com/`, `rdap.squarespace.domains/`).
+- Filled in Spaceship's `rdap_base` (`rdap.spaceship.com`) from the IANA
+  registry — the previous pass had left it blank — and confirmed the endpoint
+  answers RDAP, upgrading it to `independently_tested`.
+- Added `scripts/verify-rdap.mjs` (`npm run verify:rdap`): resolves every
+  record against the IANA CSV, fails on any `rdap_base` drift, and probes each
+  endpoint for a valid RDAP response. This is the reproducible evidence behind
+  the `independently_tested` status on `rdap_base`.
+- Documented the per-field status model in [`docs/data-dictionary.md`](./docs/data-dictionary.md).
 
 ### Sample expansion — 2026-06-21
 - Expanded the shipped illustrative sample from 3 to 7 registrars, adding

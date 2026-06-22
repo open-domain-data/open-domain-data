@@ -13,6 +13,7 @@
   "scripts": {
     "sync": "node scripts/sync-data.mjs",
     "validate": "node scripts/validate.mjs",
+    "verify:rdap": "node scripts/verify-rdap.mjs",
     "prebuild": "node scripts/sync-data.mjs",
     "predev": "node scripts/sync-data.mjs",
     "dev": "next dev",
