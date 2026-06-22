@@ -7,6 +7,7 @@ import { DocShell, PageHead, H2A, FieldTable, dsSide } from "@/components/DocShe
 import { StatusBadge, Chips, MetaBlock, InlineCode } from "@/components/Atoms";
 import { CitationBlock } from "@/components/CitationBlock";
 import { JsonLd } from "@/components/JsonLd";
+import { datasetJsonLd } from "@/lib/structuredData";
 import { IcDownload, IcSchema, IcGit, IcExt } from "@/components/Icons";
 
 export function generateStaticParams() {
@@ -78,32 +79,7 @@ export default function DatasetDetailPage({ params }: { params: { slug: string }
 
   return (
     <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "Dataset",
-          name: meta.name,
-          description: meta.desc,
-          version: meta.ver,
-          license: "https://creativecommons.org/licenses/by/4.0/",
-          isAccessibleForFree: true,
-          creator: { "@type": "Organization", name: "Open Domain Data", url: "https://opendomaindata.org" },
-          distribution: [
-            {
-              "@type": "DataDownload",
-              encodingFormat: "application/json",
-              contentUrl: `https://opendomaindata.org${detail.jsonHref}`,
-            },
-            detail.csvHref
-              ? {
-                  "@type": "DataDownload",
-                  encodingFormat: "text/csv",
-                  contentUrl: `https://opendomaindata.org${detail.csvHref}`,
-                }
-              : null,
-          ].filter(Boolean),
-        }}
-      />
+      <JsonLd data={datasetJsonLd(meta)} />
       <DocShell groups={dsSide(meta.slug)}>
         <PageHead
           crumb={[
