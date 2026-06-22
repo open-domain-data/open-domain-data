@@ -4,6 +4,8 @@ import { DATASETS } from "@/lib/data";
 import { DocShell, PageHead, dsSide } from "@/components/DocShell";
 import { DatasetTable } from "@/components/DatasetTable";
 import { InlineCode } from "@/components/Atoms";
+import { JsonLd } from "@/components/JsonLd";
+import { dataCatalogJsonLd } from "@/lib/structuredData";
 
 export const metadata: Metadata = {
   title: "Datasets",
@@ -14,6 +16,7 @@ export const metadata: Metadata = {
 export default function DatasetsPage() {
   return (
     <DocShell groups={dsSide()}>
+      <JsonLd data={dataCatalogJsonLd()} />
       <PageHead
         crumb={[{ label: "datasets" }]}
         title="Datasets"
