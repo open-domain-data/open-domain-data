@@ -2,3 +2,7 @@ id,iana_id,name,rdap_base,status,country,sources,verification_status,last_checke
 cloudflare-registrar,1910,"Cloudflare, Inc.",https://rdap.cloudflare.com,active,US,"iana|rdap|registrar_docs",independently_tested,2026-05-31T04:12:00Z
 namecheap,1068,"Namecheap, Inc.",https://rdap.namecheap.com,active,US,"iana|rdap|registrar_docs",independently_tested,2026-05-31T04:12:00Z
 porkbun,1861,"Porkbun LLC",https://rdap.porkbun.com,active,US,"iana|rdap|registrar_docs|submission",registrar_verified,2026-05-30T04:12:00Z
+godaddy,146,"GoDaddy.com, LLC",,active,US,"iana|registrar_docs",public_sources,2026-06-21T12:00:00Z
+dynadot,472,"Dynadot Inc",,active,US,"iana|registrar_docs",public_sources,2026-06-21T12:00:00Z
+spaceship,3862,"Spaceship, Inc.",,active,US,"iana",public_sources,2026-06-21T12:00:00Z
+squarespace-domains,895,"Squarespace Domains II LLC",,active,US,"iana|registrar_docs",public_sources,2026-06-21T12:00:00Z

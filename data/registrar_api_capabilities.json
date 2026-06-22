@@ -2,9 +2,9 @@
   "dataset": "registrar_api_capabilities",
   "version": "2026.05",
   "license": "CC-BY-4.0",
-  "last_checked": "2026-05-28T04:12:00Z",
+  "last_checked": "2026-06-21T12:00:00Z",
   "schema": "https://opendomaindata.org/schemas/api-capabilities.schema.json",
-  "count": 3,
+  "count": 7,
   "records": [
     {
       "registrar_id": "cloudflare-registrar",
@@ -50,6 +50,66 @@
       "sources": ["registrar_docs", "submission"],
       "verification_status": "registrar_submitted",
       "last_checked": "2026-05-30T04:12:00Z"
+    },
+    {
+      "registrar_id": "godaddy",
+      "api_available": true,
+      "auth_model": "api_key",
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "webhooks": false,
+      "sandbox_url": "https://api.ote-godaddy.com",
+      "openapi_spec": null,
+      "rate_limit": "documented per endpoint; production access limited to accounts with 50+ domains (Availability API) since 2024-05-01",
+      "docs_url": "https://developer.godaddy.com/doc/endpoint/domains",
+      "sources": ["registrar_docs"],
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-21T12:00:00Z"
+    },
+    {
+      "registrar_id": "dynadot",
+      "api_available": true,
+      "auth_model": "api_key",
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "webhooks": false,
+      "sandbox_url": "https://api-sandbox.dynadot.com",
+      "openapi_spec": null,
+      "rate_limit": "varies by account tier; one concurrent request per account",
+      "docs_url": "https://www.dynadot.com/domain/api",
+      "sources": ["registrar_docs"],
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-21T12:00:00Z"
+    },
+    {
+      "registrar_id": "spaceship",
+      "api_available": true,
+      "auth_model": "api_key",
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "webhooks": false,
+      "sandbox_url": null,
+      "openapi_spec": null,
+      "rate_limit": "documented per endpoint (e.g. 300 req/300s per user for record listing)",
+      "docs_url": "https://docs.spaceship.dev/",
+      "sources": ["registrar_docs"],
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-21T12:00:00Z"
+    },
+    {
+      "registrar_id": "squarespace-domains",
+      "api_available": false,
+      "auth_model": "none",
+      "scoped_tokens": false,
+      "oauth_support": false,
+      "webhooks": false,
+      "sandbox_url": null,
+      "openapi_spec": null,
+      "rate_limit": "n/a — no public domain API",
+      "docs_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+      "sources": ["registrar_docs"],
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-21T12:00:00Z"
     }
   ]
 }

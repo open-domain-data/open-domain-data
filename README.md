@@ -65,10 +65,11 @@ If you find a product violating these rules, please open an issue.
 
 Browse at [`/datasets`](https://opendomaindata.org/datasets).
 
-> The repository ships with a small illustrative sample (Cloudflare,
-> Namecheap, Porkbun). Any value that has not been re-verified for the current
-> release is marked **sample** or **preliminary** in the dataset metadata and
-> on the registrar detail pages.
+> The repository ships with a small illustrative sample of seven registrars
+> (Cloudflare, Namecheap, Porkbun, GoDaddy, Dynadot, Spaceship, Squarespace
+> Domains). Any value that has not been re-verified for the current release is
+> marked **sample** or **preliminary** in the dataset metadata and on the
+> registrar detail pages.
 
 ## Data formats
 
