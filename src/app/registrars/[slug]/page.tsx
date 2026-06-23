@@ -51,6 +51,7 @@ export default function RegistrarRecordPage({ params }: { params: { slug: string
         { label: "Field provenance", href: "#provenance" },
         { label: "Appears in", href: "#appears" },
         { label: "API capabilities", href: "#api" },
+        { label: "Agent signals", href: "#signals" },
         { label: "DNS capabilities", href: "#dns" },
         { label: "Pricing", href: "#pricing" },
         { label: "Sources", href: "#sources" },
@@ -239,6 +240,76 @@ export default function RegistrarRecordPage({ params }: { params: { slug: string
                 ["docs_url", apiCap.docs_url],
               ]}
             />
+          </>
+        )}
+
+        {signals && (
+          <>
+            <H2A id="signals">Agent signals</H2A>
+            <p className="od-body" style={{ fontSize: 13.5, marginBottom: 12 }}>
+              Programmatic-access signals only. Open Domain Data does not score or rank
+              registrars on these fields. Each signal below carries its own source, verification
+              status and check date.
+            </p>
+            <MetaBlock
+              rows={[
+                ["api_available", String(signals.api_available)],
+                ["scoped_tokens", String(signals.scoped_tokens)],
+                ["oauth_support", String(signals.oauth_support)],
+                ["dns_api", String(signals.dns_api)],
+                ["webhooks", String(signals.webhooks)],
+                ["audit_logs", String(signals.audit_logs)],
+                ["human_approval_flow", String(signals.human_approval_flow)],
+                ["sandbox", String(signals.sandbox)],
+                ["openapi_spec", String(signals.openapi_spec)],
+                ["mcp_interface", String(signals.mcp_interface)],
+              ]}
+            />
+            {signals.field_provenance && (
+              <div className="od-table--bordered" style={{ marginTop: 16 }}>
+                <table className="od-table">
+                  <thead>
+                    <tr>
+                      <th>Field</th>
+                      <th>Value</th>
+                      <th>Source</th>
+                      <th>Verification</th>
+                      <th>How checked</th>
+                      <th>Last checked</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(signals.field_provenance).map(([field, p]) => {
+                      const value = (signals as unknown as Record<string, unknown>)[field];
+                      return (
+                        <tr key={field}>
+                          <td className="mono" style={{ fontSize: 12, color: "var(--od-ink-2)" }}>
+                            {field}
+                          </td>
+                          <td className="mono" style={{ fontSize: 12, color: "var(--od-ink)" }}>
+                            {String(value)}
+                          </td>
+                          <td>
+                            <a className="od-link mono" style={{ fontSize: 11.5 }} href={p.source_url}>
+                              {p.source_url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                            </a>
+                          </td>
+                          <td>
+                            <StatusBadge v={p.verification_status} />
+                          </td>
+                          <td style={{ fontSize: 11.5, color: "var(--od-ink-2)", maxWidth: 280 }}>
+                            {p.note ?? "—"}
+                          </td>
+                          <td className="mono" style={{ fontSize: 11.5, color: "var(--od-ink-2)" }}>
+                            {p.last_checked.slice(0, 10)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </>
         )}
 

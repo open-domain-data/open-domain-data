@@ -2,8 +2,9 @@
   "dataset": "agent_capability_signals",
   "version": "2026.05",
   "license": "CC-BY-4.0",
-  "last_checked": "2026-06-21T12:00:00Z",
-  "note": "Signals only. Open Domain Data does not score or rank registrars based on these signals. `mcp_interface` records whether the registrar publishes an official Model Context Protocol server for domain operations (read-only or otherwise); it does not assess quality.",
+  "last_checked": "2026-06-23T00:00:00Z",
+  "schema": "https://opendomaindata.org/schemas/agent-capability-signals.schema.json",
+  "note": "Signals only. Open Domain Data does not score or rank registrars based on these signals. `mcp_interface` records whether the registrar publishes an official Model Context Protocol server for domain operations (read-only or otherwise); it does not assess quality. `field_provenance` records, per field, the source the value was checked against, how it was verified and when.",
   "count": 7,
   "records": [
     {
@@ -19,7 +20,69 @@
       "openapi_spec": true,
       "mcp_interface": false,
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-21T12:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://developers.cloudflare.com/registrar/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "Public registrar API documented at the canonical docs URL."
+        },
+        "scoped_tokens": {
+          "source_url": "https://developers.cloudflare.com/fundamentals/api/reference/permissions/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-23T00:00:00Z",
+          "note": "Cloudflare API tokens are created with explicit permission groups and resource scopes (least-privilege), per the API token permissions reference."
+        },
+        "oauth_support": {
+          "source_url": "https://developers.cloudflare.com/registrar/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No OAuth 2.0 authorization flow documented; authentication is via API key/secret."
+        },
+        "dns_api": {
+          "source_url": "https://developers.cloudflare.com/api/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-23T00:00:00Z",
+          "note": "Cloudflare exposes a full DNS records API."
+        },
+        "webhooks": {
+          "source_url": "https://developers.cloudflare.com/registrar/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No webhook/event-delivery mechanism documented in the public API."
+        },
+        "audit_logs": {
+          "source_url": "https://developers.cloudflare.com/fundamentals/account/account-security/audit-logs/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-23T00:00:00Z",
+          "note": "Cloudflare records all user-initiated account actions in account-level audit logs, retrievable via API."
+        },
+        "human_approval_flow": {
+          "source_url": "https://developers.cloudflare.com/registrar/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No built-in human-approval / confirmation step documented for write actions via the API."
+        },
+        "sandbox": {
+          "source_url": "https://developers.cloudflare.com/registrar/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public sandbox / test environment documented."
+        },
+        "openapi_spec": {
+          "source_url": "https://developers.cloudflare.com/api/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-23T00:00:00Z",
+          "note": "Cloudflare publishes a machine-readable OpenAPI schema for its API."
+        },
+        "mcp_interface": {
+          "source_url": "https://developers.cloudflare.com/registrar/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No official Model Context Protocol server for domain operations published as of this check."
+        }
+      }
     },
     {
       "registrar_id": "namecheap",
@@ -34,7 +97,69 @@
       "openapi_spec": false,
       "mcp_interface": false,
       "verification_status": "registrar_submitted",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-21T12:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "Public registrar API documented at the canonical docs URL."
+        },
+        "scoped_tokens": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "API uses an account-level key without documented per-scope token permissions."
+        },
+        "oauth_support": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No OAuth 2.0 authorization flow documented; authentication is via API key/secret."
+        },
+        "dns_api": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "DNS records are manageable through the registrar API."
+        },
+        "webhooks": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No webhook/event-delivery mechanism documented in the public API."
+        },
+        "audit_logs": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No account-level audit-log surface documented for domain operations."
+        },
+        "human_approval_flow": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No built-in human-approval / confirmation step documented for write actions via the API."
+        },
+        "sandbox": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "A sandbox / OTE test environment is documented."
+        },
+        "openapi_spec": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No published OpenAPI / Swagger specification found."
+        },
+        "mcp_interface": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No official Model Context Protocol server for domain operations published as of this check."
+        }
+      }
     },
     {
       "registrar_id": "porkbun",
@@ -49,7 +174,69 @@
       "openapi_spec": false,
       "mcp_interface": false,
       "verification_status": "registrar_submitted",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-21T12:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "Public registrar API documented at the canonical docs URL."
+        },
+        "scoped_tokens": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "API uses an account-level key without documented per-scope token permissions."
+        },
+        "oauth_support": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No OAuth 2.0 authorization flow documented; authentication is via API key/secret."
+        },
+        "dns_api": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "DNS records are manageable through the registrar API."
+        },
+        "webhooks": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No webhook/event-delivery mechanism documented in the public API."
+        },
+        "audit_logs": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No account-level audit-log surface documented for domain operations."
+        },
+        "human_approval_flow": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No built-in human-approval / confirmation step documented for write actions via the API."
+        },
+        "sandbox": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public sandbox / test environment documented."
+        },
+        "openapi_spec": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No published OpenAPI / Swagger specification found."
+        },
+        "mcp_interface": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No official Model Context Protocol server for domain operations published as of this check."
+        }
+      }
     },
     {
       "registrar_id": "godaddy",
@@ -64,7 +251,69 @@
       "openapi_spec": false,
       "mcp_interface": true,
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-21T12:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "Public registrar API documented at the canonical docs URL."
+        },
+        "scoped_tokens": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "API uses an account-level key without documented per-scope token permissions."
+        },
+        "oauth_support": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No OAuth 2.0 authorization flow documented; authentication is via API key/secret."
+        },
+        "dns_api": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "DNS records are manageable through the registrar API."
+        },
+        "webhooks": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No webhook/event-delivery mechanism documented in the public API."
+        },
+        "audit_logs": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No account-level audit-log surface documented for domain operations."
+        },
+        "human_approval_flow": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No built-in human-approval / confirmation step documented for write actions via the API."
+        },
+        "sandbox": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "A sandbox / OTE test environment is documented."
+        },
+        "openapi_spec": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No published OpenAPI / Swagger specification found."
+        },
+        "mcp_interface": {
+          "source_url": "https://developer.godaddy.com/mcp",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-23T00:00:00Z",
+          "note": "GoDaddy publishes an official, read-only Domains MCP server (search + availability) at api.godaddy.com/v1/domains/mcp."
+        }
+      }
     },
     {
       "registrar_id": "dynadot",
@@ -79,7 +328,69 @@
       "openapi_spec": false,
       "mcp_interface": false,
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-21T12:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "Public registrar API documented at the canonical docs URL."
+        },
+        "scoped_tokens": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "API uses an account-level key without documented per-scope token permissions."
+        },
+        "oauth_support": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No OAuth 2.0 authorization flow documented; authentication is via API key/secret."
+        },
+        "dns_api": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "DNS records are manageable through the registrar API."
+        },
+        "webhooks": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No webhook/event-delivery mechanism documented in the public API."
+        },
+        "audit_logs": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No account-level audit-log surface documented for domain operations."
+        },
+        "human_approval_flow": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No built-in human-approval / confirmation step documented for write actions via the API."
+        },
+        "sandbox": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "A sandbox / OTE test environment is documented."
+        },
+        "openapi_spec": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No published OpenAPI / Swagger specification found."
+        },
+        "mcp_interface": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No official Model Context Protocol server for domain operations published as of this check."
+        }
+      }
     },
     {
       "registrar_id": "spaceship",
@@ -94,7 +405,69 @@
       "openapi_spec": false,
       "mcp_interface": false,
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-21T12:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "Public registrar API documented at the canonical docs URL."
+        },
+        "scoped_tokens": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "API uses an account-level key without documented per-scope token permissions."
+        },
+        "oauth_support": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No OAuth 2.0 authorization flow documented; authentication is via API key/secret."
+        },
+        "dns_api": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "DNS records are manageable through the registrar API."
+        },
+        "webhooks": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No webhook/event-delivery mechanism documented in the public API."
+        },
+        "audit_logs": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No account-level audit-log surface documented for domain operations."
+        },
+        "human_approval_flow": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No built-in human-approval / confirmation step documented for write actions via the API."
+        },
+        "sandbox": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public sandbox / test environment documented."
+        },
+        "openapi_spec": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No published OpenAPI / Swagger specification found."
+        },
+        "mcp_interface": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No official Model Context Protocol server for domain operations published as of this check."
+        }
+      }
     },
     {
       "registrar_id": "squarespace-domains",
@@ -109,7 +482,69 @@
       "openapi_spec": false,
       "mcp_interface": false,
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-21T12:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "Squarespace Domains documents no public programmatic domain API; account actions are dashboard-only."
+        },
+        "scoped_tokens": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public domain API, so this signal does not apply."
+        },
+        "oauth_support": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public domain API, so this signal does not apply."
+        },
+        "dns_api": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public domain API, so this signal does not apply."
+        },
+        "webhooks": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public domain API, so this signal does not apply."
+        },
+        "audit_logs": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public domain API, so this signal does not apply."
+        },
+        "human_approval_flow": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public domain API, so this signal does not apply."
+        },
+        "sandbox": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public domain API, so this signal does not apply."
+        },
+        "openapi_spec": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public domain API, so this signal does not apply."
+        },
+        "mcp_interface": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-21T12:00:00Z",
+          "note": "No public domain API, so this signal does not apply."
+        }
+      }
     }
   ]
 }

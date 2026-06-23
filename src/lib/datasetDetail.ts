@@ -3,6 +3,7 @@ import {
   API_CAPABILITIES_SCHEMA,
   DNS_CAPABILITIES_SCHEMA,
   PRICING_SCHEMA,
+  AGENT_SIGNALS_SCHEMA,
   REGISTRARS,
   API_CAPABILITIES,
   DNS_CAPABILITIES,
@@ -123,21 +124,8 @@ export function getDatasetDetail(slug: string): DatasetDetail | null {
       };
     case "agent-capability-signals":
       return {
-        fields: [
-          { f: "registrar_id", t: "string", r: true, d: "Foreign key to registrars.id." },
-          { f: "api_available", t: "boolean", r: true, d: "Public registrar API exists." },
-          { f: "scoped_tokens", t: "boolean", r: false, d: "Token scopes are supported." },
-          { f: "oauth_support", t: "boolean", r: false, d: "OAuth 2.0 flows are supported." },
-          { f: "dns_api", t: "boolean", r: false, d: "DNS records editable via API." },
-          { f: "webhooks", t: "boolean", r: false, d: "Webhook delivery is supported." },
-          { f: "audit_logs", t: "boolean", r: false, d: "Account-level audit log surface." },
-          { f: "human_approval_flow", t: "boolean", r: false, d: "Optional human approval before write actions." },
-          { f: "sandbox", t: "boolean", r: false, d: "Sandbox / test environment exists." },
-          { f: "openapi_spec", t: "boolean", r: false, d: "Public OpenAPI / Swagger document exists." },
-          { f: "verification_status", t: "enum", r: true, d: "See verification statuses." },
-          { f: "last_checked", t: "string · date-time", r: true, d: "ISO 8601 timestamp." },
-        ],
-        schemaSlug: "api-capabilities.schema.json",
+        fields: AGENT_SIGNALS_SCHEMA,
+        schemaSlug: "agent-capability-signals.schema.json",
         jsonHref: "/api/agent_capability_signals.json",
         sources: [
           ["registrar_docs", "Published registrar API documentation", "various"],

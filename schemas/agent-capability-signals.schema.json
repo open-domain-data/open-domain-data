@@ -1,0 +1,60 @@
+{
+  "$id": "https://opendomaindata.org/schemas/agent-capability-signals.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AgentCapabilitySignals",
+  "description": "Programmatic-access signals for a single registrar. Signals only — Open Domain Data does not score or rank registrars based on these fields.",
+  "version": "2026.05",
+  "type": "object",
+  "required": ["registrar_id", "api_available", "verification_status", "last_checked"],
+  "properties": {
+    "registrar_id": { "type": "string", "description": "Foreign key to registrars.id." },
+    "api_available": { "type": "boolean", "description": "A public registrar API exists." },
+    "scoped_tokens": { "type": "boolean", "description": "Per-scope / least-privilege API tokens are supported." },
+    "oauth_support": { "type": "boolean", "description": "OAuth 2.0 authorization flows are supported." },
+    "dns_api": { "type": "boolean", "description": "DNS records are editable through the API." },
+    "webhooks": { "type": "boolean", "description": "Webhook / event delivery is supported." },
+    "audit_logs": { "type": "boolean", "description": "An account-level audit-log surface exists." },
+    "human_approval_flow": { "type": "boolean", "description": "A built-in human-approval step before write actions exists." },
+    "sandbox": { "type": "boolean", "description": "A sandbox / test environment exists." },
+    "openapi_spec": { "type": "boolean", "description": "A public OpenAPI / Swagger document exists." },
+    "mcp_interface": { "type": "boolean", "description": "An official Model Context Protocol server for domain operations is published." },
+    "verification_status": {
+      "type": "string",
+      "enum": [
+        "unknown",
+        "public_sources",
+        "independently_tested",
+        "registrar_submitted",
+        "registrar_verified",
+        "deprecated"
+      ]
+    },
+    "last_checked": { "type": "string", "format": "date-time" },
+    "field_provenance": {
+      "type": "object",
+      "description": "Per-field provenance. Maps a field name in this record to the source URL it was checked against, its verification status and the timestamp of that check. Field-level entries are authoritative over the record-level verification_status/last_checked for the field they describe.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["source_url", "verification_status", "last_checked"],
+        "properties": {
+          "source_url": { "type": "string", "format": "uri", "description": "Primary source URL the field value was checked against." },
+          "verification_status": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "public_sources",
+              "independently_tested",
+              "registrar_submitted",
+              "registrar_verified",
+              "deprecated"
+            ]
+          },
+          "last_checked": { "type": "string", "format": "date-time" },
+          "note": { "type": "string", "description": "Human-readable note describing how this specific field was checked." }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
