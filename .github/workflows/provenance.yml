@@ -1,0 +1,45 @@
+name: Provenance freshness
+
+# Re-checks that every cited source URL in the datasets is still live and that
+# all per-field provenance is well-formed. Runs on every PR/push (hygiene only,
+# offline) and weekly (with live URL checks) to catch source rot over time.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    # Mondays 06:00 UTC.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  provenance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+
+      # On PRs/pushes: hygiene only (offline, deterministic — no network flake).
+      - name: Provenance hygiene
+        if: github.event_name == 'pull_request' || github.event_name == 'push'
+        run: npm run verify:provenance
+
+      # On the weekly schedule / manual run: also fetch each source URL and fail
+      # the job if any cited source is dead (404/410).
+      - name: Provenance liveness (strict)
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: node scripts/check-provenance.mjs --strict
+
+      - name: Upload provenance report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: provenance-status
+          path: reports/provenance-status.json
+          if-no-files-found: ignore
