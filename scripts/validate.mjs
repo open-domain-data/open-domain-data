@@ -21,10 +21,10 @@ const SCHEMA_BY_DATASET = {
   "registrar_api_capabilities.json": "api-capabilities.schema.json",
   "dns_capabilities.json": "dns-capabilities.schema.json",
   "tld_pricing.json": "pricing.schema.json",
+  "rdap_metadata.json": "rdap-metadata.schema.json",
+  "registrar_security_contacts.json": "security-contacts.schema.json",
   // The following share the registrar schema's verification enums but do not
   // yet have dedicated schemas. They are skipped until schemas are published.
-  "rdap_metadata.json": null,
-  "registrar_security_contacts.json": null,
   "agent_capability_signals.json": null,
 };
 

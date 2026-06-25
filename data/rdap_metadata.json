@@ -1,33 +1,205 @@
 {
   "dataset": "rdap_metadata",
-  "version": "2026.05",
+  "version": "2026.06",
   "license": "CC-BY-4.0",
-  "last_checked": "2026-05-29T04:12:00Z",
-  "count": 3,
+  "last_checked": "2026-06-25T00:00:00Z",
+  "count": 7,
   "records": [
     {
       "registrar_id": "cloudflare-registrar",
-      "base_url": "https://rdap.cloudflare.com",
+      "base_url": "https://rdap.cloudflare.com/rdap/v1/",
       "conformance": "rfc7483",
       "iana_bootstrapped": true,
       "verification_status": "independently_tested",
-      "last_checked": "2026-05-29T04:12:00Z"
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "base_url": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Base URL from the IANA registrar-ids registry; aligned to the registrars-dataset rdap_base. Endpoint live-probed 2026-06-25 (cloudflare.com) and returned a valid RDAP domain object."
+        },
+        "conformance": {
+          "source_url": "https://rdap.cloudflare.com/rdap/v1/",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "rdapConformance includes rdap_level_0 (RFC 7483) in the live response."
+        },
+        "iana_bootstrapped": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "RDAP base URL is published in the IANA registrar-ids registry."
+        }
+      }
     },
     {
       "registrar_id": "namecheap",
-      "base_url": "https://rdap.namecheap.com",
+      "base_url": "https://rdap.namecheap.com/",
       "conformance": "rfc7483",
       "iana_bootstrapped": true,
       "verification_status": "independently_tested",
-      "last_checked": "2026-05-29T04:12:00Z"
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "base_url": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Base URL from the IANA registrar-ids registry; aligned to the registrars-dataset rdap_base. Endpoint live-probed 2026-06-25 (namecheap.com) and returned a valid RDAP domain object."
+        },
+        "conformance": {
+          "source_url": "https://rdap.namecheap.com/",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "rdapConformance includes rdap_level_0 (RFC 7483) in the live response."
+        },
+        "iana_bootstrapped": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "RDAP base URL is published in the IANA registrar-ids registry."
+        }
+      }
     },
     {
       "registrar_id": "porkbun",
-      "base_url": "https://rdap.porkbun.com",
+      "base_url": "https://cart-before.porkbun.horse/rdap/",
       "conformance": "rfc7483",
       "iana_bootstrapped": true,
       "verification_status": "independently_tested",
-      "last_checked": "2026-05-29T04:12:00Z"
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "base_url": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Corrected: the previous value (rdap.porkbun.com) returns HTTP 404. The IANA registrar-ids value cart-before.porkbun.horse/rdap/ was live-probed 2026-06-25 (porkbun.com) and returned a valid RDAP domain object. Now matches the registrars-dataset rdap_base."
+        },
+        "conformance": {
+          "source_url": "https://cart-before.porkbun.horse/rdap/",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "rdapConformance includes rdap_level_0 (RFC 7483) in the live response."
+        },
+        "iana_bootstrapped": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "RDAP base URL is published in the IANA registrar-ids registry."
+        }
+      }
+    },
+    {
+      "registrar_id": "godaddy",
+      "base_url": "https://rdap.godaddy.com/v1/",
+      "conformance": "rfc7483",
+      "iana_bootstrapped": true,
+      "verification_status": "independently_tested",
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "base_url": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Base URL from the IANA registrar-ids registry; matches the registrars-dataset rdap_base. Endpoint live-probed 2026-06-25 (godaddy.com) and returned a valid RDAP domain object."
+        },
+        "conformance": {
+          "source_url": "https://rdap.godaddy.com/v1/",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Live rdapConformance: rdap_level_0, redacted, icann_rdap_response_profile_1, icann_rdap_technical_implementation_guide_1 (RFC 7483 base)."
+        },
+        "iana_bootstrapped": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "RDAP base URL is published in the IANA registrar-ids registry (IANA ID 146)."
+        }
+      }
+    },
+    {
+      "registrar_id": "dynadot",
+      "base_url": "https://rdap.dynadot.com/",
+      "conformance": "rfc7483",
+      "iana_bootstrapped": true,
+      "verification_status": "independently_tested",
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "base_url": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Base URL from the IANA registrar-ids registry; matches the registrars-dataset rdap_base. Endpoint live-probed 2026-06-25 (dynadot.com) and returned a valid RDAP domain object."
+        },
+        "conformance": {
+          "source_url": "https://rdap.dynadot.com/",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Live rdapConformance: rdap_level_0, icann_rdap_response_profile_1, icann_rdap_technical_implementation_guide_1, redacted (RFC 7483 base)."
+        },
+        "iana_bootstrapped": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "RDAP base URL is published in the IANA registrar-ids registry (IANA ID 472)."
+        }
+      }
+    },
+    {
+      "registrar_id": "spaceship",
+      "base_url": "https://rdap.spaceship.com/",
+      "conformance": "rfc7483",
+      "iana_bootstrapped": true,
+      "verification_status": "independently_tested",
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "base_url": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Base URL from the IANA registrar-ids registry; matches the registrars-dataset rdap_base. Endpoint live-probed 2026-06-25 (spaceship.com) and returned a valid RDAP domain object."
+        },
+        "conformance": {
+          "source_url": "https://rdap.spaceship.com/",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Live rdapConformance: rdap_level_0, redacted, icann_rdap_response_profile_1, icann_rdap_technical_implementation_guide_1 (RFC 7483 base)."
+        },
+        "iana_bootstrapped": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "RDAP base URL is published in the IANA registrar-ids registry (IANA ID 3862)."
+        }
+      }
+    },
+    {
+      "registrar_id": "squarespace-domains",
+      "base_url": "https://rdap.squarespace.domains/",
+      "conformance": "rfc7483",
+      "iana_bootstrapped": true,
+      "verification_status": "independently_tested",
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "base_url": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Base URL from the IANA registrar-ids registry; matches the registrars-dataset rdap_base. Endpoint live-probed 2026-06-25 and returned a valid RDAP response envelope (rdap_level_0)."
+        },
+        "conformance": {
+          "source_url": "https://rdap.squarespace.domains/",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Live rdapConformance: rdap_level_0, icann_rdap_technical_implementation_guide_1, icann_rdap_response_profile_1, redacted (RFC 7483 base)."
+        },
+        "iana_bootstrapped": {
+          "source_url": "https://www.iana.org/assignments/registrar-ids/registrar-ids-1.csv",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "RDAP base URL is published in the IANA registrar-ids registry (IANA ID 895)."
+        }
+      }
     }
   ]
 }

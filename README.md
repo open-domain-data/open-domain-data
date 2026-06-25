@@ -59,8 +59,8 @@ If you find a product violating these rules, please open an issue.
 | `registrar_api_capabilities`  | 612     | 2026.05 | `public_sources`       |
 | `dns_capabilities`            | 612     | 2026.05 | `independently_tested` |
 | `tld_pricing`                 | 48,260  | 2026.06 | `public_sources`       |
-| `rdap_metadata`               | 1,517   | 2026.05 | `independently_tested` |
-| `registrar_security_contacts` | 2,610   | 2026.05 | `public_sources`       |
+| `rdap_metadata`               | 1,517   | 2026.06 | `independently_tested` |
+| `registrar_security_contacts` | 2,610   | 2026.06 | `public_sources`       |
 | `agent_capability_signals`    | 612     | 2026.05 | `registrar_submitted`  |
 
 Browse at [`/datasets`](https://opendomaindata.org/datasets).
@@ -94,6 +94,8 @@ Stable, machine-readable URLs:
 | `/schemas/api-capabilities.schema.json`          | JSON Schema for API capabilities         |
 | `/schemas/dns-capabilities.schema.json`          | JSON Schema for DNS capabilities         |
 | `/schemas/pricing.schema.json`                   | JSON Schema for pricing                  |
+| `/schemas/rdap-metadata.schema.json`             | JSON Schema for RDAP metadata            |
+| `/schemas/security-contacts.schema.json`         | JSON Schema for security contacts        |
 | `/llms.txt`                                      | Plain-text index for LLMs                |
 | `/sitemap.xml`                                   | Sitemap for crawlers                     |
 
@@ -145,7 +147,9 @@ open-domain-data/
 │   ├── registrar.schema.json
 │   ├── api-capabilities.schema.json
 │   ├── dns-capabilities.schema.json
-│   └── pricing.schema.json
+│   ├── pricing.schema.json
+│   ├── rdap-metadata.schema.json
+│   └── security-contacts.schema.json
 ├── public/
 │   ├── api/                      # Mirrored from /data at build time
 │   ├── schemas/                  # Mirrored from /schemas at build time

@@ -5,6 +5,33 @@ Newest first. The format follows [Keep a Changelog](https://keepachangelog.com)
 and the project uses [Semantic Versioning](https://semver.org/) for schemas and
 calendar versioning (`YYYY.MM`) for datasets.
 
+## 2026.06 — 2026-06-25
+
+### `rdap_metadata@2026.06` · schema `rdap-metadata@2026.06` (new)
+- Expanded the sample from 3 to 7 registrars (added GoDaddy, Dynadot, Spaceship
+  and Squarespace Domains), matching the coverage of the other agent-facing
+  datasets.
+- Published the dataset's **first JSON Schema** (`rdap-metadata.schema.json`) and
+  wired it into `validate.mjs`; the dataset was previously unvalidated.
+- Added per-field provenance (`field_provenance`) to every record.
+- Live-probed all seven RDAP base URLs and aligned them to the IANA
+  registrar-ids registry. This corrected Porkbun — the previous
+  `rdap.porkbun.com` returns HTTP 404, while the IANA value
+  `cart-before.porkbun.horse/rdap/` returns a valid RDAP object — and brought the
+  dataset into agreement with the registrars dataset's `rdap_base`.
+
+### `registrar_security_contacts@2026.06` · schema `security-contacts@2026.06` (new)
+- Expanded the sample from 3 to 7 registrars.
+- Published the dataset's **first JSON Schema** (`security-contacts.schema.json`)
+  and wired it into `validate.mjs`.
+- Added per-field provenance. The new registrars' abuse contacts were read from
+  **registry RDAP records** (the ICANN RDDS abuse field) and marked
+  `independently_tested` where the sponsoring registrar's IANA ID matched.
+  Squarespace Domains' abuse contact is left `unknown` rather than guessed,
+  because its own namesake domains are sponsored by a different registrar and no
+  primary record was resolvable. `security.txt` presence is verified where the
+  `.well-known` path is reachable and left `unknown` where it is anti-bot blocked.
+
 ## 2026.06 — 2026-06-22
 
 ### `registrars@2026.06` · schema `registrar@2026.06`

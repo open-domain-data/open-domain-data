@@ -1,0 +1,42 @@
+{
+  "$id": "https://opendomaindata.org/schemas/rdap-metadata.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RdapMetadata",
+  "description": "RDAP service metadata for a single registrar.",
+  "version": "2026.06",
+  "type": "object",
+  "required": ["registrar_id", "base_url", "conformance", "iana_bootstrapped", "verification_status", "last_checked"],
+  "properties": {
+    "registrar_id": { "type": "string", "description": "Foreign key to registrars.id." },
+    "base_url": { "type": "string", "format": "uri", "description": "RDAP service base URL as published in the IANA registrar-ids registry." },
+    "conformance": { "type": "string", "description": "Reported RDAP conformance level (e.g. rfc7483)." },
+    "iana_bootstrapped": { "type": "boolean", "description": "True when the RDAP base URL is published in the IANA registrar-ids registry." },
+    "verification_status": {
+      "type": "string",
+      "enum": ["unknown", "public_sources", "independently_tested", "registrar_submitted", "registrar_verified", "deprecated"]
+    },
+    "last_checked": { "type": "string", "format": "date-time" },
+    "field_provenance": { "$ref": "#/$defs/fieldProvenance" }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "fieldProvenance": {
+      "type": "object",
+      "description": "Per-field provenance. Maps a field name in this record to the source URL it was checked against, its verification status and the timestamp of that check. Field-level entries are authoritative over the record-level verification_status/last_checked for the field they describe.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["source_url", "verification_status", "last_checked"],
+        "properties": {
+          "source_url": { "type": "string", "format": "uri", "description": "Primary source URL the field value was checked against." },
+          "verification_status": {
+            "type": "string",
+            "enum": ["unknown", "public_sources", "independently_tested", "registrar_submitted", "registrar_verified", "deprecated"]
+          },
+          "last_checked": { "type": "string", "format": "date-time" },
+          "note": { "type": "string", "description": "Optional human-readable note describing how this specific field was checked." }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
