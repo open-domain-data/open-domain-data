@@ -3,7 +3,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "DnsCapabilities",
   "description": "DNS feature support per registrar.",
-  "version": "2026.05",
+  "version": "2026.06",
   "type": "object",
   "required": ["registrar_id", "dnssec", "sources", "verification_status", "last_checked"],
   "properties": {
@@ -29,7 +29,39 @@
         "deprecated"
       ]
     },
-    "last_checked": { "type": "string", "format": "date-time" }
+    "last_checked": { "type": "string", "format": "date-time" },
+    "field_provenance": {
+      "type": "object",
+      "description": "Per-field provenance. Maps a field name in this record to the source URL it was checked against, its verification status and the timestamp of that check. Field-level entries are authoritative over the record-level sources/verification_status/last_checked for the field they describe.",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["source_url", "verification_status", "last_checked"],
+        "properties": {
+          "source_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Primary source URL the field value was checked against."
+          },
+          "verification_status": {
+            "type": "string",
+            "enum": [
+              "unknown",
+              "public_sources",
+              "independently_tested",
+              "registrar_submitted",
+              "registrar_verified",
+              "deprecated"
+            ]
+          },
+          "last_checked": { "type": "string", "format": "date-time" },
+          "note": {
+            "type": "string",
+            "description": "Optional human-readable note describing how this specific field was checked."
+          }
+        },
+        "additionalProperties": false
+      }
+    }
   },
   "additionalProperties": false
 }

@@ -69,5 +69,39 @@ for (const entry of await readdir(dataDir)) {
   }
 }
 
+// ---------------------------------------------------------------------------
+// Cross-dataset coverage: the per-registrar capability datasets ship the same
+// illustrative registrar sample as registrars.json. They must cover exactly the
+// same registrar ids — otherwise a consumer fetching one dataset gets a subset
+// of the registrars the rest of the catalog describes. This check keeps the
+// sample sets from drifting apart silently (which they had: dns_capabilities,
+// rdap_metadata and security_contacts trailed the others at 3 records).
+const COVERAGE_MUST_MATCH_REGISTRARS = [
+  "registrar_api_capabilities.json",
+  "agent_capability_signals.json",
+  "dns_capabilities.json",
+];
+
+async function registrarIds(file) {
+  const data = JSON.parse(await readFile(join(dataDir, file), "utf8"));
+  const records = Array.isArray(data.records) ? data.records : [data];
+  return new Set(records.map((r) => r.registrar_id ?? r.id));
+}
+
+const baseIds = await registrarIds("registrars.json");
+for (const file of COVERAGE_MUST_MATCH_REGISTRARS) {
+  const ids = await registrarIds(file);
+  const missing = [...baseIds].filter((id) => !ids.has(id));
+  const extra = [...ids].filter((id) => !baseIds.has(id));
+  if (missing.length || extra.length) {
+    failed++;
+    console.error(`x  ${file}: registrar coverage does not match registrars.json`);
+    if (missing.length) console.error(`     missing: ${missing.join(", ")}`);
+    if (extra.length) console.error(`     unknown: ${extra.join(", ")}`);
+  } else {
+    console.log(`ok ${file}: registrar coverage matches registrars.json (${ids.size})`);
+  }
+}
+
 console.log(`\nvalidate: ${passed} passed, ${failed} failed, ${skipped} skipped.`);
 process.exit(failed > 0 ? 1 : 0);

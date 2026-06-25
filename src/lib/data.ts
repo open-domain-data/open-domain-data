@@ -53,9 +53,9 @@ export const DATASETS: Dataset[] = [
     records: "612",
     recordsCount: 612,
     fmts: ["json", "csv"],
-    ver: "2026.05",
+    ver: "2026.06",
     status: "independently_tested",
-    updated: "2026-05-27",
+    updated: "2026-06-25",
     license: "CC-BY-4.0",
   },
   {
@@ -126,6 +126,7 @@ export const METHODS = [
 ] as const;
 
 export const CHANGELOG = [
+  { date: "2026-06-25", ds: "dns_capabilities", ver: "2026.06", body: "Expanded the dns_capabilities sample from 3 to 7 registrars so it covers the same set as the rest of the catalog (added GoDaddy, Dynadot, Spaceship and Squarespace Domains). Added a field_provenance object to the schema and every record: DNSSEC, CAA, API record management and record-type values now each carry their own source_url, verification_status, last_checked and note. Recorded the precise nuances rather than rounding them off — Dynadot's DNSSEC is partial because its own nameservers are not DNSSEC-configured, and Squarespace Domains has no public DNS-management API. Added a cross-dataset coverage check to scripts/validate.mjs so the sample registrar sets can no longer drift apart silently." },
   { date: "2026-06-22", ds: "registrars", ver: "2026.06", body: "Added per-field provenance (field_provenance) to the registrar schema and sample records: each field carries its own source_url, verification_status, last_checked and a note on how it was checked. IANA-registry fields (iana_id, name, status) are public_sources; rdap_base is resolved from IANA and independently_tested via a live RDAP probe. Corrected rdap_base for every sample registrar against the IANA registry, filled in Spaceship's rdap_base (rdap.spaceship.com), and added scripts/verify-rdap.mjs to make the RDAP verification reproducible and to fail on drift from IANA." },
   { date: "2026-06-01", ds: "tld_pricing", ver: "2026.06", body: "Added 412 TLDs across 38 registrars; normalized promotional pricing flags into a dedicated field." },
   { date: "2026-05-31", ds: "registrars", ver: "2026.05", body: "Re-checked 2,841 records against RDAP. Corrected 14 RDAP base URLs flagged in community PR #208." },
@@ -515,6 +516,7 @@ export type DnsCapabilityRecord = {
   sources: string[];
   verification_status: VerificationStatus;
   last_checked: string;
+  field_provenance?: Record<string, FieldProvenance>;
 };
 
 export const DNS_CAPABILITIES: DnsCapabilityRecord[] = [
@@ -529,6 +531,27 @@ export const DNS_CAPABILITIES: DnsCapabilityRecord[] = [
     sources: ["registrar_docs", "rdap"],
     verification_status: "independently_tested",
     last_checked: "2026-05-27T04:12:00Z",
+    field_provenance: {
+      dnssec: {
+        source_url: "https://developers.cloudflare.com/dns/dnssec/",
+        verification_status: "independently_tested",
+        last_checked: "2026-05-27T04:12:00Z",
+        note: "One-click DNSSEC on Cloudflare-hosted zones; DS records exposed for the registrar to publish.",
+      },
+      api_record_management: {
+        source_url: "https://developers.cloudflare.com/api/resources/dns/",
+        verification_status: "independently_tested",
+        last_checked: "2026-05-27T04:12:00Z",
+        note: "Full DNS records API (list/create/update/delete) confirmed against a live zone.",
+      },
+      caa: {
+        source_url:
+          "https://developers.cloudflare.com/dns/manage-dns-records/reference/dns-record-types/",
+        verification_status: "independently_tested",
+        last_checked: "2026-05-27T04:12:00Z",
+        note: "CAA listed among supported record types and creatable via the dashboard and API.",
+      },
+    },
   },
   {
     registrar_id: "namecheap",
@@ -541,6 +564,21 @@ export const DNS_CAPABILITIES: DnsCapabilityRecord[] = [
     sources: ["registrar_docs"],
     verification_status: "independently_tested",
     last_checked: "2026-05-27T04:12:00Z",
+    field_provenance: {
+      dnssec: {
+        source_url:
+          "https://www.namecheap.com/support/knowledgebase/article.aspx/9722/2232/managing-dnssec-for-domains-pointed-to-custom-dns/",
+        verification_status: "public_sources",
+        last_checked: "2026-05-27T04:12:00Z",
+        note: "DNSSEC supported; DS records managed from the domain dashboard.",
+      },
+      api_record_management: {
+        source_url: "https://www.namecheap.com/support/api/methods/domains-dns/",
+        verification_status: "public_sources",
+        last_checked: "2026-05-27T04:12:00Z",
+        note: "domains.dns.setHosts / getHosts API methods manage records.",
+      },
+    },
   },
   {
     registrar_id: "porkbun",
@@ -553,6 +591,163 @@ export const DNS_CAPABILITIES: DnsCapabilityRecord[] = [
     sources: ["registrar_docs", "submission"],
     verification_status: "registrar_verified",
     last_checked: "2026-05-27T04:12:00Z",
+    field_provenance: {
+      api_record_management: {
+        source_url: "https://porkbun.com/api/json/v3/documentation",
+        verification_status: "registrar_verified",
+        last_checked: "2026-05-27T04:12:00Z",
+        note: "DNS create/edit/retrieve/delete endpoints documented and confirmed.",
+      },
+      record_types: {
+        source_url: "https://porkbun.com/api/json/v3/documentation",
+        verification_status: "registrar_verified",
+        last_checked: "2026-05-27T04:12:00Z",
+        note: "Record types accepted by the DNS API, including TLSA.",
+      },
+    },
+  },
+  {
+    registrar_id: "godaddy",
+    dnssec: "supported",
+    alias_aname: false,
+    caa: true,
+    api_record_management: true,
+    record_types: ["A", "AAAA", "CNAME", "MX", "TXT", "SRV", "CAA", "NS"],
+    ttl_min_seconds: 600,
+    sources: ["registrar_docs"],
+    verification_status: "public_sources",
+    last_checked: "2026-06-25T00:00:00Z",
+    field_provenance: {
+      dnssec: {
+        source_url: "https://www.godaddy.com/help/turn-dnssec-on-or-off-6420",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "DNSSEC managed for domains on GoDaddy nameservers; Premium DNS offers fully managed signing.",
+      },
+      api_record_management: {
+        source_url: "https://developer.godaddy.com/doc/endpoint/domains",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "Domains API exposes DNS record GET/PUT/PATCH; API access available from a single domain.",
+      },
+      caa: {
+        source_url: "https://www.godaddy.com/help/add-a-caa-record-19248",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "CAA records supported in GoDaddy DNS management.",
+      },
+      alias_aname: {
+        source_url: "https://www.godaddy.com/help/add-an-a-record-19238",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "GoDaddy DNS does not document a native ALIAS/ANAME flattened-apex record type; recorded false pending an independently tested source.",
+      },
+    },
+  },
+  {
+    registrar_id: "dynadot",
+    dnssec: "partial",
+    alias_aname: true,
+    caa: true,
+    api_record_management: true,
+    record_types: ["A", "AAAA", "CNAME", "MX", "TXT", "SRV", "CAA", "ANAME"],
+    ttl_min_seconds: 300,
+    sources: ["registrar_docs"],
+    verification_status: "public_sources",
+    last_checked: "2026-06-25T00:00:00Z",
+    field_provenance: {
+      dnssec: {
+        source_url: "https://www.dynadot.com/help/question/set-DNSSEC",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "DNSSEC can be set, but Dynadot's own nameservers are not configured for DNSSEC; it requires assigning third-party nameservers. Recorded as partial.",
+      },
+      api_record_management: {
+        source_url: "https://www.dynadot.com/domain/api-commands",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "Domain API includes set-DNS and Set Dnssec commands (XML/JSON).",
+      },
+      caa: {
+        source_url: "https://www.dynadot.com/help/question/1153",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "CAA records supported via the Dynadot DNS Manager (help article 1153).",
+      },
+      alias_aname: {
+        source_url: "https://www.dynadot.com/help/question/enter-aname-record-for-domain",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "ANAME records supported in Dynadot DNS.",
+      },
+    },
+  },
+  {
+    registrar_id: "spaceship",
+    dnssec: "supported",
+    alias_aname: true,
+    caa: true,
+    api_record_management: true,
+    record_types: ["A", "AAAA", "ALIAS", "CNAME", "MX", "NS", "TXT", "SRV", "CAA"],
+    ttl_min_seconds: 60,
+    sources: ["registrar_docs"],
+    verification_status: "public_sources",
+    last_checked: "2026-06-25T00:00:00Z",
+    field_provenance: {
+      dnssec: {
+        source_url: "https://www.spaceship.com/domain-management/",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "DNSSEC assigned by default on domains using Spaceship nameservers; toggleable in Advanced DNS.",
+      },
+      api_record_management: {
+        source_url: "https://docs.spaceship.dev/",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "Public REST API plus a Terraform provider expose DNS record management.",
+      },
+      record_types: {
+        source_url: "https://www.spaceship.com/domain-management/",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "Advanced DNS panel supports A, AAAA, ALIAS, CNAME, MX, NS, TXT, SRV and CAA records.",
+      },
+    },
+  },
+  {
+    registrar_id: "squarespace-domains",
+    dnssec: "supported",
+    alias_aname: true,
+    caa: true,
+    api_record_management: false,
+    record_types: ["A", "AAAA", "ALIAS", "CNAME", "MX", "TXT", "SRV", "CAA", "NS", "TLSA"],
+    ttl_min_seconds: 300,
+    sources: ["registrar_docs"],
+    verification_status: "public_sources",
+    last_checked: "2026-06-25T00:00:00Z",
+    field_provenance: {
+      dnssec: {
+        source_url:
+          "https://support.squarespace.com/hc/en-us/articles/31094668921229-DNSSEC-for-Squarespace-domains",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "DNSSEC automatically enabled on Squarespace Domains for any TLD that supports it (ECDSA P-256).",
+      },
+      api_record_management: {
+        source_url:
+          "https://support.squarespace.com/hc/en-us/articles/360002101888-Adding-DNS-records-to-your-domain",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "DNS records are editable in the dashboard; no public domain/DNS-management API is documented. Recorded false.",
+      },
+      record_types: {
+        source_url:
+          "https://support.squarespace.com/hc/en-us/articles/31109217782541-DNS-records-for-security",
+        verification_status: "public_sources",
+        last_checked: "2026-06-25T00:00:00Z",
+        note: "Supported types include CAA, TLSA, ALIAS, and standard records per the DNS help articles.",
+      },
+    },
   },
 ];
 
