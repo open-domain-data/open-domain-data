@@ -88,8 +88,9 @@ export function getDatasetDetail(slug: string): DatasetDetail | null {
           { f: "iana_bootstrapped", t: "boolean", r: true, d: "Listed in the IANA RDAP bootstrap registry." },
           { f: "verification_status", t: "enum", r: true, d: "See verification statuses." },
           { f: "last_checked", t: "string · date-time", r: true, d: "ISO 8601 timestamp." },
+          { f: "field_provenance", t: "object", r: false, d: "Per-field source_url, verification_status, last_checked and note." },
         ],
-        schemaSlug: "registrar.schema.json",
+        schemaSlug: "rdap-metadata.schema.json",
         jsonHref: "/api/rdap_metadata.json",
         sources: [
           ["iana", "IANA RDAP bootstrap registry", "iana.org/assignments/rdap-dns/"],
@@ -104,12 +105,13 @@ export function getDatasetDetail(slug: string): DatasetDetail | null {
         fields: [
           { f: "registrar_id", t: "string", r: true, d: "Foreign key to registrars.id." },
           { f: "abuse_email", t: "string", r: true, d: "Listed abuse contact email." },
-          { f: "security_txt", t: "enum", r: true, d: "present | absent (RFC 9116 detection)." },
-          { f: "policy_url", t: "string · uri", r: false, d: "Published abuse policy." },
+          { f: "security_txt", t: "enum", r: true, d: "present | absent | unknown (RFC 9116 detection)." },
+          { f: "policy_url", t: "string · uri | null", r: false, d: "Published abuse policy, if confirmed." },
           { f: "verification_status", t: "enum", r: true, d: "See verification statuses." },
           { f: "last_checked", t: "string · date-time", r: true, d: "ISO 8601 timestamp." },
+          { f: "field_provenance", t: "object", r: false, d: "Per-field source_url, verification_status, last_checked and note." },
         ],
-        schemaSlug: "registrar.schema.json",
+        schemaSlug: "security-contacts.schema.json",
         jsonHref: "/api/registrar_security_contacts.json",
         sources: [
           ["registrar_docs", "Published abuse and security pages", "various"],

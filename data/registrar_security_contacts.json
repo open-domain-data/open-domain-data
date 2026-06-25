@@ -1,9 +1,9 @@
 {
   "dataset": "registrar_security_contacts",
-  "version": "2026.05",
+  "version": "2026.06",
   "license": "CC-BY-4.0",
-  "last_checked": "2026-05-25T04:12:00Z",
-  "count": 3,
+  "last_checked": "2026-06-25T00:00:00Z",
+  "count": 7,
   "records": [
     {
       "registrar_id": "cloudflare-registrar",
@@ -11,7 +11,21 @@
       "security_txt": "present",
       "policy_url": "https://www.cloudflare.com/abuse/",
       "verification_status": "public_sources",
-      "last_checked": "2026-05-25T04:12:00Z"
+      "last_checked": "2026-05-25T04:12:00Z",
+      "field_provenance": {
+        "abuse_email": {
+          "source_url": "https://www.cloudflare.com/abuse/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-05-25T04:12:00Z",
+          "note": "Abuse contact published on Cloudflare's abuse page."
+        },
+        "security_txt": {
+          "source_url": "https://www.cloudflare.com/.well-known/security.txt",
+          "verification_status": "public_sources",
+          "last_checked": "2026-05-25T04:12:00Z",
+          "note": "RFC 9116 security.txt present at the .well-known path."
+        }
+      }
     },
     {
       "registrar_id": "namecheap",
@@ -19,7 +33,21 @@
       "security_txt": "present",
       "policy_url": "https://www.namecheap.com/legal/general/abuse-policy/",
       "verification_status": "public_sources",
-      "last_checked": "2026-05-25T04:12:00Z"
+      "last_checked": "2026-05-25T04:12:00Z",
+      "field_provenance": {
+        "abuse_email": {
+          "source_url": "https://www.namecheap.com/legal/general/abuse-policy/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-05-25T04:12:00Z",
+          "note": "Abuse contact published on Namecheap's abuse policy page."
+        },
+        "security_txt": {
+          "source_url": "https://www.namecheap.com/.well-known/security.txt",
+          "verification_status": "public_sources",
+          "last_checked": "2026-05-25T04:12:00Z",
+          "note": "RFC 9116 security.txt present at the .well-known path."
+        }
+      }
     },
     {
       "registrar_id": "porkbun",
@@ -27,7 +55,109 @@
       "security_txt": "absent",
       "policy_url": "https://porkbun.com/abuse",
       "verification_status": "public_sources",
-      "last_checked": "2026-05-25T04:12:00Z"
+      "last_checked": "2026-05-25T04:12:00Z",
+      "field_provenance": {
+        "abuse_email": {
+          "source_url": "https://porkbun.com/abuse",
+          "verification_status": "public_sources",
+          "last_checked": "2026-05-25T04:12:00Z",
+          "note": "Abuse contact published on Porkbun's abuse page."
+        },
+        "security_txt": {
+          "source_url": "https://porkbun.com/.well-known/security.txt",
+          "verification_status": "public_sources",
+          "last_checked": "2026-05-25T04:12:00Z",
+          "note": "No RFC 9116 security.txt found at the .well-known path."
+        }
+      }
+    },
+    {
+      "registrar_id": "godaddy",
+      "abuse_email": "abuse@godaddy.com",
+      "security_txt": "unknown",
+      "policy_url": null,
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "abuse_email": {
+          "source_url": "https://rdap.verisign.com/com/v1/domain/godaddy.com",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Registrar Abuse Contact Email read from the registry RDAP record for godaddy.com; sponsoring registrar IANA ID matches (146). Abuse phone in the same record: +1.4806242505."
+        },
+        "security_txt": {
+          "source_url": "https://www.godaddy.com/.well-known/security.txt",
+          "verification_status": "unknown",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "The .well-known/security.txt path returns HTTP 403 to an automated request (anti-bot); presence could not be confirmed."
+        }
+      }
+    },
+    {
+      "registrar_id": "dynadot",
+      "abuse_email": "abuse@dynadot.com",
+      "security_txt": "absent",
+      "policy_url": null,
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "abuse_email": {
+          "source_url": "https://rdap.verisign.com/com/v1/domain/dynadot.com",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Registrar Abuse Contact Email read from the registry RDAP record for dynadot.com; sponsoring registrar IANA ID matches (472)."
+        },
+        "security_txt": {
+          "source_url": "https://www.dynadot.com/.well-known/security.txt",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "The .well-known/security.txt path returns HTTP 404; no security.txt present."
+        }
+      }
+    },
+    {
+      "registrar_id": "spaceship",
+      "abuse_email": "abuse@spaceship.com",
+      "security_txt": "unknown",
+      "policy_url": null,
+      "verification_status": "public_sources",
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "abuse_email": {
+          "source_url": "https://rdap.verisign.com/com/v1/domain/spaceship.com",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Registrar Abuse Contact Email read from the registry RDAP record for spaceship.com; sponsoring registrar IANA ID matches (3862)."
+        },
+        "security_txt": {
+          "source_url": "https://www.spaceship.com/.well-known/security.txt",
+          "verification_status": "unknown",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "The .well-known/security.txt path returns an HTTP 403 anti-bot challenge; presence could not be confirmed."
+        }
+      }
+    },
+    {
+      "registrar_id": "squarespace-domains",
+      "abuse_email": "unknown",
+      "security_txt": "present",
+      "policy_url": null,
+      "verification_status": "unknown",
+      "last_checked": "2026-06-25T00:00:00Z",
+      "field_provenance": {
+        "abuse_email": {
+          "source_url": "https://rdap.org/domain/squarespace.domains",
+          "verification_status": "unknown",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "Squarespace's own namesake domains are sponsored by MarkMonitor (IANA 292), so a registry RDAP lookup does not surface the Squarespace Domains (IANA 895) registrar abuse contact. No primary record was resolvable this run; left as unknown rather than guessed."
+        },
+        "security_txt": {
+          "source_url": "https://www.squarespace.com/.well-known/security.txt",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-25T00:00:00Z",
+          "note": "RFC 9116 security.txt present at squarespace.com; Contact and Policy point to https://www.squarespace.com/vulnerability-reporting (security vulnerability reporting, distinct from a domain-abuse contact)."
+        }
+      }
     }
   ]
 }

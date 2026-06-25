@@ -9,6 +9,8 @@ import {
   API_CAPABILITIES_SCHEMA,
   DNS_CAPABILITIES_SCHEMA,
   PRICING_SCHEMA,
+  RDAP_METADATA_SCHEMA,
+  SECURITY_CONTACTS_SCHEMA,
 } from "@/lib/data";
 import { DocShell, PageHead, H2A, FieldTable } from "@/components/DocShell";
 import { CodeBlock } from "@/components/CodeBlock";
@@ -20,6 +22,8 @@ const FIELDS_BY_SLUG: Record<string, { f: string; t: string; r: boolean; d: stri
   "api-capabilities.schema.json": API_CAPABILITIES_SCHEMA,
   "dns-capabilities.schema.json": DNS_CAPABILITIES_SCHEMA,
   "pricing.schema.json": PRICING_SCHEMA,
+  "rdap-metadata.schema.json": RDAP_METADATA_SCHEMA,
+  "security-contacts.schema.json": SECURITY_CONTACTS_SCHEMA,
 };
 
 export function generateStaticParams() {

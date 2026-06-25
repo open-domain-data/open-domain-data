@@ -126,6 +126,8 @@ export const METHODS = [
 ] as const;
 
 export const CHANGELOG = [
+  { date: "2026-06-25", ds: "rdap_metadata", ver: "2026.06", body: "Expanded the sample from 3 to 7 registrars (added GoDaddy, Dynadot, Spaceship, Squarespace Domains) and published the first JSON Schema for the dataset (rdap-metadata.schema.json), wired into validate.mjs. Added per-field provenance (field_provenance) to every record. All seven RDAP base URLs were live-probed and aligned to the IANA registrar-ids registry — this also corrected porkbun (the previous rdap.porkbun.com returns 404; cart-before.porkbun.horse/rdap/ is the working IANA value) and brought the dataset into agreement with the registrars dataset rdap_base." },
+  { date: "2026-06-25", ds: "registrar_security_contacts", ver: "2026.06", body: "Expanded the sample from 3 to 7 registrars and published the first JSON Schema (security-contacts.schema.json), wired into validate.mjs. Added per-field provenance. The new registrars' abuse contacts were read from registry RDAP records (the ICANN RDDS abuse field) and are independently_tested where the sponsoring registrar IANA ID matched; Squarespace Domains' abuse contact is left unknown rather than guessed because its namesake domains are sponsored by another registrar. security.txt presence is verified where reachable and left unknown where the .well-known path is anti-bot blocked." },
   { date: "2026-06-25", ds: "dns_capabilities", ver: "2026.06", body: "Expanded the dns_capabilities sample from 3 to 7 registrars so it covers the same set as the rest of the catalog (added GoDaddy, Dynadot, Spaceship and Squarespace Domains). Added a field_provenance object to the schema and every record: DNSSEC, CAA, API record management and record-type values now each carry their own source_url, verification_status, last_checked and note. Recorded the precise nuances rather than rounding them off — Dynadot's DNSSEC is partial because its own nameservers are not DNSSEC-configured, and Squarespace Domains has no public DNS-management API. Added a cross-dataset coverage check to scripts/validate.mjs so the sample registrar sets can no longer drift apart silently." },
   { date: "2026-06-22", ds: "registrars", ver: "2026.06", body: "Added per-field provenance (field_provenance) to the registrar schema and sample records: each field carries its own source_url, verification_status, last_checked and a note on how it was checked. IANA-registry fields (iana_id, name, status) are public_sources; rdap_base is resolved from IANA and independently_tested via a live RDAP probe. Corrected rdap_base for every sample registrar against the IANA registry, filled in Spaceship's rdap_base (rdap.spaceship.com), and added scripts/verify-rdap.mjs to make the RDAP verification reproducible and to fail on drift from IANA." },
   { date: "2026-06-01", ds: "tld_pricing", ver: "2026.06", body: "Added 412 TLDs across 38 registrars; normalized promotional pricing flags into a dedicated field." },
@@ -189,11 +191,33 @@ export const PRICING_SCHEMA = [
   { f: "last_checked", t: "string · date-time", r: true, d: "ISO 8601 timestamp." },
 ];
 
+export const RDAP_METADATA_SCHEMA = [
+  { f: "registrar_id", t: "string", r: true, d: "Foreign key to registrars.id." },
+  { f: "base_url", t: "string · uri", r: true, d: "RDAP service base URL from the IANA registrar-ids registry." },
+  { f: "conformance", t: "string", r: true, d: "Reported RDAP conformance level (e.g. rfc7483)." },
+  { f: "iana_bootstrapped", t: "boolean", r: true, d: "RDAP base URL is published in the IANA registrar-ids registry." },
+  { f: "verification_status", t: "enum", r: true, d: "See verification statuses." },
+  { f: "last_checked", t: "string · date-time", r: true, d: "ISO 8601 timestamp." },
+  { f: "field_provenance", t: "object", r: false, d: "Per-field source_url, verification_status, last_checked and note." },
+];
+
+export const SECURITY_CONTACTS_SCHEMA = [
+  { f: "registrar_id", t: "string", r: true, d: "Foreign key to registrars.id." },
+  { f: "abuse_email", t: "string", r: true, d: "Registrar abuse contact email, or 'unknown' when not resolvable." },
+  { f: "security_txt", t: "enum", r: true, d: "present | absent | unknown (RFC 9116 .well-known presence)." },
+  { f: "policy_url", t: "string · uri | null", r: false, d: "Published abuse/acceptable-use policy URL, if confirmed." },
+  { f: "verification_status", t: "enum", r: true, d: "See verification statuses." },
+  { f: "last_checked", t: "string · date-time", r: true, d: "ISO 8601 timestamp." },
+  { f: "field_provenance", t: "object", r: false, d: "Per-field source_url, verification_status, last_checked and note." },
+];
+
 export const SCHEMAS = [
   { name: "registrar", slug: "registrar.schema.json", fields: REGISTRARS_SCHEMA.length, ver: "2026.06", used: "registrars" },
   { name: "api-capabilities", slug: "api-capabilities.schema.json", fields: API_CAPABILITIES_SCHEMA.length, ver: "2026.05", used: "registrar_api_capabilities" },
   { name: "dns-capabilities", slug: "dns-capabilities.schema.json", fields: DNS_CAPABILITIES_SCHEMA.length, ver: "2026.05", used: "dns_capabilities" },
   { name: "pricing", slug: "pricing.schema.json", fields: PRICING_SCHEMA.length, ver: "2026.06", used: "tld_pricing" },
+  { name: "rdap-metadata", slug: "rdap-metadata.schema.json", fields: RDAP_METADATA_SCHEMA.length, ver: "2026.06", used: "rdap_metadata" },
+  { name: "security-contacts", slug: "security-contacts.schema.json", fields: SECURITY_CONTACTS_SCHEMA.length, ver: "2026.06", used: "registrar_security_contacts" },
 ];
 
 export type FieldProvenance = {
@@ -772,15 +796,23 @@ export const TLD_PRICING: PricingRecord[] = [
 ];
 
 export const RDAP_METADATA = [
-  { registrar_id: "cloudflare-registrar", base_url: "https://rdap.cloudflare.com", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-05-29T04:12:00Z", verification_status: "independently_tested" as VerificationStatus },
-  { registrar_id: "namecheap", base_url: "https://rdap.namecheap.com", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-05-29T04:12:00Z", verification_status: "independently_tested" as VerificationStatus },
-  { registrar_id: "porkbun", base_url: "https://rdap.porkbun.com", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-05-29T04:12:00Z", verification_status: "independently_tested" as VerificationStatus },
+  { registrar_id: "cloudflare-registrar", base_url: "https://rdap.cloudflare.com/rdap/v1/", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-06-25T00:00:00Z", verification_status: "independently_tested" as VerificationStatus },
+  { registrar_id: "namecheap", base_url: "https://rdap.namecheap.com/", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-06-25T00:00:00Z", verification_status: "independently_tested" as VerificationStatus },
+  { registrar_id: "porkbun", base_url: "https://cart-before.porkbun.horse/rdap/", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-06-25T00:00:00Z", verification_status: "independently_tested" as VerificationStatus },
+  { registrar_id: "godaddy", base_url: "https://rdap.godaddy.com/v1/", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-06-25T00:00:00Z", verification_status: "independently_tested" as VerificationStatus },
+  { registrar_id: "dynadot", base_url: "https://rdap.dynadot.com/", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-06-25T00:00:00Z", verification_status: "independently_tested" as VerificationStatus },
+  { registrar_id: "spaceship", base_url: "https://rdap.spaceship.com/", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-06-25T00:00:00Z", verification_status: "independently_tested" as VerificationStatus },
+  { registrar_id: "squarespace-domains", base_url: "https://rdap.squarespace.domains/", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-06-25T00:00:00Z", verification_status: "independently_tested" as VerificationStatus },
 ];
 
 export const SECURITY_CONTACTS = [
-  { registrar_id: "cloudflare-registrar", abuse_email: "registrar-abuse@cloudflare.com", security_txt: "present", policy_url: "https://www.cloudflare.com/abuse/", last_checked: "2026-05-25T04:12:00Z", verification_status: "public_sources" as VerificationStatus },
-  { registrar_id: "namecheap", abuse_email: "abuse@namecheap.com", security_txt: "present", policy_url: "https://www.namecheap.com/legal/general/abuse-policy/", last_checked: "2026-05-25T04:12:00Z", verification_status: "public_sources" as VerificationStatus },
-  { registrar_id: "porkbun", abuse_email: "abuse@porkbun.com", security_txt: "absent", policy_url: "https://porkbun.com/abuse", last_checked: "2026-05-25T04:12:00Z", verification_status: "public_sources" as VerificationStatus },
+  { registrar_id: "cloudflare-registrar", abuse_email: "registrar-abuse@cloudflare.com", security_txt: "present", policy_url: "https://www.cloudflare.com/abuse/" as string | null, last_checked: "2026-05-25T04:12:00Z", verification_status: "public_sources" as VerificationStatus },
+  { registrar_id: "namecheap", abuse_email: "abuse@namecheap.com", security_txt: "present", policy_url: "https://www.namecheap.com/legal/general/abuse-policy/" as string | null, last_checked: "2026-05-25T04:12:00Z", verification_status: "public_sources" as VerificationStatus },
+  { registrar_id: "porkbun", abuse_email: "abuse@porkbun.com", security_txt: "absent", policy_url: "https://porkbun.com/abuse" as string | null, last_checked: "2026-05-25T04:12:00Z", verification_status: "public_sources" as VerificationStatus },
+  { registrar_id: "godaddy", abuse_email: "abuse@godaddy.com", security_txt: "unknown", policy_url: null as string | null, last_checked: "2026-06-25T00:00:00Z", verification_status: "public_sources" as VerificationStatus },
+  { registrar_id: "dynadot", abuse_email: "abuse@dynadot.com", security_txt: "absent", policy_url: null as string | null, last_checked: "2026-06-25T00:00:00Z", verification_status: "public_sources" as VerificationStatus },
+  { registrar_id: "spaceship", abuse_email: "abuse@spaceship.com", security_txt: "unknown", policy_url: null as string | null, last_checked: "2026-06-25T00:00:00Z", verification_status: "public_sources" as VerificationStatus },
+  { registrar_id: "squarespace-domains", abuse_email: "unknown", security_txt: "present", policy_url: null as string | null, last_checked: "2026-06-25T00:00:00Z", verification_status: "unknown" as VerificationStatus },
 ];
 
 export const AGENT_SIGNALS = [
