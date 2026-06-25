@@ -23,9 +23,7 @@ const SCHEMA_BY_DATASET = {
   "tld_pricing.json": "pricing.schema.json",
   "rdap_metadata.json": "rdap-metadata.schema.json",
   "registrar_security_contacts.json": "security-contacts.schema.json",
-  // The following share the registrar schema's verification enums but do not
-  // yet have dedicated schemas. They are skipped until schemas are published.
-  "agent_capability_signals.json": null,
+  "agent_capability_signals.json": "agent-capability-signals.schema.json",
 };
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
