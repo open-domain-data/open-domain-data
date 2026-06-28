@@ -1,8 +1,8 @@
 {
   "dataset": "registrar_api_capabilities",
-  "version": "2026.05",
+  "version": "2026.06",
   "license": "CC-BY-4.0",
-  "last_checked": "2026-06-21T12:00:00Z",
+  "last_checked": "2026-06-28T00:00:00Z",
   "schema": "https://opendomaindata.org/schemas/api-capabilities.schema.json",
   "count": 7,
   "records": [
@@ -19,7 +19,33 @@
       "docs_url": "https://developers.cloudflare.com/registrar/",
       "sources": ["registrar_docs"],
       "verification_status": "public_sources",
-      "last_checked": "2026-05-28T04:12:00Z"
+      "last_checked": "2026-06-28T00:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://developers.cloudflare.com/registrar/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Domain registration and management are exposed through the Cloudflare API; the Registrar product is documented as API-accessible."
+        },
+        "scoped_tokens": {
+          "source_url": "https://developers.cloudflare.com/fundamentals/api/get-started/create-token/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Cloudflare issues scoped, revocable API tokens with per-resource permissions, distinct from the legacy global API key."
+        },
+        "openapi_spec": {
+          "source_url": "https://developers.cloudflare.com/api/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Public, machine-readable API reference for the Cloudflare API."
+        },
+        "rate_limit": {
+          "source_url": "https://developers.cloudflare.com/fundamentals/api/reference/limits/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Documented global limit of 1200 requests per five minutes per account."
+        }
+      }
     },
     {
       "registrar_id": "namecheap",
@@ -34,7 +60,27 @@
       "docs_url": "https://www.namecheap.com/support/api/intro/",
       "sources": ["registrar_docs"],
       "verification_status": "public_sources",
-      "last_checked": "2026-05-28T04:12:00Z"
+      "last_checked": "2026-06-28T00:00:00Z",
+      "field_provenance": {
+        "auth_model": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Authentication uses an API key together with a whitelisted client IP address; there is no scoped-token or OAuth model."
+        },
+        "sandbox_url": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "A separate sandbox environment is documented at api.sandbox.namecheap.com for testing before production."
+        },
+        "rate_limit": {
+          "source_url": "https://www.namecheap.com/support/api/intro/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Documented per-IP request limits (per-minute, per-hour and per-day caps)."
+        }
+      }
     },
     {
       "registrar_id": "porkbun",
@@ -49,7 +95,27 @@
       "docs_url": "https://porkbun.com/api/json/v3/documentation",
       "sources": ["registrar_docs", "submission"],
       "verification_status": "registrar_submitted",
-      "last_checked": "2026-05-30T04:12:00Z"
+      "last_checked": "2026-06-28T00:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://api.porkbun.com/api/json/v3/pricing/get",
+          "verification_status": "independently_tested",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "The public pricing endpoint returned HTTP 200 with status SUCCESS on a live unauthenticated request on 2026-06-28, confirming the v3 API is live."
+        },
+        "auth_model": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Authentication uses an API key plus a secret key, sent via the X-API-Key / X-Secret-API-Key headers or apikey / secretapikey in the JSON body."
+        },
+        "rate_limit": {
+          "source_url": "https://porkbun.com/api/json/v3/documentation",
+          "verification_status": "registrar_submitted",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Approximately 10 requests per 10 seconds per the documentation; not independently load-tested."
+        }
+      }
     },
     {
       "registrar_id": "godaddy",
@@ -60,11 +126,31 @@
       "webhooks": false,
       "sandbox_url": "https://api.ote-godaddy.com",
       "openapi_spec": null,
-      "rate_limit": "documented per endpoint; production access limited to accounts with 50+ domains (Availability API) since 2024-05-01",
+      "rate_limit": "documented per endpoint; production access to the Availability API requires 50+ domains, while the Management and DNS APIs require 1+ domain or a Domain Pro Plan",
       "docs_url": "https://developer.godaddy.com/doc/endpoint/domains",
       "sources": ["registrar_docs"],
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-28T00:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://developer.godaddy.com/doc/endpoint/domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Public Domains API with separate OTE (test) and production base URLs."
+        },
+        "sandbox_url": {
+          "source_url": "https://developer.godaddy.com/getstarted",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "OTE test environment documented at api.ote-godaddy.com."
+        },
+        "rate_limit": {
+          "source_url": "https://developer.godaddy.com/getstarted",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Get Started page states production access to the Availability API is limited to accounts with 50 or more domains, while Management and DNS APIs require 1 or more domains or an active Domain Pro Plan (verified 2026-06-28)."
+        }
+      }
     },
     {
       "registrar_id": "dynadot",
@@ -79,7 +165,27 @@
       "docs_url": "https://www.dynadot.com/domain/api",
       "sources": ["registrar_docs"],
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-28T00:00:00Z",
+      "field_provenance": {
+        "auth_model": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Authentication uses an account API key passed as a request parameter; no scoped tokens or OAuth."
+        },
+        "sandbox_url": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Sandbox environment documented at api-sandbox.dynadot.com."
+        },
+        "rate_limit": {
+          "source_url": "https://www.dynadot.com/domain/api",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Documented as one concurrent API request per account, with throughput varying by account tier."
+        }
+      }
     },
     {
       "registrar_id": "spaceship",
@@ -94,7 +200,27 @@
       "docs_url": "https://docs.spaceship.dev/",
       "sources": ["registrar_docs"],
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-28T00:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Documented REST API alongside an official Terraform provider at docs.spaceship.dev."
+        },
+        "auth_model": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Authentication uses an API key and secret sent via request headers."
+        },
+        "rate_limit": {
+          "source_url": "https://docs.spaceship.dev/",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "Rate limits are documented per endpoint (for example 300 requests per 300 seconds per user for DNS record listing)."
+        }
+      }
     },
     {
       "registrar_id": "squarespace-domains",
@@ -109,7 +235,15 @@
       "docs_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
       "sources": ["registrar_docs"],
       "verification_status": "public_sources",
-      "last_checked": "2026-06-21T12:00:00Z"
+      "last_checked": "2026-06-28T00:00:00Z",
+      "field_provenance": {
+        "api_available": {
+          "source_url": "https://support.squarespace.com/hc/en-us/sections/360001172391-Domains",
+          "verification_status": "public_sources",
+          "last_checked": "2026-06-28T00:00:00Z",
+          "note": "No public domain-management API; Squarespace domains are administered only through the Squarespace dashboard."
+        }
+      }
     }
   ]
 }

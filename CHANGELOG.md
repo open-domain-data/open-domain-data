@@ -5,6 +5,23 @@ Newest first. The format follows [Keep a Changelog](https://keepachangelog.com)
 and the project uses [Semantic Versioning](https://semver.org/) for schemas and
 calendar versioning (`YYYY.MM`) for datasets.
 
+## 2026.06 — 2026-06-28
+
+### `registrar_api_capabilities@2026.06` · schema `api-capabilities@2026.06`
+- Added per-field provenance (`field_provenance`) to all seven sample records and
+  to the JSON Schema. `auth_model`, `scoped_tokens`, `sandbox_url`,
+  `openapi_spec`, `rate_limit` and `api_available` now each carry their own
+  `source_url`, `verification_status`, `last_checked` and `note`, citing primary
+  registrar documentation. No capability values changed.
+- Re-verified two facts live on 2026-06-28:
+  - **Porkbun** — the public pricing endpoint (`/api/json/v3/pricing/get`)
+    returned `SUCCESS` on an unauthenticated request, so `api_available` is marked
+    `independently_tested`.
+  - **GoDaddy** — the Get Started page documents that production access to the
+    Availability API requires 50+ domains, while the Management and DNS APIs
+    require 1+ domain or a Domain Pro Plan. The `rate_limit` note was corrected to
+    reflect the current tiers.
+
 ## 2026.06 — 2026-06-25
 
 ### `rdap_metadata@2026.06` · schema `rdap-metadata@2026.06` (new)

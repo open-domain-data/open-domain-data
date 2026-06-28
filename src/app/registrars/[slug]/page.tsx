@@ -240,6 +240,51 @@ export default function RegistrarRecordPage({ params }: { params: { slug: string
                 ["docs_url", apiCap.docs_url],
               ]}
             />
+            {apiCap.field_provenance && (
+              <div className="od-table--bordered" style={{ marginTop: 12 }}>
+                <table className="od-table">
+                  <thead>
+                    <tr>
+                      <th>Field</th>
+                      <th>Value</th>
+                      <th>Source</th>
+                      <th>Verification</th>
+                      <th>How checked</th>
+                      <th>Last checked</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {Object.entries(apiCap.field_provenance).map(([field, p]) => {
+                      const value = (apiCap as unknown as Record<string, unknown>)[field];
+                      return (
+                        <tr key={field}>
+                          <td className="mono" style={{ fontSize: 12, color: "var(--od-ink-2)" }}>
+                            {field}
+                          </td>
+                          <td className="mono" style={{ fontSize: 12, color: "var(--od-ink)" }}>
+                            {String(value)}
+                          </td>
+                          <td>
+                            <a className="od-link mono" style={{ fontSize: 11.5 }} href={p.source_url}>
+                              {p.source_url.replace(/^https?:\/\//, "").replace(/\/$/, "")}
+                            </a>
+                          </td>
+                          <td>
+                            <StatusBadge v={p.verification_status} />
+                          </td>
+                          <td style={{ fontSize: 11.5, color: "var(--od-ink-2)", maxWidth: 280 }}>
+                            {p.note ?? "—"}
+                          </td>
+                          <td className="mono" style={{ fontSize: 11.5, color: "var(--od-ink-2)" }}>
+                            {p.last_checked.slice(0, 10)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )}
           </>
         )}
 
