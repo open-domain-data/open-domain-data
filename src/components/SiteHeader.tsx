@@ -33,6 +33,7 @@ const NAV: { label: string; href: string; match: RegExp }[] = [
   { label: "Schemas", href: "/schemas", match: /^\/schemas/ },
   { label: "Registrars", href: "/registrars", match: /^\/registrars/ },
   { label: "Methodology", href: "/methodology", match: /^\/methodology/ },
+  { label: "Provenance", href: "/provenance", match: /^\/provenance/ },
   { label: "Changelog", href: "/changelog", match: /^\/changelog/ },
   { label: "Developers", href: "/developers", match: /^\/developers/ },
 ];

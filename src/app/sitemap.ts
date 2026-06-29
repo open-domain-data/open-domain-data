@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/schemas",
     "/registrars",
     "/methodology",
+    "/provenance",
     "/changelog",
     "/developers",
     "/contribute",
