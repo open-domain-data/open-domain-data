@@ -38,6 +38,7 @@ verification status, a source list and a timestamp.
 - Methodology: /methodology
 - Verification statuses: /methodology#verification
 - Provenance reverse index (every source and the fields across all datasets that cite it): /provenance
+- Provenance reverse index, machine-readable JSON (per-source citations + counts): /api/provenance.json
 - Changelog: /changelog
 - Developer reference: /developers
 - Contribute: /contribute
