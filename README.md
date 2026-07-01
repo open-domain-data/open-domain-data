@@ -83,6 +83,7 @@ Stable, machine-readable URLs:
 
 | URL                                              | Purpose                                  |
 |--------------------------------------------------|------------------------------------------|
+| `/api/index.json`                                | Index of every dataset (versions, formats, schemas) |
 | `/api/registrars.json`                           | Canonical registrar records              |
 | `/api/registrar_api_capabilities.json`           | Registrar API surface                    |
 | `/api/dns_capabilities.json`                     | DNS feature support                      |
