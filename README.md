@@ -162,7 +162,10 @@ open-domain-data/
 │   └── styles/odc.css            # Design system
 ├── scripts/
 │   ├── sync-data.mjs             # /data → /public/api, /schemas → /public/schemas
-│   └── validate.mjs              # ajv validation of /data against /schemas
+│   ├── validate.mjs              # ajv validation of /data against /schemas
+│   ├── check-provenance.mjs      # per-field provenance hygiene + source liveness
+│   ├── verify-rdap.mjs           # rdap_base vs IANA + live RDAP probe
+│   └── verify-api-endpoints.mjs  # registrar API hosts vs api_available (live probe)
 ├── docs/                         # Long-form project docs
 ├── .github/                      # Issue templates, PR template, CI
 ├── README.md
@@ -202,8 +205,27 @@ listed in `scripts/validate.mjs`. CI runs the same script on every PR.
 To run the full pre-PR check:
 
 ```sh
-npm run check        # typecheck + lint + validate
+npm run check        # typecheck + lint + validate + provenance hygiene
 ```
+
+### Reproducible claim verification
+
+Some claims are backed by scripts that re-check them against a live, primary
+source, so an `independently_tested` status is reproducible and drift is caught
+automatically:
+
+```sh
+npm run verify:rdap  # each rdap_base vs the IANA registry + a live RDAP probe
+npm run verify:api   # each registrar's documented API host vs its api_available
+```
+
+`verify:api` probes each registrar's own API endpoint and classifies what
+answers: `public_live` (an unauthenticated request returned data — only
+Porkbun's public pricing endpoint), `auth_required` (the host answered but
+demands a key — the API is live), `no_public_api`, or `unreachable`. These
+probes are network-dependent, so they run on a weekly schedule (see
+`.github/workflows/`) rather than on every PR, and a transport failure is
+reported without failing the job.
 
 ## Contributing
 
