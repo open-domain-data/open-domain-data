@@ -1,0 +1,38 @@
+name: API endpoint liveness
+
+# Probes each registrar's documented API host and confirms what answers: the one
+# public, keyless endpoint in the set (Porkbun's pricing endpoint) should return
+# data, while every other registrar's API should answer with an auth wall (proof
+# the host is live and simply needs a key). Runs weekly — the probe is network-
+# dependent, so it is kept off the per-PR path to avoid flake, the same way
+# verify:rdap is not part of `npm run check`.
+
+on:
+  schedule:
+    # Mondays 06:30 UTC.
+    - cron: "30 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  api-endpoints:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+
+      # Fails only if an endpoint we expect to be publicly live (Porkbun) is up
+      # but no longer returns public data. Transport failures are reported, not fatal.
+      - name: Probe registrar API endpoints
+        run: npm run verify:api
+
+      - name: Upload API endpoint report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-endpoints-status
+          path: reports/api-endpoints-status.json
+          if-no-files-found: ignore
