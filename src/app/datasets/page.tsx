@@ -25,8 +25,8 @@ export default function DatasetsPage() {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 24 }}>
         {(
           [
-            ["7", "datasets"],
-            ["~58,452", "total records"],
+            ["8", "datasets"],
+            ["~58,465", "total records"],
             ["JSON · CSV", "formats"],
             ["CC BY 4.0", "license"],
           ] as const

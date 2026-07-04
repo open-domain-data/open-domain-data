@@ -106,6 +106,18 @@ export const DATASETS: Dataset[] = [
     updated: "2026-05-30",
     license: "CC-BY-4.0",
   },
+  {
+    name: "registrar_landscape",
+    slug: "registrar-landscape",
+    desc: "Quarterly aggregate statistics computed over the tracked registrar set — API, DNS, RDAP, security and agent-readiness capability shares. Derived from the primary datasets; reports facts, not rankings.",
+    records: "13",
+    recordsCount: 13,
+    fmts: ["json", "csv"],
+    ver: "2026-Q3",
+    status: "public_sources",
+    updated: "2026-07-04",
+    license: "CC-BY-4.0",
+  },
 ];
 
 export const VERIF_STATUSES: { k: VerificationStatus; desc: string }[] = [
@@ -126,6 +138,7 @@ export const METHODS = [
 ] as const;
 
 export const CHANGELOG = [
+  { date: "2026-07-04", ds: "registrar_landscape", ver: "2026-Q3", body: "New quarterly dataset. registrar_landscape publishes aggregate capability statistics computed over the registrar set Open Domain Data tracks, derived deterministically from the primary datasets (registrar_api_capabilities@2026.06, dns_capabilities@2026.06, agent_capability_signals@2026.05, rdap_metadata@2026.06, registrar_security_contacts@2026.06). It counts capabilities; it does not score, order or recommend registrars. Thirteen stats ship in the 2026-Q3 edition, five of them headline: public-API coverage (6 of 7), OAuth 2.0 API auth (0 of 7), scoped API tokens (1 of 7), machine-readable OpenAPI spec (1 of 7) and native agent/MCP interface (1 of 7). Every stat is computed by scripts/build-landscape.mjs and re-checked in CI (verify:landscape), carries a denominator-explicit statement, a methodology line, the source dataset+version+field, a full registrar-id breakdown, and a stable canonical URL. Coverage is small and stated on every stat: percentages describe the tracked sample, not the whole registrar industry." },
   { date: "2026-06-28", ds: "registrar_api_capabilities", ver: "2026.06", body: "Added per-field provenance (field_provenance) to all seven sample records and to the JSON Schema — auth_model, scoped_tokens, sandbox_url, openapi_spec, rate_limit and api_available now each carry their own source_url, verification_status, last_checked and note, all citing primary registrar documentation. No capability values changed. Two facts were re-verified live on 2026-06-28: Porkbun's v3 API (its public pricing endpoint returned SUCCESS on an unauthenticated request, marking api_available independently_tested) and GoDaddy's production-access tiers (the Get Started page states the Availability API requires 50+ domains while the Management and DNS APIs require 1+ domain or a Domain Pro Plan — the rate_limit note was corrected to reflect this). This brings api_available provenance coverage to four of the agent-facing datasets (registrars, dns_capabilities, registrar_api_capabilities, plus rdap_metadata and security_contacts)." },
   { date: "2026-06-25", ds: "rdap_metadata", ver: "2026.06", body: "Expanded the sample from 3 to 7 registrars (added GoDaddy, Dynadot, Spaceship, Squarespace Domains) and published the first JSON Schema for the dataset (rdap-metadata.schema.json), wired into validate.mjs. Added per-field provenance (field_provenance) to every record. All seven RDAP base URLs were live-probed and aligned to the IANA registrar-ids registry — this also corrected porkbun (the previous rdap.porkbun.com returns 404; cart-before.porkbun.horse/rdap/ is the working IANA value) and brought the dataset into agreement with the registrars dataset rdap_base." },
   { date: "2026-06-25", ds: "registrar_security_contacts", ver: "2026.06", body: "Expanded the sample from 3 to 7 registrars and published the first JSON Schema (security-contacts.schema.json), wired into validate.mjs. Added per-field provenance. The new registrars' abuse contacts were read from registry RDAP records (the ICANN RDDS abuse field) and are independently_tested where the sponsoring registrar IANA ID matched; Squarespace Domains' abuse contact is left unknown rather than guessed because its namesake domains are sponsored by another registrar. security.txt presence is verified where reachable and left unknown where the .well-known path is anti-bot blocked." },
@@ -231,6 +244,23 @@ export const AGENT_SIGNALS_SCHEMA = [
   { f: "field_provenance", t: "object", r: false, d: "Per-field provenance: maps a field name to its source_url, verification_status and last_checked. Authoritative over the record-level fields for the field it describes." },
 ];
 
+export const LANDSCAPE_SCHEMA = [
+  { f: "id", t: "string", r: true, d: "Stable slug for the stat; last path segment of its canonical URL." },
+  { f: "edition", t: "string", r: true, d: "Quarterly edition the stat belongs to (e.g. 2026-Q3)." },
+  { f: "headline", t: "boolean", r: true, d: "True for the headline stats designed to be quoted." },
+  { f: "metric", t: "string", r: true, d: "Short label for the capability measured." },
+  { f: "statement", t: "string", r: true, d: "Denominator-explicit sentence stating the result, safe to quote verbatim." },
+  { f: "value", t: "string", r: true, d: "Human-readable value (e.g. '6 of 7', '300 s (median)')." },
+  { f: "numerator", t: "number | null", r: true, d: "Count meeting the condition, or the computed value for non-share stats." },
+  { f: "denominator", t: "number | null", r: false, d: "Size of the tracked set. Null for non-share stats." },
+  { f: "percent", t: "number | null", r: false, d: "numerator / denominator as a percentage. Null for non-share stats." },
+  { f: "unit", t: "string", r: true, d: "Unit of the value (registrars, seconds)." },
+  { f: "methodology", t: "string", r: true, d: "One line stating exactly how the value is counted from the source dataset." },
+  { f: "computed_from", t: "array · object", r: true, d: "The primary dataset(s), version(s) and field(s) the stat is computed from." },
+  { f: "breakdown", t: "object", r: true, d: "Maps each outcome label to the registrar ids in that group — the full audit trail." },
+  { f: "canonical_url", t: "string · uri", r: true, d: "Stable, citable URL for the stat." },
+];
+
 export const SCHEMAS = [
   { name: "registrar", slug: "registrar.schema.json", fields: REGISTRARS_SCHEMA.length, ver: "2026.06", used: "registrars" },
   { name: "api-capabilities", slug: "api-capabilities.schema.json", fields: API_CAPABILITIES_SCHEMA.length, ver: "2026.05", used: "registrar_api_capabilities" },
@@ -239,6 +269,7 @@ export const SCHEMAS = [
   { name: "rdap-metadata", slug: "rdap-metadata.schema.json", fields: RDAP_METADATA_SCHEMA.length, ver: "2026.06", used: "rdap_metadata" },
   { name: "security-contacts", slug: "security-contacts.schema.json", fields: SECURITY_CONTACTS_SCHEMA.length, ver: "2026.06", used: "registrar_security_contacts" },
   { name: "agent-capability-signals", slug: "agent-capability-signals.schema.json", fields: AGENT_SIGNALS_SCHEMA.length, ver: "2026.05", used: "agent_capability_signals" },
+  { name: "registrar-landscape", slug: "registrar-landscape.schema.json", fields: LANDSCAPE_SCHEMA.length, ver: "2026-Q3", used: "registrar_landscape" },
 ];
 
 export type FieldProvenance = {

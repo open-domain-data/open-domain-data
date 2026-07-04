@@ -62,8 +62,21 @@ If you find a product violating these rules, please open an issue.
 | `rdap_metadata`               | 1,517   | 2026.06 | `independently_tested` |
 | `registrar_security_contacts` | 2,610   | 2026.06 | `public_sources`       |
 | `agent_capability_signals`    | 612     | 2026.05 | `registrar_submitted`  |
+| `registrar_landscape`         | 13      | 2026-Q3 | `public_sources`       |
 
 Browse at [`/datasets`](https://opendomaindata.org/datasets).
+
+### Registrar landscape (quarterly)
+
+`registrar_landscape` is a quarterly, **derived** dataset: aggregate capability
+statistics computed over the tracked registrar set from the primary datasets
+above. It reports facts, not rankings — each stat is a count over a stated
+denominator, describing the tracked sample rather than the whole industry.
+Numbers are produced by [`scripts/build-landscape.mjs`](./scripts/build-landscape.mjs)
+and re-checked in CI (`npm run verify:landscape`), so any figure can be
+regenerated from the source records. Every headline stat has a stable, citable
+URL — see [`/landscape`](https://opendomaindata.org/landscape) and the
+[cross-citation convention](./docs/cross-citation.md).
 
 > The repository ships with a small illustrative sample of seven registrars
 > (Cloudflare, Namecheap, Porkbun, GoDaddy, Dynadot, Spaceship, Squarespace
@@ -90,12 +103,15 @@ Stable, machine-readable URLs:
 | `/api/rdap_metadata.json`                        | RDAP service URLs and conformance        |
 | `/api/registrar_security_contacts.json`          | Abuse / security contacts                |
 | `/api/agent_capability_signals.json`             | Programmatic-access signals              |
+| `/api/registrar_landscape.json`                  | Quarterly aggregate registrar statistics |
+| `/api/registrar_landscape.csv`                   | Same, as CSV                             |
 | `/schemas/registrar.schema.json`                 | JSON Schema for `registrars`             |
 | `/schemas/api-capabilities.schema.json`          | JSON Schema for API capabilities         |
 | `/schemas/dns-capabilities.schema.json`          | JSON Schema for DNS capabilities         |
 | `/schemas/pricing.schema.json`                   | JSON Schema for pricing                  |
 | `/schemas/rdap-metadata.schema.json`             | JSON Schema for RDAP metadata            |
 | `/schemas/security-contacts.schema.json`         | JSON Schema for security contacts        |
+| `/schemas/registrar-landscape.schema.json`       | JSON Schema for landscape statistics     |
 | `/llms.txt`                                      | Plain-text index for LLMs                |
 | `/sitemap.xml`                                   | Sitemap for crawlers                     |
 
