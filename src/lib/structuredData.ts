@@ -1,5 +1,6 @@
 import { DATASETS, type Dataset } from "./data";
 import { getDatasetDetail } from "./datasetDetail";
+import type { LandscapeEdition, LandscapeStat } from "./landscape";
 
 const BASE = "https://opendomaindata.org";
 const LICENSE_URL = "https://creativecommons.org/licenses/by/4.0/";
@@ -128,5 +129,85 @@ export function dataCatalogJsonLd() {
       license: LICENSE_URL,
       dateModified: d.updated,
     })),
+  };
+}
+
+const LANDSCAPE_SOURCE_URLS = [
+  `${BASE}/datasets/registrar-api-capabilities`,
+  `${BASE}/datasets/dns-capabilities`,
+  `${BASE}/datasets/agent-capability-signals`,
+  `${BASE}/datasets/rdap-metadata`,
+  `${BASE}/datasets/registrar-security-contacts`,
+];
+
+/**
+ * A schema.org `Dataset` node for one quarterly landscape edition. The stats
+ * are surfaced as `variableMeasured` so an engine can read every headline
+ * number, its statement and its exact value without fetching the JSON.
+ */
+export function landscapeEditionJsonLd(edition: LandscapeEdition, canonical: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "@id": canonical,
+    name: `Domain registrar landscape — ${edition.edition}`,
+    description: `Aggregate capability statistics computed over the ${edition.coverage.tracked_registrars} registrars tracked by Open Domain Data. ${edition.coverage.note}`,
+    url: canonical,
+    identifier: `opendomaindata:registrar_landscape@${edition.edition}`,
+    version: edition.edition,
+    license: LICENSE_URL,
+    isAccessibleForFree: true,
+    dateModified: edition.last_checked.slice(0, 10),
+    creator: PUBLISHER,
+    publisher: PUBLISHER,
+    sameAs: REPO_URL,
+    isBasedOn: LANDSCAPE_SOURCE_URLS,
+    keywords: ["domain registrars", "registrar API", "agent readiness", "DNSSEC", "RDAP", "open data"],
+    includedInDataCatalog: { "@type": "DataCatalog", name: "Open Domain Data", url: `${BASE}/datasets` },
+    variableMeasured: edition.records.map((s) => ({
+      "@type": "PropertyValue",
+      name: s.metric,
+      description: s.statement,
+      value: s.value,
+      ...(s.percent !== null ? { unitText: "percent", maxValue: 100 } : {}),
+      url: s.canonical_url,
+    })),
+    distribution: [
+      { "@type": "DataDownload", name: "registrar_landscape (JSON)", encodingFormat: FORMAT_MIME.json, contentUrl: `${BASE}/api/registrar_landscape.json` },
+      { "@type": "DataDownload", name: "registrar_landscape (CSV)", encodingFormat: FORMAT_MIME.csv, contentUrl: `${BASE}/api/registrar_landscape.csv` },
+    ],
+  };
+}
+
+/**
+ * A schema.org `Dataset` node for a single landscape stat, with the value
+ * carried as a `QuantitativeValue`/`PropertyValue`. This is the citable unit —
+ * one stable URL, one number, its source datasets and its methodology.
+ */
+export function landscapeStatJsonLd(stat: LandscapeStat) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "@id": stat.canonical_url,
+    name: `${stat.metric} — ${stat.edition}`,
+    description: stat.statement,
+    url: stat.canonical_url,
+    identifier: `opendomaindata:registrar_landscape@${stat.edition}#${stat.id}`,
+    version: stat.edition,
+    license: LICENSE_URL,
+    isAccessibleForFree: true,
+    creator: PUBLISHER,
+    publisher: PUBLISHER,
+    sameAs: REPO_URL,
+    isBasedOn: LANDSCAPE_SOURCE_URLS,
+    variableMeasured: {
+      "@type": "PropertyValue",
+      name: stat.metric,
+      description: stat.methodology,
+      value: stat.value,
+      ...(stat.numerator !== null ? { measuredValue: stat.numerator } : {}),
+      ...(stat.denominator !== null ? { maxValue: stat.denominator } : {}),
+      unitText: stat.unit,
+    },
   };
 }

@@ -1,0 +1,47 @@
+{
+  "$id": "https://opendomaindata.org/schemas/registrar-landscape.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RegistrarLandscapeStat",
+  "description": "One aggregate statistic in a quarterly registrar_landscape edition. Each stat is a count (or median) computed over the registrar set Open Domain Data tracks, derived from the primary capability datasets. It reports a fact, not a ranking.",
+  "version": "2026-Q3",
+  "type": "object",
+  "required": ["id", "edition", "headline", "metric", "statement", "value", "numerator", "unit", "methodology", "computed_from", "breakdown", "canonical_url"],
+  "properties": {
+    "id": { "type": "string", "description": "Stable slug for the stat; also the last path segment of its canonical URL." },
+    "edition": { "type": "string", "description": "Quarterly edition this stat belongs to (e.g. 2026-Q3)." },
+    "headline": { "type": "boolean", "description": "True for the small set of headline stats designed to be quoted." },
+    "metric": { "type": "string", "description": "Short human label for the capability measured." },
+    "statement": { "type": "string", "description": "A denominator-explicit sentence stating the result, safe to quote verbatim." },
+    "value": { "type": "string", "description": "Human-readable value (e.g. '6 of 7', '300 s (median)')." },
+    "numerator": { "type": ["number", "null"], "description": "Count of tracked registrars meeting the condition, or the computed value for non-share stats (e.g. the median)." },
+    "denominator": { "type": ["number", "null"], "description": "Size of the tracked set the numerator is over. Null for non-share stats." },
+    "percent": { "type": ["number", "null"], "description": "numerator / denominator as a percentage, one decimal. Null for non-share stats." },
+    "unit": { "type": "string", "description": "Unit of the value (e.g. registrars, seconds)." },
+    "methodology": { "type": "string", "description": "One line stating exactly how the value is counted from the source dataset." },
+    "computed_from": {
+      "type": "array",
+      "description": "The primary dataset(s), version(s) and field(s) this stat is computed from.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["dataset", "version", "field"],
+        "properties": {
+          "dataset": { "type": "string" },
+          "version": { "type": "string" },
+          "field": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "breakdown": {
+      "type": "object",
+      "description": "Full audit trail: maps each outcome label to the list of registrar ids in that group, so any consumer can reproduce the count.",
+      "additionalProperties": {
+        "type": "array",
+        "items": { "type": "string" }
+      }
+    },
+    "canonical_url": { "type": "string", "format": "uri", "description": "Stable, citable URL for this stat." }
+  },
+  "additionalProperties": false
+}

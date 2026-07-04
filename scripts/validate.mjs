@@ -24,6 +24,7 @@ const SCHEMA_BY_DATASET = {
   "rdap_metadata.json": "rdap-metadata.schema.json",
   "registrar_security_contacts.json": "security-contacts.schema.json",
   "agent_capability_signals.json": "agent-capability-signals.schema.json",
+  "registrar_landscape.json": "registrar-landscape.schema.json",
 };
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });

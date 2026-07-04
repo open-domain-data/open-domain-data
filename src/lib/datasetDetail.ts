@@ -11,8 +11,10 @@ import {
   RDAP_METADATA,
   SECURITY_CONTACTS,
   AGENT_SIGNALS,
+  LANDSCAPE_SCHEMA,
   type Dataset,
 } from "./data";
+import { LANDSCAPE_STATS } from "./landscape";
 
 export type DatasetDetail = {
   fields: { f: string; t: string; r: boolean; d: string }[];
@@ -22,7 +24,7 @@ export type DatasetDetail = {
   sources: [string, string, string][];
   records: unknown[];
   recordTableHeader: string[];
-  rowRenderer: "registrar" | "api_caps" | "dns_caps" | "pricing" | "rdap" | "security" | "agent";
+  rowRenderer: "registrar" | "api_caps" | "dns_caps" | "pricing" | "rdap" | "security" | "agent" | "landscape";
 };
 
 export function getDatasetDetail(slug: string): DatasetDetail | null {
@@ -134,6 +136,23 @@ export function getDatasetDetail(slug: string): DatasetDetail | null {
         records: AGENT_SIGNALS,
         recordTableHeader: ["registrar_id", "api_available", "scoped_tokens", "dns_api", "webhooks", "verification_status"],
         rowRenderer: "agent",
+      };
+    case "registrar-landscape":
+      return {
+        fields: LANDSCAPE_SCHEMA,
+        schemaSlug: "registrar-landscape.schema.json",
+        jsonHref: "/api/registrar_landscape.json",
+        csvHref: "/api/registrar_landscape.csv",
+        sources: [
+          ["registrar_api_capabilities", "API-surface shares, computed from the API-capabilities dataset", "opendomaindata.org/datasets/registrar-api-capabilities"],
+          ["dns_capabilities", "DNSSEC, DNS-API and TTL stats, computed from the DNS-capabilities dataset", "opendomaindata.org/datasets/dns-capabilities"],
+          ["agent_capability_signals", "Agent-readiness shares (MCP, audit logs, approval flow), computed from the agent-signals dataset", "opendomaindata.org/datasets/agent-capability-signals"],
+          ["rdap_metadata", "RDAP-conformance share, computed from the RDAP-metadata dataset", "opendomaindata.org/datasets/rdap-metadata"],
+          ["registrar_security_contacts", "security.txt share, computed from the security-contacts dataset", "opendomaindata.org/datasets/registrar-security-contacts"],
+        ],
+        records: LANDSCAPE_STATS as unknown[],
+        recordTableHeader: ["metric", "value", "percent", "headline", "edition"],
+        rowRenderer: "landscape",
       };
     default:
       return null;
