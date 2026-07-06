@@ -105,6 +105,7 @@ Stable, machine-readable URLs:
 | `/api/agent_capability_signals.json`             | Programmatic-access signals              |
 | `/api/registrar_landscape.json`                  | Quarterly aggregate registrar statistics |
 | `/api/registrar_landscape.csv`                   | Same, as CSV                             |
+| `/api/coverage.json`                             | Dataset coverage matrix (registrars × datasets) |
 | `/schemas/registrar.schema.json`                 | JSON Schema for `registrars`             |
 | `/schemas/api-capabilities.schema.json`          | JSON Schema for API capabilities         |
 | `/schemas/dns-capabilities.schema.json`          | JSON Schema for DNS capabilities         |

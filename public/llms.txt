@@ -53,6 +53,7 @@ Edition index: /landscape · Dataset: /datasets/registrar-landscape
 - Methodology: /methodology
 - Verification statuses: /methodology#verification
 - Provenance reverse index (every source and the fields across all datasets that cite it): /provenance
+- Coverage matrix (which registrars each per-registrar dataset includes; machine variant at /api/coverage.json): /coverage
 - Registrar landscape (quarterly aggregate statistics): /landscape
 - Cross-citation convention (how other neutral sites may cite this data): https://github.com/open-domain-data/open-domain-data/blob/main/docs/cross-citation.md
 - Changelog: /changelog
