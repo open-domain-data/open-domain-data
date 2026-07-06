@@ -13,6 +13,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/landscape",
     "/methodology",
     "/provenance",
+    "/coverage",
     "/changelog",
     "/developers",
     "/contribute",

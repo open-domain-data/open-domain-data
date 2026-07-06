@@ -5,6 +5,24 @@ Newest first. The format follows [Keep a Changelog](https://keepachangelog.com)
 and the project uses [Semantic Versioning](https://semver.org/) for schemas and
 calendar versioning (`YYYY.MM`) for datasets.
 
+## Website & tooling — 2026-07-06
+
+### Dataset coverage matrix (`/coverage`, `/api/coverage.json`)
+- Added a coverage matrix: which registrars are represented in which
+  per-registrar dataset. Each cell states whether a dataset holds a record for a
+  registrar — a fact about dataset coverage, not a score or a ranking. Built at
+  build time from the canonical `/data` JSON (`src/lib/coverage.ts`), so it cannot
+  drift from what is published. Machine-readable variant at `/api/coverage.json`.
+  Current coverage: 38/42 cells (90%); `tld_pricing` covers 3 of 7 registrars,
+  the rest cover all 7.
+- Added `scripts/check-integrity.mjs` (wired into `npm run check` as
+  `verify:integrity`): referential-integrity checks that complement
+  `validate.mjs` — every `registrar_id` in a per-registrar dataset must resolve
+  to a record in `registrars.json`, `iana_id` values are unique, and the
+  one-record-per-registrar datasets carry no duplicates. Coverage gaps are
+  reported, not failed. This keeps the catalog internally consistent as
+  registrars are added.
+
 ## 2026.06 — 2026-06-28
 
 ### `registrar_api_capabilities@2026.06` · schema `api-capabilities@2026.06`
