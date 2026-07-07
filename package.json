@@ -16,6 +16,7 @@
     "verify:landscape": "node scripts/build-landscape.mjs --check",
     "validate": "node scripts/validate.mjs",
     "verify:rdap": "node scripts/verify-rdap.mjs",
+    "verify:mcp": "node scripts/verify-mcp.mjs",
     "verify:provenance": "node scripts/check-provenance.mjs",
     "verify:provenance:urls": "node scripts/check-provenance.mjs --check-urls",
     "prebuild": "node scripts/sync-data.mjs",

@@ -309,9 +309,9 @@
         },
         "mcp_interface": {
           "source_url": "https://developer.godaddy.com/mcp",
-          "verification_status": "public_sources",
-          "last_checked": "2026-06-23T00:00:00Z",
-          "note": "GoDaddy publishes an official, read-only Domains MCP server (search + availability) at api.godaddy.com/v1/domains/mcp."
+          "verification_status": "independently_tested",
+          "last_checked": "2026-07-07T00:00:00Z",
+          "note": "GoDaddy publishes an official, read-only Domains MCP server at api.godaddy.com/v1/domains/mcp. Live-verified 2026-07-07 by scripts/verify-mcp.mjs: initialize returned serverInfo `godaddy-domains-mcp` v1.27.0 (protocol 2024-11-05) over streamable HTTP; tools/list returned exactly 2 tools (domains_check_availability, domains_suggest), both annotated readOnlyHint:true — an official read-only search interface, not a management interface."
         }
       }
     },
