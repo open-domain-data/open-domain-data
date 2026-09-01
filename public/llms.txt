@@ -27,6 +27,11 @@ verification status, a source list and a timestamp.
 - registrar_security_contacts: /api/registrar_security_contacts.json
 - agent_capability_signals: /api/agent_capability_signals.json
 - registrar_landscape: /api/registrar_landscape.json
+- registrar_ownership: /api/registrar_ownership.json
+- tld_registry: /api/tld_registry.json
+
+Machine-readable index of every dataset file (version, record count, sha256):
+/api/sync-manifest.json
 
 ## Registrar landscape (quarterly aggregate statistics)
 A quarterly, source-derived snapshot of registrar capabilities across the
@@ -48,6 +53,8 @@ Edition index: /landscape · Dataset: /datasets/registrar-landscape
 - /schemas/dns-capabilities.schema.json
 - /schemas/pricing.schema.json
 - /schemas/registrar-landscape.schema.json
+- /schemas/registrar-ownership.schema.json
+- /schemas/tld-registry.schema.json
 
 ## Docs
 - Methodology: /methodology
