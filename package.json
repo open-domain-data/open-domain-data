@@ -12,6 +12,8 @@
   "bugs": "https://github.com/open-domain-data/open-domain-data/issues",
   "scripts": {
     "sync": "node scripts/sync-data.mjs",
+    "import:bdr": "node scripts/import-bdr.mjs",
+    "verify:neutrality": "node scripts/check-neutrality.mjs",
     "build:landscape": "node scripts/build-landscape.mjs",
     "verify:landscape": "node scripts/build-landscape.mjs --check",
     "validate": "node scripts/validate.mjs",
@@ -25,7 +27,7 @@
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
-    "check": "npm run typecheck && npm run lint && npm run verify:landscape && npm run validate && npm run verify:provenance"
+    "check": "npm run typecheck && npm run lint && npm run verify:landscape && npm run validate && npm run verify:provenance && npm run verify:neutrality"
   },
   "dependencies": {
     "next": "14.2.15",

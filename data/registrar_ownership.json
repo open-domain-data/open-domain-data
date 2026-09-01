@@ -1,0 +1,315 @@
+{
+  "dataset": "registrar_ownership",
+  "version": "2026.08",
+  "license": "CC-BY-4.0",
+  "last_checked": "2026-08-24T00:00:00Z",
+  "schema": "https://opendomaindata.org/schemas/registrar-ownership.schema.json",
+  "upstream": {
+    "peer": "best-domain-registrars.com",
+    "feed": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+    "imported": "2026-08-26T15:35:05.252Z"
+  },
+  "count": 20,
+  "records": [
+    {
+      "id": "aws-route-53",
+      "registrar_id": null,
+      "brand_name": "AWS Route 53",
+      "relationship": "independent",
+      "parent_group_id": null,
+      "parent_group_name": null,
+      "parent_type": null,
+      "source_url": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "cloudflare-registrar",
+      "registrar_id": "cloudflare-registrar",
+      "brand_name": "Cloudflare Registrar",
+      "relationship": "independent",
+      "parent_group_id": null,
+      "parent_group_name": null,
+      "parent_type": null,
+      "source_url": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "domain-com",
+      "registrar_id": null,
+      "brand_name": "Domain.com",
+      "relationship": "subsidiary",
+      "parent_group_id": "newfold-digital",
+      "parent_group_name": "Newfold Digital",
+      "parent_type": "private",
+      "source_url": "https://domainnamewire.com/2025/06/18/web-com-is-now-officially-part-of-network-solutions-newfold-divides-into-two-divisions/",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "dynadot",
+      "registrar_id": "dynadot",
+      "brand_name": "Dynadot",
+      "relationship": "independent",
+      "parent_group_id": null,
+      "parent_group_name": null,
+      "parent_type": null,
+      "source_url": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "gandi",
+      "registrar_id": null,
+      "brand_name": "Gandi",
+      "relationship": "subsidiary",
+      "parent_group_id": "total-webhosting-solutions",
+      "parent_group_name": "Total Webhosting Solutions / Your.Online",
+      "parent_type": "private",
+      "source_url": "https://domainnamewire.com/2023/03/02/total-web-solutions-acquires-domain-registrar-gandi-forming-new-entity/",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "godaddy",
+      "registrar_id": "godaddy",
+      "brand_name": "GoDaddy",
+      "relationship": "independent",
+      "parent_group_id": null,
+      "parent_group_name": null,
+      "parent_type": null,
+      "source_url": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "hostinger",
+      "registrar_id": null,
+      "brand_name": "Hostinger",
+      "relationship": "independent",
+      "parent_group_id": null,
+      "parent_group_name": null,
+      "parent_type": null,
+      "source_url": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "hover",
+      "registrar_id": null,
+      "brand_name": "Hover",
+      "relationship": "subsidiary",
+      "parent_group_id": "tucows",
+      "parent_group_name": "Tucows",
+      "parent_type": "public",
+      "source_url": "https://www.tucows.com/news/tucows-inc-to-acquire-enom-from-rightside",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "ionos",
+      "registrar_id": null,
+      "brand_name": "IONOS",
+      "relationship": "subsidiary",
+      "parent_group_id": "united-internet",
+      "parent_group_name": "United Internet",
+      "parent_type": "public",
+      "source_url": "https://en.wikipedia.org/wiki/Ionos",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "name-com",
+      "registrar_id": null,
+      "brand_name": "Name.com",
+      "relationship": "subsidiary",
+      "parent_group_id": "identity-digital",
+      "parent_group_name": "Identity Digital (Ethos Capital)",
+      "parent_type": null,
+      "source_url": "https://ethoscapital.com/2021/03/31/ethos-capital-acquires-majority-control-of-donuts-inc/",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "namecheap",
+      "registrar_id": "namecheap",
+      "brand_name": "Namecheap",
+      "relationship": "subsidiary",
+      "parent_group_id": "namecheap",
+      "parent_group_name": "CVC Capital Partners",
+      "parent_type": null,
+      "source_url": "https://domainnamewire.com/2025/09/12/private-equity-firm-is-buying-namecheap-in-deal-that-values-company-at-1-5-billion/",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "namesilo",
+      "registrar_id": null,
+      "brand_name": "NameSilo",
+      "relationship": "subsidiary",
+      "parent_group_id": "namesilo-technologies",
+      "parent_group_name": "NameSilo Technologies Corp.",
+      "parent_type": "public",
+      "source_url": "https://thecse.com/listings/namesilo-technologies-corp/",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "network-solutions",
+      "registrar_id": null,
+      "brand_name": "Network Solutions",
+      "relationship": "subsidiary",
+      "parent_group_id": "newfold-digital",
+      "parent_group_name": "Newfold Digital",
+      "parent_type": "private",
+      "source_url": "https://domainnamewire.com/2025/06/18/web-com-is-now-officially-part-of-network-solutions-newfold-divides-into-two-divisions/",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "ovhcloud",
+      "registrar_id": null,
+      "brand_name": "OVHcloud",
+      "relationship": "independent",
+      "parent_group_id": null,
+      "parent_group_name": null,
+      "parent_type": null,
+      "source_url": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "porkbun",
+      "registrar_id": "porkbun",
+      "brand_name": "Porkbun",
+      "relationship": "subsidiary",
+      "parent_group_id": "top-level-design",
+      "parent_group_name": "Top Level Design",
+      "parent_type": "private",
+      "source_url": "https://porkbun.com/",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "shopify",
+      "registrar_id": null,
+      "brand_name": "Shopify Domains",
+      "relationship": "independent",
+      "parent_group_id": null,
+      "parent_group_name": null,
+      "parent_type": null,
+      "source_url": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "spaceship",
+      "registrar_id": "spaceship",
+      "brand_name": "Spaceship",
+      "relationship": "subsidiary",
+      "parent_group_id": "namecheap",
+      "parent_group_name": "CVC Capital Partners",
+      "parent_type": null,
+      "source_url": "https://domainnamewire.com/2025/09/12/private-equity-firm-is-buying-namecheap-in-deal-that-values-company-at-1-5-billion/",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "squarespace-domains",
+      "registrar_id": "squarespace-domains",
+      "brand_name": "Squarespace Domains",
+      "relationship": "subsidiary",
+      "parent_group_id": "squarespace",
+      "parent_group_name": "Squarespace",
+      "parent_type": "private",
+      "source_url": "https://www.best-domain-registrars.com/google-domains-shut-down/",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "wix",
+      "registrar_id": null,
+      "brand_name": "Wix Domains",
+      "relationship": "independent",
+      "parent_group_id": null,
+      "parent_group_name": null,
+      "parent_type": null,
+      "source_url": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    },
+    {
+      "id": "wordpress-com",
+      "registrar_id": null,
+      "brand_name": "WordPress.com",
+      "relationship": "independent",
+      "parent_group_id": null,
+      "parent_group_name": null,
+      "parent_type": null,
+      "source_url": "https://www.best-domain-registrars.com/data/registrar-ownership.json",
+      "sources": [
+        "cross_site_feed"
+      ],
+      "verification_status": "public_sources",
+      "last_checked": "2026-08-24T00:00:00Z"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+name: Cross-site import
+
+# Weekly import of factual records from the best-domain-registrars.com public
+# data feed. The importer is a contributor, not a superuser: this workflow
+# never pushes to main — it opens a PR that goes
+# through the same maintainer review as any human contribution. Neutrality is
+# enforced twice: the importer's endpoint allowlist, and verify:neutrality in
+# the check gate below.
+
+on:
+  schedule:
+    # Wednesdays 07:00 UTC — after the peer's weekly refresh lands.
+    - cron: "0 7 * * 3"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+
+      - name: Import from peer feed
+        run: npm run import:bdr
+
+      - name: Rebuild derived landscape statistics
+        run: npm run build:landscape
+
+      - name: Full local gate
+        run: npm run check
+
+      - name: Upload import report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: import-bdr-report
+          path: reports/import-bdr-report.json
+          if-no-files-found: ignore
+
+      - name: Open PR with the imported changes
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: bot/import-bdr
+          title: "data: weekly cross-site import from best-domain-registrars.com"
+          commit-message: |
+            data: weekly cross-site import from best-domain-registrars.com
+
+            Automated import of factual records from the peer public data feed.
+            Produced by scripts/import-bdr.mjs; validated by npm run check
+            (schemas, provenance hygiene, landscape re-derivation, neutrality
+            firewall) before this PR was opened.
+          body: |
+            Automated weekly import of **factual records** from the
+            [best-domain-registrars.com data feed](https://www.best-domain-registrars.com/data/index.json),
+            following the [cross-citation convention](https://github.com/open-domain-data/open-domain-data/blob/main/docs/cross-citation.md).
+
+            - Importer: `scripts/import-bdr.mjs` (endpoint allowlist; editorial
+              datasets refused; loop prevention; field-level conflict rules).
+            - Validation: `npm run check` passed before this PR was opened.
+            - Run report: see the `import-bdr-report` artifact on this workflow run.
+
+            Review like any data contribution — nothing merges without a maintainer.
+          labels: |
+            data-import
+            cross-site-feed
+          delete-branch: true

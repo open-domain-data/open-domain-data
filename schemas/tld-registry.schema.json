@@ -1,0 +1,41 @@
+{
+  "$id": "https://opendomaindata.org/schemas/tld-registry.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TldRegistry",
+  "description": "Registry facts for a single top-level domain, as published by the IANA Root Zone Database.",
+  "version": "2026.08",
+  "type": "object",
+  "required": ["tld", "type", "sources", "verification_status", "last_checked"],
+  "properties": {
+    "tld": {
+      "type": "string",
+      "pattern": "^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$",
+      "description": "TLD label without the leading dot (IANA A-label for IDN TLDs)."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["generic", "country_code", "sponsored", "infrastructure", "generic_restricted", "test"],
+      "description": "IANA Root Zone Database TLD classification."
+    },
+    "operator": { "type": ["string", "null"], "description": "Registry operator (sponsoring organisation) as listed by IANA." },
+    "country": { "type": ["string", "null"], "description": "Territory name for country-code TLDs; null for generic TLDs." },
+    "is_idn": { "type": "boolean", "description": "The TLD is an internationalised (non-ASCII) label." },
+    "unicode_tld": { "type": ["string", "null"], "description": "Unicode form of the TLD when is_idn is true." },
+    "iana_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Canonical IANA Root Zone Database page for the TLD."
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["iana", "rdap", "registrar_docs", "submission", "cross_site_feed"] }
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": ["unknown", "public_sources", "independently_tested", "registrar_submitted", "registrar_verified", "deprecated"]
+    },
+    "last_checked": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}
