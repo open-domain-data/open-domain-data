@@ -1,0 +1,34 @@
+{
+  "crosswalk": "bdr-registrar-ids",
+  "description": "Identity crosswalk between Open Domain Data registrar ids and the registrar ids used by the best-domain-registrars.com public data feed. Used by scripts/import-bdr.mjs to join records across the two catalogs. Matching key of record: the registrar's IANA-accredited identity; slugs happen to coincide today but the map is the contract, not the coincidence.",
+  "peer": "https://www.best-domain-registrars.com/data/",
+  "updated": "2026-08-26",
+  "map": {
+    "cloudflare-registrar": "cloudflare-registrar",
+    "namecheap": "namecheap",
+    "porkbun": "porkbun",
+    "godaddy": "godaddy",
+    "dynadot": "dynadot",
+    "spaceship": "spaceship",
+    "squarespace-domains": "squarespace-domains"
+  },
+  "unmatched_peer_ids": [
+    "aws-route-53",
+    "com-laude",
+    "csc-corporate-domains",
+    "domain-com",
+    "gandi",
+    "hostinger",
+    "hover",
+    "ionos",
+    "markmonitor",
+    "name-com",
+    "namesilo",
+    "network-solutions",
+    "ovhcloud",
+    "shopify",
+    "wix",
+    "wordpress-com"
+  ],
+  "note": "Keys are peer (BDR) ids, values are Open Domain Data registrar ids. unmatched_peer_ids are registrars the peer tracks that have no record in registrars.json yet; the importer skips their rows and reports them, it never invents registrar records (a new registrar record requires iana_id and goes through the normal contribution flow)."
+}

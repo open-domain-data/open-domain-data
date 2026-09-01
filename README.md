@@ -63,6 +63,8 @@ If you find a product violating these rules, please open an issue.
 | `registrar_security_contacts` | 2,610   | 2026.06 | `public_sources`       |
 | `agent_capability_signals`    | 612     | 2026.05 | `registrar_submitted`  |
 | `registrar_landscape`         | 13      | 2026-Q3 | `public_sources`       |
+| `registrar_ownership`         | 20      | 2026.08 | `public_sources`       |
+| `tld_registry`                | 562     | 2026.08 | `public_sources`       |
 
 Browse at [`/datasets`](https://opendomaindata.org/datasets).
 
@@ -105,6 +107,9 @@ Stable, machine-readable URLs:
 | `/api/agent_capability_signals.json`             | Programmatic-access signals              |
 | `/api/registrar_landscape.json`                  | Quarterly aggregate registrar statistics |
 | `/api/registrar_landscape.csv`                   | Same, as CSV                             |
+| `/api/registrar_ownership.json`                  | Corporate ownership of registrar brands  |
+| `/api/tld_registry.json`                         | IANA registry facts per TLD              |
+| `/api/sync-manifest.json`                        | Versions, counts and hashes of every dataset file |
 | `/schemas/registrar.schema.json`                 | JSON Schema for `registrars`             |
 | `/schemas/api-capabilities.schema.json`          | JSON Schema for API capabilities         |
 | `/schemas/dns-capabilities.schema.json`          | JSON Schema for DNS capabilities         |
@@ -177,8 +182,10 @@ open-domain-data/
 │   ├── lib/                      # Typed data + helpers
 │   └── styles/odc.css            # Design system
 ├── scripts/
-│   ├── sync-data.mjs             # /data → /public/api, /schemas → /public/schemas
-│   └── validate.mjs              # ajv validation of /data against /schemas
+│   ├── sync-data.mjs             # /data → /public/api, /schemas → /public/schemas, sync-manifest
+│   ├── validate.mjs              # ajv validation of /data against /schemas
+│   ├── import-bdr.mjs            # cross-site import of factual records (facts only, opens PRs)
+│   └── check-neutrality.mjs      # editorial firewall: no score/rank keys in /data
 ├── docs/                         # Long-form project docs
 ├── .github/                      # Issue templates, PR template, CI
 ├── README.md
