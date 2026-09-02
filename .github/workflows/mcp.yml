@@ -1,0 +1,40 @@
+name: MCP liveness
+
+# Re-checks that every registrar record claiming `mcp_interface: true` still
+# publishes a working official MCP server. The probe fails only on a real
+# regression (an endpoint that stops speaking MCP), never on transport flake,
+# so it is safe to run on a schedule. Weekly, plus on demand.
+
+on:
+  schedule:
+    # Mondays 06:15 UTC (just after the provenance job).
+    - cron: "15 6 * * 1"
+  workflow_dispatch:
+
+jobs:
+  mcp:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+      - run: npm ci
+
+      - name: MCP liveness
+        run: node scripts/verify-mcp.mjs
+
+      - name: Write MCP report
+        if: always()
+        run: |
+          mkdir -p reports
+          node scripts/verify-mcp.mjs --json > reports/mcp-status.json || true
+
+      - name: Upload MCP report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-status
+          path: reports/mcp-status.json
+          if-no-files-found: ignore
