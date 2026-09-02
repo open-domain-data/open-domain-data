@@ -1,3 +1,7 @@
+import tldPricingJson from "../../data/tld_pricing.json";
+import registrarOwnershipJson from "../../data/registrar_ownership.json";
+import tldRegistryJson from "../../data/tld_registry.json";
+
 export type VerificationStatus =
   | "unknown"
   | "public_sources"
@@ -65,9 +69,9 @@ export const DATASETS: Dataset[] = [
     records: "48,260",
     recordsCount: 48260,
     fmts: ["json", "csv"],
-    ver: "2026.06",
+    ver: "2026.08",
     status: "public_sources",
-    updated: "2026-06-01",
+    updated: "2026-08-19",
     license: "CC-BY-4.0",
   },
   {
@@ -107,6 +111,30 @@ export const DATASETS: Dataset[] = [
     license: "CC-BY-4.0",
   },
   {
+    name: "registrar_ownership",
+    slug: "registrar-ownership",
+    desc: "Corporate ownership of retail registrar brands — brand, owning group, relationship, with a primary source per claim.",
+    records: "20",
+    recordsCount: 20,
+    fmts: ["json"],
+    ver: "2026.08",
+    status: "public_sources",
+    updated: "2026-08-24",
+    license: "CC-BY-4.0",
+  },
+  {
+    name: "tld_registry",
+    slug: "tld-registry",
+    desc: "IANA Root Zone Database facts per TLD — classification, registry operator, ccTLD territory and IDN flags.",
+    records: "562",
+    recordsCount: 562,
+    fmts: ["json"],
+    ver: "2026.08",
+    status: "public_sources",
+    updated: "2026-08-25",
+    license: "CC-BY-4.0",
+  },
+  {
     name: "registrar_landscape",
     slug: "registrar-landscape",
     desc: "Quarterly aggregate statistics computed over the tracked registrar set — API, DNS, RDAP, security and agent-readiness capability shares. Derived from the primary datasets; reports facts, not rankings.",
@@ -138,6 +166,9 @@ export const METHODS = [
 ] as const;
 
 export const CHANGELOG = [
+  { date: "2026-08-26", ds: "registrar_ownership", ver: "2026.08", body: "New dataset. registrar_ownership records the corporate ownership of retail registrar brands: brand name, relationship (subsidiary or independent), owning group and whether that group is publicly listed or privately held. Twenty brands ship in the first release, each carrying a primary source URL to corporate reporting and verification_status public_sources. The dataset states who owns what and nothing else — it carries no judgement about consolidation, and the verify:neutrality CI check applies to it like any other dataset. Schema: registrar-ownership.schema.json, proposed and discussed in issue #19." },
+  { date: "2026-08-26", ds: "tld_registry", ver: "2026.08", body: "New dataset. tld_registry publishes IANA Root Zone Database facts per TLD: classification (generic, country_code, sponsored, infrastructure), registry operator, territory for ccTLDs, IDN flags and the canonical IANA URL. 562 TLDs ship in the first release with verification_status public_sources; the primary source is the IANA Root Zone Database. Schema: tld-registry.schema.json, proposed and discussed in issue #18." },
+  { date: "2026-08-26", ds: "tld_pricing", ver: "2026.08", body: "Expanded from 5 to 605 records across the seven tracked registrars, imported from a peer site's machine-readable feed under the cross-citation convention (sources gains the cross_site_feed value). Each imported row carries the registrar's own pricing page as source_url and enters as public_sources. Field-level conflict rules protected existing higher-verification values: both registrar_verified Porkbun rows were kept unchanged. The pricing schema now admits multi-label TLDs (for example co.uk) and an optional per-row source_url." },
   { date: "2026-07-04", ds: "registrar_landscape", ver: "2026-Q3", body: "New quarterly dataset. registrar_landscape publishes aggregate capability statistics computed over the registrar set Open Domain Data tracks, derived deterministically from the primary datasets (registrar_api_capabilities@2026.06, dns_capabilities@2026.06, agent_capability_signals@2026.05, rdap_metadata@2026.06, registrar_security_contacts@2026.06). It counts capabilities; it does not score, order or recommend registrars. Thirteen stats ship in the 2026-Q3 edition, five of them headline: public-API coverage (6 of 7), OAuth 2.0 API auth (0 of 7), scoped API tokens (1 of 7), machine-readable OpenAPI spec (1 of 7) and native agent/MCP interface (1 of 7). Every stat is computed by scripts/build-landscape.mjs and re-checked in CI (verify:landscape), carries a denominator-explicit statement, a methodology line, the source dataset+version+field, a full registrar-id breakdown, and a stable canonical URL. Coverage is small and stated on every stat: percentages describe the tracked sample, not the whole registrar industry." },
   { date: "2026-06-28", ds: "registrar_api_capabilities", ver: "2026.06", body: "Added per-field provenance (field_provenance) to all seven sample records and to the JSON Schema — auth_model, scoped_tokens, sandbox_url, openapi_spec, rate_limit and api_available now each carry their own source_url, verification_status, last_checked and note, all citing primary registrar documentation. No capability values changed. Two facts were re-verified live on 2026-06-28: Porkbun's v3 API (its public pricing endpoint returned SUCCESS on an unauthenticated request, marking api_available independently_tested) and GoDaddy's production-access tiers (the Get Started page states the Availability API requires 50+ domains while the Management and DNS APIs require 1+ domain or a Domain Pro Plan — the rate_limit note was corrected to reflect this). This brings api_available provenance coverage to four of the agent-facing datasets (registrars, dns_capabilities, registrar_api_capabilities, plus rdap_metadata and security_contacts)." },
   { date: "2026-06-25", ds: "rdap_metadata", ver: "2026.06", body: "Expanded the sample from 3 to 7 registrars (added GoDaddy, Dynadot, Spaceship, Squarespace Domains) and published the first JSON Schema for the dataset (rdap-metadata.schema.json), wired into validate.mjs. Added per-field provenance (field_provenance) to every record. All seven RDAP base URLs were live-probed and aligned to the IANA registrar-ids registry — this also corrected porkbun (the previous rdap.porkbun.com returns 404; cart-before.porkbun.horse/rdap/ is the working IANA value) and brought the dataset into agreement with the registrars dataset rdap_base." },
@@ -244,6 +275,33 @@ export const AGENT_SIGNALS_SCHEMA = [
   { f: "field_provenance", t: "object", r: false, d: "Per-field provenance: maps a field name to its source_url, verification_status and last_checked. Authoritative over the record-level fields for the field it describes." },
 ];
 
+export const OWNERSHIP_SCHEMA = [
+  { f: "id", t: "string", r: true, d: "Stable slug identifier for the brand." },
+  { f: "registrar_id", t: "string | null", r: false, d: "Foreign key to registrars.id when the brand has a canonical registrar record; null otherwise." },
+  { f: "brand_name", t: "string", r: true, d: "Consumer-facing brand name." },
+  { f: "relationship", t: "enum", r: true, d: "subsidiary | brand | independent." },
+  { f: "parent_group_id", t: "string | null", r: false, d: "Slug of the owning corporate group; null when independent." },
+  { f: "parent_group_name", t: "string | null", r: false, d: "Name of the owning corporate group; null when independent." },
+  { f: "parent_type", t: "enum | null", r: false, d: "public | private; null when unknown or independent." },
+  { f: "source_url", t: "string · uri", r: false, d: "Primary source for the ownership claim." },
+  { f: "sources", t: "array · enum", r: true, d: "Provenance." },
+  { f: "verification_status", t: "enum", r: true, d: "See verification statuses." },
+  { f: "last_checked", t: "string · date-time", r: true, d: "ISO 8601 timestamp." },
+];
+
+export const TLD_REGISTRY_SCHEMA = [
+  { f: "tld", t: "string", r: true, d: "TLD label without the leading dot (IANA A-label for IDN TLDs)." },
+  { f: "type", t: "enum", r: true, d: "generic | country_code | sponsored | infrastructure | generic_restricted | test." },
+  { f: "operator", t: "string | null", r: false, d: "Registry operator (sponsoring organisation) as listed by IANA." },
+  { f: "country", t: "string | null", r: false, d: "Territory name for country-code TLDs; null for generic TLDs." },
+  { f: "is_idn", t: "boolean", r: false, d: "The TLD is an internationalised (non-ASCII) label." },
+  { f: "unicode_tld", t: "string | null", r: false, d: "Unicode form of the TLD when is_idn is true." },
+  { f: "iana_url", t: "string · uri", r: false, d: "Canonical IANA Root Zone Database page for the TLD." },
+  { f: "sources", t: "array · enum", r: true, d: "Provenance." },
+  { f: "verification_status", t: "enum", r: true, d: "See verification statuses." },
+  { f: "last_checked", t: "string · date-time", r: true, d: "ISO 8601 timestamp." },
+];
+
 export const LANDSCAPE_SCHEMA = [
   { f: "id", t: "string", r: true, d: "Stable slug for the stat; last path segment of its canonical URL." },
   { f: "edition", t: "string", r: true, d: "Quarterly edition the stat belongs to (e.g. 2026-Q3)." },
@@ -270,6 +328,8 @@ export const SCHEMAS = [
   { name: "security-contacts", slug: "security-contacts.schema.json", fields: SECURITY_CONTACTS_SCHEMA.length, ver: "2026.06", used: "registrar_security_contacts" },
   { name: "agent-capability-signals", slug: "agent-capability-signals.schema.json", fields: AGENT_SIGNALS_SCHEMA.length, ver: "2026.05", used: "agent_capability_signals" },
   { name: "registrar-landscape", slug: "registrar-landscape.schema.json", fields: LANDSCAPE_SCHEMA.length, ver: "2026-Q3", used: "registrar_landscape" },
+  { name: "registrar-ownership", slug: "registrar-ownership.schema.json", fields: OWNERSHIP_SCHEMA.length, ver: "2026.08", used: "registrar_ownership" },
+  { name: "tld-registry", slug: "tld-registry.schema.json", fields: TLD_REGISTRY_SCHEMA.length, ver: "2026.08", used: "tld_registry" },
 ];
 
 export type FieldProvenance = {
@@ -972,15 +1032,43 @@ export type PricingRecord = {
   sources: string[];
   verification_status: VerificationStatus;
   last_checked: string;
+  source_url?: string;
 };
 
-export const TLD_PRICING: PricingRecord[] = [
-  { registrar_id: "cloudflare-registrar", tld: "com", register_usd: 9.77, renew_usd: 9.77, transfer_usd: 9.77, promotional: false, sources: ["registrar_docs"], verification_status: "public_sources", last_checked: "2026-06-01T04:12:00Z" },
-  { registrar_id: "namecheap", tld: "com", register_usd: 5.98, renew_usd: 14.98, transfer_usd: 9.48, promotional: true, sources: ["registrar_docs"], verification_status: "public_sources", last_checked: "2026-06-01T04:12:00Z" },
-  { registrar_id: "porkbun", tld: "com", register_usd: 9.13, renew_usd: 11.06, transfer_usd: 9.13, promotional: false, sources: ["registrar_docs", "submission"], verification_status: "registrar_verified", last_checked: "2026-06-01T04:12:00Z" },
-  { registrar_id: "cloudflare-registrar", tld: "dev", register_usd: 12.18, renew_usd: 12.18, transfer_usd: 12.18, promotional: false, sources: ["registrar_docs"], verification_status: "public_sources", last_checked: "2026-06-01T04:12:00Z" },
-  { registrar_id: "porkbun", tld: "dev", register_usd: 11.69, renew_usd: 11.69, transfer_usd: 11.69, promotional: false, sources: ["registrar_docs", "submission"], verification_status: "registrar_verified", last_checked: "2026-06-01T04:12:00Z" },
-];
+// The canonical records live in /data; the site reads the same file the API
+// serves so the two can never drift apart.
+export const TLD_PRICING: PricingRecord[] = tldPricingJson.records as PricingRecord[];
+
+export type OwnershipRecord = {
+  id: string;
+  registrar_id: string | null;
+  brand_name: string;
+  relationship: "subsidiary" | "brand" | "independent";
+  parent_group_id: string | null;
+  parent_group_name: string | null;
+  parent_type: "public" | "private" | null;
+  source_url: string;
+  sources: string[];
+  verification_status: VerificationStatus;
+  last_checked: string;
+};
+
+export const REGISTRAR_OWNERSHIP: OwnershipRecord[] = registrarOwnershipJson.records as OwnershipRecord[];
+
+export type TldRegistryRecord = {
+  tld: string;
+  type: "generic" | "country_code" | "sponsored" | "infrastructure" | "generic_restricted" | "test";
+  operator: string | null;
+  country: string | null;
+  is_idn: boolean;
+  unicode_tld: string | null;
+  iana_url: string;
+  sources: string[];
+  verification_status: VerificationStatus;
+  last_checked: string;
+};
+
+export const TLD_REGISTRY: TldRegistryRecord[] = tldRegistryJson.records as TldRegistryRecord[];
 
 export const RDAP_METADATA = [
   { registrar_id: "cloudflare-registrar", base_url: "https://rdap.cloudflare.com/rdap/v1/", conformance: "rfc7483", iana_bootstrapped: true, last_checked: "2026-06-25T00:00:00Z", verification_status: "independently_tested" as VerificationStatus },

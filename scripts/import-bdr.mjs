@@ -124,8 +124,11 @@ async function fetchPeer(name) {
   return res.text();
 }
 
-function licenseOk(meta, feedLicense) {
-  const stated = [meta?.license, feedLicense].filter((v) => typeof v === "string").join(" ");
+function licenseOk(...candidates) {
+  const stated = candidates
+    .map((v) => (v && typeof v === "object" ? JSON.stringify(v) : v))
+    .filter((v) => typeof v === "string")
+    .join(" ");
   return /CC[ -]BY/i.test(stated);
 }
 
@@ -192,6 +195,40 @@ async function writeDataset(file, data) {
   await writeFile(join(DATA_DIR, file), JSON.stringify(data, null, 2) + "\n");
 }
 
+// A regenerated dataset that suddenly loses a large share of its records is
+// far more likely to be a broken fetch, a peer format change, or a failed
+// license gate than a genuine mass retirement. Fail loudly so CI stops the
+// run instead of opening a PR that silently drops records.
+// True when the regenerated records are identical to what /data already
+// holds — the file is then left untouched so an unchanged feed produces an
+// empty diff (and the weekly workflow opens no PR).
+async function sameRecords(file, records) {
+  try {
+    const existing = JSON.parse(await readFile(join(DATA_DIR, file), "utf8"));
+    return JSON.stringify(existing.records) === JSON.stringify(records);
+  } catch {
+    return false;
+  }
+}
+
+const MAX_SHRINK_RATIO = 0.7;
+async function guardShrink(file, newCount) {
+  let existing;
+  try {
+    existing = JSON.parse(await readFile(join(DATA_DIR, file), "utf8"));
+  } catch {
+    return; // first generation of the dataset — nothing to compare against
+  }
+  const oldCount = existing.count ?? existing.records?.length ?? 0;
+  if (oldCount > 0 && newCount < oldCount * MAX_SHRINK_RATIO) {
+    throw new Error(
+      `${file}: refusing to shrink from ${oldCount} to ${newCount} records ` +
+        `(more than ${Math.round((1 - MAX_SHRINK_RATIO) * 100)}% loss). ` +
+        `If the peer really removed these records, review and apply the change manually.`,
+    );
+  }
+}
+
 async function main() {
   const crosswalk = JSON.parse(
     await readFile(join(DATA_DIR, "crosswalks", "bdr-registrar-ids.json"), "utf8"),
@@ -199,13 +236,27 @@ async function main() {
   const peerToOdd = crosswalk.map;
 
   // --- License gate -------------------------------------------------------
+  // The peer states its license either feed-wide (top-level `license` in
+  // index.json), per catalog entry, or in a file's own _meta — accept any of
+  // the three for a given dataset.
   const index = JSON.parse(await fetchPeer("index.json"));
-  const feedLicense =
-    typeof index?.license === "string" ? index.license : JSON.stringify(index?.license ?? "");
-  report.license.feed = feedLicense || null;
+  const feedLicense = index?.license ?? index?.usage ?? null;
+  report.license.feed = feedLicense ? JSON.stringify(feedLicense).slice(0, 200) : null;
+  const indexEntries = (Object.values(index ?? {}).find(Array.isArray) ?? []).filter(
+    (e) => e && typeof e === "object",
+  );
+  const entryByFile = new Map(
+    indexEntries.map((e) => [String(e.endpoint ?? e.path ?? e.url ?? "").split("/").pop(), e]),
+  );
+  const licenseByFile = new Map([...entryByFile].map(([k, e]) => [k, e.license]));
+  // The peer's catalog states when each dataset was last refreshed; prefer it
+  // over "today" so last_checked reflects the data's date, not the run's, and
+  // an unchanged feed produces an unchanged file.
+  const lastUpdatedByFile = (name, meta) =>
+    meta?.last_updated ?? meta?.as_of ?? entryByFile.get(name)?.last_updated ?? report.generated.slice(0, 10);
 
   function gate(name, meta) {
-    const ok = licenseOk(meta, feedLicense);
+    const ok = licenseOk(meta?.license, licenseByFile.get(name), feedLicense);
     report.license[name] = ok ? "stated" : allowUnlicensed ? "OVERRIDE (--allow-unlicensed)" : "missing";
     if (!ok && !allowUnlicensed) {
       console.warn(`!  ${name}: no CC BY-compatible license stated by the peer feed; skipping (pass --allow-unlicensed to override).`);
@@ -265,13 +316,15 @@ async function main() {
         } else stats.kept++;
         if (new Date(incoming.last_checked) > new Date(maxChecked)) maxChecked = incoming.last_checked;
       }
-      dataset.records = [...byKey.values()].sort(
-        (a, b) => a.registrar_id.localeCompare(b.registrar_id) || a.tld.localeCompare(b.tld),
-      );
-      dataset.count = dataset.records.length;
-      dataset.last_checked = maxChecked;
-      dataset.upstream = { peer: PEER, feed: PEER_BASE + "pricing.csv", imported: report.generated };
-      await writeDataset("tld_pricing.json", dataset);
+      if (stats.added + stats.updated > 0) {
+        dataset.records = [...byKey.values()].sort(
+          (a, b) => a.registrar_id.localeCompare(b.registrar_id) || a.tld.localeCompare(b.tld),
+        );
+        dataset.count = dataset.records.length;
+        dataset.last_checked = maxChecked;
+        dataset.upstream = { peer: PEER, feed: PEER_BASE + "pricing.csv", imported: report.generated };
+        await writeDataset("tld_pricing.json", dataset);
+      }
     }
     report.datasets["tld_pricing"] = stats;
   }
@@ -281,7 +334,7 @@ async function main() {
     const stats = { records: 0, skipped_no_slug: 0 };
     const own = JSON.parse(await fetchPeer("registrar-ownership.json"));
     if (gate("registrar-ownership.json", own._meta)) {
-      const checked = toDateTime(own._meta?.last_updated ?? report.generated.slice(0, 10));
+      const checked = toDateTime(lastUpdatedByFile("registrar-ownership.json", own._meta));
       const canonical = PEER_BASE + "registrar-ownership.json";
       const records = [];
       for (const group of own.groups ?? []) {
@@ -322,7 +375,9 @@ async function main() {
       }
       records.sort((a, b) => a.id.localeCompare(b.id));
       stats.records = records.length;
-      await writeDataset("registrar_ownership.json", {
+      await guardShrink("registrar_ownership.json", records.length);
+      if (!(await sameRecords("registrar_ownership.json", records)))
+        await writeDataset("registrar_ownership.json", {
         dataset: "registrar_ownership",
         version: "2026.08",
         license: "CC-BY-4.0",
@@ -356,7 +411,7 @@ async function main() {
       };
       const byTld = new Map();
       if (factsOk) {
-        const checked = toDateTime(facts._meta?.last_updated ?? facts._meta?.as_of ?? report.generated.slice(0, 10));
+        const checked = toDateTime(lastUpdatedByFile("tld-registry-facts.json", facts._meta));
         for (const f of Object.values(facts.facts ?? {})) {
           const type = TYPE_MAP[f.type];
           if (!type) { stats.skipped_unknown_type++; continue; }
@@ -375,7 +430,7 @@ async function main() {
         }
       }
       if (ccOk) {
-        const checked = toDateTime(cc._meta?.last_updated ?? cc._meta?.as_of ?? report.generated.slice(0, 10));
+        const checked = toDateTime(lastUpdatedByFile("cctlds.json", cc._meta));
         for (const c of cc.cctlds ?? []) {
           byTld.set(c.punycode, {
             tld: c.punycode,
@@ -394,7 +449,9 @@ async function main() {
       const records = [...byTld.values()].sort((a, b) => a.tld.localeCompare(b.tld));
       stats.records = records.length;
       const lastChecked = records.reduce((m, r) => (r.last_checked > m ? r.last_checked : m), "1970-01-01T00:00:00Z");
-      await writeDataset("tld_registry.json", {
+      await guardShrink("tld_registry.json", records.length);
+      if (!(await sameRecords("tld_registry.json", records)))
+        await writeDataset("tld_registry.json", {
         dataset: "tld_registry",
         version: "2026.08",
         license: "CC-BY-4.0",
@@ -423,7 +480,7 @@ async function main() {
       } else {
         const dataset = await readDataset("agent_capability_signals.json");
         const byId = new Map(dataset.records.map((r) => [r.registrar_id, r]));
-        const checked = toDateTime(mcp._meta?.last_updated ?? report.generated.slice(0, 10));
+        const checked = toDateTime(lastUpdatedByFile("domain-registrar-mcp.json", mcp._meta));
         for (const rec of mcp.registrars ?? []) {
           const oddId = peerToOdd[rec.registrar_id];
           if (!oddId) { noteUnmatched(rec.registrar_id); stats.skipped_unmatched++; continue; }

@@ -12,6 +12,10 @@ import {
   SECURITY_CONTACTS,
   AGENT_SIGNALS,
   LANDSCAPE_SCHEMA,
+  OWNERSHIP_SCHEMA,
+  TLD_REGISTRY_SCHEMA,
+  REGISTRAR_OWNERSHIP,
+  TLD_REGISTRY,
   type Dataset,
 } from "./data";
 import { LANDSCAPE_STATS } from "./landscape";
@@ -24,7 +28,7 @@ export type DatasetDetail = {
   sources: [string, string, string][];
   records: unknown[];
   recordTableHeader: string[];
-  rowRenderer: "registrar" | "api_caps" | "dns_caps" | "pricing" | "rdap" | "security" | "agent" | "landscape";
+  rowRenderer: "registrar" | "api_caps" | "dns_caps" | "pricing" | "rdap" | "security" | "agent" | "landscape" | "ownership" | "tld_registry";
 };
 
 export function getDatasetDetail(slug: string): DatasetDetail | null {
@@ -78,9 +82,34 @@ export function getDatasetDetail(slug: string): DatasetDetail | null {
         sources: [
           ["registrar_docs", "Published registrar pricing pages", "various"],
         ],
-        records: TLD_PRICING,
+        records: TLD_PRICING.slice(0, 24),
         recordTableHeader: ["registrar_id", "tld", "register_usd", "renew_usd", "transfer_usd", "verification_status"],
         rowRenderer: "pricing",
+      };
+    case "registrar-ownership":
+      return {
+        fields: OWNERSHIP_SCHEMA,
+        schemaSlug: "registrar-ownership.schema.json",
+        jsonHref: "/api/registrar_ownership.json",
+        sources: [
+          ["cross_site_feed", "Compiled ownership records citing corporate reporting per claim", "various (source_url per record)"],
+        ],
+        records: REGISTRAR_OWNERSHIP,
+        recordTableHeader: ["brand_name", "relationship", "parent_group_name", "parent_type", "verification_status"],
+        rowRenderer: "ownership",
+      };
+    case "tld-registry":
+      return {
+        fields: TLD_REGISTRY_SCHEMA,
+        schemaSlug: "tld-registry.schema.json",
+        jsonHref: "/api/tld_registry.json",
+        sources: [
+          ["iana", "IANA Root Zone Database", "iana.org/domains/root/db"],
+          ["cross_site_feed", "Machine-readable compilation of the IANA records", "various"],
+        ],
+        records: TLD_REGISTRY.slice(0, 24),
+        recordTableHeader: ["tld", "type", "operator", "country", "verification_status"],
+        rowRenderer: "tld_registry",
       };
     case "rdap-metadata":
       return {
