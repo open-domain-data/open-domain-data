@@ -19,6 +19,7 @@ verification status, a source list and a timestamp.
 
 ## Datasets
 
+- index (all datasets, versions, formats, schemas): /api/index.json
 - registrars: /api/registrars.json
 - registrar_api_capabilities: /api/registrar_api_capabilities.json
 - dns_capabilities: /api/dns_capabilities.json
