@@ -1,0 +1,469 @@
+{
+  "dataset": "registrar_landscape",
+  "version": "2026-Q3",
+  "edition": "2026-Q3",
+  "cadence": "quarterly",
+  "license": "CC-BY-4.0",
+  "schema": "https://opendomaindata.org/schemas/registrar-landscape.schema.json",
+  "coverage": {
+    "tracked_registrars": 7,
+    "registrar_ids": [
+      "cloudflare-registrar",
+      "namecheap",
+      "porkbun",
+      "godaddy",
+      "dynadot",
+      "spaceship",
+      "squarespace-domains"
+    ],
+    "note": "Every statistic is computed over the registrars Open Domain Data currently tracks. It describes this tracked sample, not the whole registrar industry. As coverage grows each quarter, the sample becomes more representative."
+  },
+  "last_checked": "2026-07-04T00:00:00Z",
+  "count": 13,
+  "records": [
+    {
+      "id": "public-api-coverage",
+      "edition": "2026-Q3",
+      "headline": true,
+      "metric": "Public domain-management API",
+      "statement": "6 of the 7 registrars tracked by Open Domain Data expose a public domain-management API.",
+      "value": "6 of 7",
+      "numerator": 6,
+      "denominator": 7,
+      "percent": 85.7,
+      "unit": "registrars",
+      "methodology": "Count where api_available = true in registrar_api_capabilities.",
+      "computed_from": [
+        {
+          "dataset": "registrar_api_capabilities",
+          "version": "2026.06",
+          "field": "api_available"
+        }
+      ],
+      "breakdown": {
+        "yes": [
+          "cloudflare-registrar",
+          "namecheap",
+          "porkbun",
+          "godaddy",
+          "dynadot",
+          "spaceship"
+        ],
+        "no": [
+          "squarespace-domains"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/public-api-coverage"
+    },
+    {
+      "id": "oauth-support",
+      "edition": "2026-Q3",
+      "headline": true,
+      "metric": "OAuth 2.0 API authentication",
+      "statement": "0 of the 7 registrars tracked by Open Domain Data authenticate their API with OAuth 2.0 (the rest use a static API key).",
+      "value": "0 of 7",
+      "numerator": 0,
+      "denominator": 7,
+      "percent": 0,
+      "unit": "registrars",
+      "methodology": "Count where oauth_support = true in registrar_api_capabilities.",
+      "computed_from": [
+        {
+          "dataset": "registrar_api_capabilities",
+          "version": "2026.06",
+          "field": "oauth_support"
+        }
+      ],
+      "breakdown": {
+        "yes": [],
+        "no": [
+          "cloudflare-registrar",
+          "namecheap",
+          "porkbun",
+          "godaddy",
+          "dynadot",
+          "spaceship",
+          "squarespace-domains"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/oauth-support"
+    },
+    {
+      "id": "scoped-api-tokens",
+      "edition": "2026-Q3",
+      "headline": true,
+      "metric": "Scoped API tokens",
+      "statement": "1 of the 7 registrars tracked by Open Domain Data support scoped API tokens (a delegated agent can be granted less than full account access).",
+      "value": "1 of 7",
+      "numerator": 1,
+      "denominator": 7,
+      "percent": 14.3,
+      "unit": "registrars",
+      "methodology": "Count where scoped_tokens = true in registrar_api_capabilities.",
+      "computed_from": [
+        {
+          "dataset": "registrar_api_capabilities",
+          "version": "2026.06",
+          "field": "scoped_tokens"
+        }
+      ],
+      "breakdown": {
+        "yes": [
+          "cloudflare-registrar"
+        ],
+        "no": [
+          "namecheap",
+          "porkbun",
+          "godaddy",
+          "dynadot",
+          "spaceship",
+          "squarespace-domains"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/scoped-api-tokens"
+    },
+    {
+      "id": "openapi-spec",
+      "edition": "2026-Q3",
+      "headline": true,
+      "metric": "Machine-readable OpenAPI spec",
+      "statement": "1 of the 7 registrars tracked by Open Domain Data publish a machine-readable OpenAPI specification for their API.",
+      "value": "1 of 7",
+      "numerator": 1,
+      "denominator": 7,
+      "percent": 14.3,
+      "unit": "registrars",
+      "methodology": "Count where openapi_spec is a non-empty URL in registrar_api_capabilities.",
+      "computed_from": [
+        {
+          "dataset": "registrar_api_capabilities",
+          "version": "2026.06",
+          "field": "openapi_spec"
+        }
+      ],
+      "breakdown": {
+        "yes": [
+          "cloudflare-registrar"
+        ],
+        "no": [
+          "namecheap",
+          "porkbun",
+          "godaddy",
+          "dynadot",
+          "spaceship",
+          "squarespace-domains"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/openapi-spec"
+    },
+    {
+      "id": "mcp-interface",
+      "edition": "2026-Q3",
+      "headline": true,
+      "metric": "Native agent (MCP) interface",
+      "statement": "1 of the 7 registrars tracked by Open Domain Data expose a native agent interface over the Model Context Protocol (MCP).",
+      "value": "1 of 7",
+      "numerator": 1,
+      "denominator": 7,
+      "percent": 14.3,
+      "unit": "registrars",
+      "methodology": "Count where mcp_interface = true in agent_capability_signals.",
+      "computed_from": [
+        {
+          "dataset": "agent_capability_signals",
+          "version": "2026.05",
+          "field": "mcp_interface"
+        }
+      ],
+      "breakdown": {
+        "yes": [
+          "godaddy"
+        ],
+        "no": [
+          "cloudflare-registrar",
+          "namecheap",
+          "porkbun",
+          "dynadot",
+          "spaceship",
+          "squarespace-domains"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/mcp-interface"
+    },
+    {
+      "id": "sandbox-environment",
+      "edition": "2026-Q3",
+      "headline": false,
+      "metric": "API sandbox / test environment",
+      "statement": "3 of the 7 registrars tracked by Open Domain Data publish an API sandbox or test environment.",
+      "value": "3 of 7",
+      "numerator": 3,
+      "denominator": 7,
+      "percent": 42.9,
+      "unit": "registrars",
+      "methodology": "Count where sandbox = true in agent_capability_signals.",
+      "computed_from": [
+        {
+          "dataset": "agent_capability_signals",
+          "version": "2026.05",
+          "field": "sandbox"
+        }
+      ],
+      "breakdown": {
+        "yes": [
+          "namecheap",
+          "godaddy",
+          "dynadot"
+        ],
+        "no": [
+          "cloudflare-registrar",
+          "porkbun",
+          "spaceship",
+          "squarespace-domains"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/sandbox-environment"
+    },
+    {
+      "id": "account-audit-logs",
+      "edition": "2026-Q3",
+      "headline": false,
+      "metric": "Account audit logs",
+      "statement": "1 of the 7 registrars tracked by Open Domain Data expose account-level audit logs (so automated actions leave a reviewable trail).",
+      "value": "1 of 7",
+      "numerator": 1,
+      "denominator": 7,
+      "percent": 14.3,
+      "unit": "registrars",
+      "methodology": "Count where audit_logs = true in agent_capability_signals.",
+      "computed_from": [
+        {
+          "dataset": "agent_capability_signals",
+          "version": "2026.05",
+          "field": "audit_logs"
+        }
+      ],
+      "breakdown": {
+        "yes": [
+          "cloudflare-registrar"
+        ],
+        "no": [
+          "namecheap",
+          "porkbun",
+          "godaddy",
+          "dynadot",
+          "spaceship",
+          "squarespace-domains"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/account-audit-logs"
+    },
+    {
+      "id": "human-approval-flow",
+      "edition": "2026-Q3",
+      "headline": false,
+      "metric": "Built-in human-approval flow",
+      "statement": "0 of the 7 registrars tracked by Open Domain Data offer a built-in human-approval or spend-limit flow for API-initiated actions.",
+      "value": "0 of 7",
+      "numerator": 0,
+      "denominator": 7,
+      "percent": 0,
+      "unit": "registrars",
+      "methodology": "Count where human_approval_flow = true in agent_capability_signals.",
+      "computed_from": [
+        {
+          "dataset": "agent_capability_signals",
+          "version": "2026.05",
+          "field": "human_approval_flow"
+        }
+      ],
+      "breakdown": {
+        "yes": [],
+        "no": [
+          "cloudflare-registrar",
+          "namecheap",
+          "porkbun",
+          "godaddy",
+          "dynadot",
+          "spaceship",
+          "squarespace-domains"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/human-approval-flow"
+    },
+    {
+      "id": "dns-api-management",
+      "edition": "2026-Q3",
+      "headline": false,
+      "metric": "DNS records editable via API",
+      "statement": "6 of the 7 registrars tracked by Open Domain Data let you manage DNS records programmatically via API.",
+      "value": "6 of 7",
+      "numerator": 6,
+      "denominator": 7,
+      "percent": 85.7,
+      "unit": "registrars",
+      "methodology": "Count where api_record_management = true in dns_capabilities.",
+      "computed_from": [
+        {
+          "dataset": "dns_capabilities",
+          "version": "2026.06",
+          "field": "api_record_management"
+        }
+      ],
+      "breakdown": {
+        "yes": [
+          "cloudflare-registrar",
+          "namecheap",
+          "porkbun",
+          "godaddy",
+          "dynadot",
+          "spaceship"
+        ],
+        "no": [
+          "squarespace-domains"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/dns-api-management"
+    },
+    {
+      "id": "dnssec-support",
+      "edition": "2026-Q3",
+      "headline": false,
+      "metric": "DNSSEC support",
+      "statement": "7 of the 7 registrars tracked by Open Domain Data support DNSSEC (6 fully, 1 partially).",
+      "value": "7 of 7",
+      "numerator": 7,
+      "denominator": 7,
+      "percent": 100,
+      "unit": "registrars",
+      "methodology": "Count where dnssec is 'supported' (full) or 'partial' in dns_capabilities.",
+      "computed_from": [
+        {
+          "dataset": "dns_capabilities",
+          "version": "2026.06",
+          "field": "dnssec"
+        }
+      ],
+      "breakdown": {
+        "full": [
+          "cloudflare-registrar",
+          "namecheap",
+          "porkbun",
+          "godaddy",
+          "spaceship",
+          "squarespace-domains"
+        ],
+        "partial": [
+          "dynadot"
+        ],
+        "none": []
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/dnssec-support"
+    },
+    {
+      "id": "rdap-conformance",
+      "edition": "2026-Q3",
+      "headline": false,
+      "metric": "IANA-bootstrapped RDAP endpoint",
+      "statement": "7 of the 7 registrars tracked by Open Domain Data expose an IANA-bootstrapped, RFC 7483-conformant RDAP endpoint.",
+      "value": "7 of 7",
+      "numerator": 7,
+      "denominator": 7,
+      "percent": 100,
+      "unit": "registrars",
+      "methodology": "Count where iana_bootstrapped = true and conformance includes rfc7483 in rdap_metadata.",
+      "computed_from": [
+        {
+          "dataset": "rdap_metadata",
+          "version": "2026.06",
+          "field": "iana_bootstrapped"
+        }
+      ],
+      "breakdown": {
+        "yes": [
+          "cloudflare-registrar",
+          "namecheap",
+          "porkbun",
+          "godaddy",
+          "dynadot",
+          "spaceship",
+          "squarespace-domains"
+        ],
+        "no": []
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/rdap-conformance"
+    },
+    {
+      "id": "security-txt",
+      "edition": "2026-Q3",
+      "headline": false,
+      "metric": "RFC 9116 security.txt",
+      "statement": "3 of the 7 registrars tracked by Open Domain Data publish an RFC 9116 security.txt (2 do not; 2 could not be determined).",
+      "value": "3 of 7",
+      "numerator": 3,
+      "denominator": 7,
+      "percent": 42.9,
+      "unit": "registrars",
+      "methodology": "Count where security_txt = 'present' in registrar_security_contacts.",
+      "computed_from": [
+        {
+          "dataset": "registrar_security_contacts",
+          "version": "2026.06",
+          "field": "security_txt"
+        }
+      ],
+      "breakdown": {
+        "present": [
+          "cloudflare-registrar",
+          "namecheap",
+          "squarespace-domains"
+        ],
+        "absent": [
+          "porkbun",
+          "dynadot"
+        ],
+        "unknown": [
+          "godaddy",
+          "spaceship"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/security-txt"
+    },
+    {
+      "id": "min-dns-ttl-median",
+      "edition": "2026-Q3",
+      "headline": false,
+      "metric": "Minimum DNS TTL (median)",
+      "statement": "The median minimum DNS TTL across the 7 registrars tracked by Open Domain Data is 300 seconds (range 60–600).",
+      "value": "300 s (median)",
+      "numerator": 300,
+      "denominator": null,
+      "percent": null,
+      "unit": "seconds",
+      "methodology": "Median of ttl_min_seconds across the tracked registrar set in dns_capabilities.",
+      "computed_from": [
+        {
+          "dataset": "dns_capabilities",
+          "version": "2026.06",
+          "field": "ttl_min_seconds"
+        }
+      ],
+      "breakdown": {
+        "60": [
+          "cloudflare-registrar",
+          "namecheap",
+          "spaceship"
+        ],
+        "300": [
+          "dynadot",
+          "squarespace-domains"
+        ],
+        "600": [
+          "porkbun",
+          "godaddy"
+        ]
+      },
+      "canonical_url": "https://opendomaindata.org/landscape/2026-q3/min-dns-ttl-median"
+    }
+  ]
+}

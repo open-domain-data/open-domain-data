@@ -19,6 +19,7 @@ verification status, a source list and a timestamp.
 
 ## Datasets
 
+- index (all datasets, versions, formats, schemas): /api/index.json
 - registrars: /api/registrars.json
 - registrar_api_capabilities: /api/registrar_api_capabilities.json
 - dns_capabilities: /api/dns_capabilities.json
@@ -26,6 +27,25 @@ verification status, a source list and a timestamp.
 - rdap_metadata: /api/rdap_metadata.json
 - registrar_security_contacts: /api/registrar_security_contacts.json
 - agent_capability_signals: /api/agent_capability_signals.json
+- registrar_landscape: /api/registrar_landscape.json
+- registrar_ownership: /api/registrar_ownership.json
+- tld_registry: /api/tld_registry.json
+
+Machine-readable index of every dataset file (version, record count, sha256):
+/api/sync-manifest.json
+
+## Registrar landscape (quarterly aggregate statistics)
+A quarterly, source-derived snapshot of registrar capabilities across the
+tracked set. Computed deterministically from the datasets above; reports facts,
+not rankings. Every stat is a count over a stated denominator, describing the
+tracked sample rather than the whole industry. Each headline stat has a stable,
+citable URL. Current edition (2026-Q3), headline figures:
+- Public domain-management API: 6 of 7 tracked registrars — /landscape/2026-q3/public-api-coverage
+- OAuth 2.0 API authentication: 0 of 7 (all use a static API key) — /landscape/2026-q3/oauth-support
+- Scoped API tokens: 1 of 7 — /landscape/2026-q3/scoped-api-tokens
+- Machine-readable OpenAPI spec: 1 of 7 — /landscape/2026-q3/openapi-spec
+- Native agent (MCP) interface: 1 of 7 — /landscape/2026-q3/mcp-interface
+Edition index: /landscape · Dataset: /datasets/registrar-landscape
 
 ## Schemas
 
@@ -33,12 +53,17 @@ verification status, a source list and a timestamp.
 - /schemas/api-capabilities.schema.json
 - /schemas/dns-capabilities.schema.json
 - /schemas/pricing.schema.json
+- /schemas/registrar-landscape.schema.json
+- /schemas/registrar-ownership.schema.json
+- /schemas/tld-registry.schema.json
 
 ## Docs
 - Methodology: /methodology
 - Verification statuses: /methodology#verification
 - Provenance reverse index (every source and the fields across all datasets that cite it): /provenance
 - Provenance reverse index, machine-readable JSON (per-source citations + counts): /api/provenance.json
+- Registrar landscape (quarterly aggregate statistics): /landscape
+- Cross-citation convention (how other neutral sites may cite this data): https://github.com/open-domain-data/open-domain-data/blob/main/docs/cross-citation.md
 - Changelog: /changelog
 - Developer reference: /developers
 - Contribute: /contribute

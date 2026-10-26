@@ -16,7 +16,7 @@
     "ttl_min_seconds": { "type": "integer", "minimum": 0 },
     "sources": {
       "type": "array",
-      "items": { "type": "string", "enum": ["iana", "rdap", "registrar_docs", "submission"] }
+      "items": { "type": "string", "enum": ["iana", "rdap", "registrar_docs", "submission", "cross_site_feed"] }
     },
     "verification_status": {
       "type": "string",

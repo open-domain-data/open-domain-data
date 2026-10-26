@@ -8,14 +8,14 @@
   "required": ["registrar_id", "tld", "sources", "verification_status", "last_checked"],
   "properties": {
     "registrar_id": { "type": "string" },
-    "tld": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+    "tld": { "type": "string", "pattern": "^[a-z0-9]([a-z0-9.-]*[a-z0-9])?$" },
     "register_usd": { "type": ["number", "null"], "minimum": 0 },
     "renew_usd": { "type": ["number", "null"], "minimum": 0 },
     "transfer_usd": { "type": ["number", "null"], "minimum": 0 },
     "promotional": { "type": "boolean" },
     "sources": {
       "type": "array",
-      "items": { "type": "string", "enum": ["iana", "rdap", "registrar_docs", "submission"] }
+      "items": { "type": "string", "enum": ["iana", "rdap", "registrar_docs", "submission", "cross_site_feed"] }
     },
     "verification_status": {
       "type": "string",
@@ -28,7 +28,12 @@
         "deprecated"
       ]
     },
-    "last_checked": { "type": "string", "format": "date-time" }
+    "last_checked": { "type": "string", "format": "date-time" },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary source URL the price was read from (the registrar's own pricing page, or the canonical URL of a cross-site feed record)."
+    }
   },
   "additionalProperties": false
 }

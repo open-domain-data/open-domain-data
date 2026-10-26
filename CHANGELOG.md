@@ -5,6 +5,54 @@ Newest first. The format follows [Keep a Changelog](https://keepachangelog.com)
 and the project uses [Semantic Versioning](https://semver.org/) for schemas and
 calendar versioning (`YYYY.MM`) for datasets.
 
+## 2026.08 — 2026-08-26
+
+### Cross-site sync with the best-domain-registrars.com data feed
+- New importer `scripts/import-bdr.mjs` (`npm run import:bdr`): imports
+  **factual records only** from the peer's public `/data` feed, under the
+  [cross-citation convention](./docs/cross-citation.md). Endpoint allowlist;
+  the peer's editorial datasets (scores, rankings, recommendations,
+  methodology) are refused in code; `api-access.json` is refused as circular
+  (it mirrors this project's own `registrar_api_capabilities`); records whose
+  `source_url` points at opendomaindata.org are dropped (loop prevention);
+  field-level conflict rules never overwrite `independently_tested` values.
+- New editorial firewall `scripts/check-neutrality.mjs`
+  (`npm run verify:neutrality`, part of `npm run check`): fails CI if any
+  score/rank/recommendation-shaped key appears anywhere under `/data`.
+- New weekly workflow `.github/workflows/import.yml`: runs the importer plus
+  the full local gate and opens a **PR** for maintainer review — the pipeline
+  has no path around governance.
+- New registrar identity crosswalk `data/crosswalks/bdr-registrar-ids.json`
+  (7 matched ids, 16 peer registrars reported as unmatched).
+- `scripts/sync-data.mjs` now also generates `/api/sync-manifest.json`:
+  per-file version, record count, byte size and sha256 for drift monitoring
+  by consuming sites.
+
+### `tld_pricing@2026.08` · schema `pricing@2026.08`
+- Imported 600 pricing rows (7 registrars × their tracked TLDs) from the peer
+  feed with `sources: ["registrar_docs", "cross_site_feed"]` and per-row
+  `source_url`; 1 existing row updated; the conflict rules kept both
+  `registrar_verified` Porkbun rows (an import never overwrites a
+  higher-verification value).
+- Schema: `tld` pattern now admits multi-label TLDs (e.g. `co.uk`); new
+  optional `source_url` field; `sources` enum gains `cross_site_feed`.
+
+### `registrar_ownership@2026.08` · new dataset · schema `registrar-ownership@2026.08`
+- Corporate ownership of retail registrar brands: 20 records (brand →
+  owning group, relationship, parent type), imported from the peer feed
+  (published there under CC BY 4.0). Facts about who owns what — no
+  judgement about whether that ownership is good or bad.
+
+### `tld_registry@2026.08` · new dataset · schema `tld-registry@2026.08`
+- IANA Root Zone Database facts per TLD: 562 records (classification,
+  registry operator, country for ccTLDs, IDN flags, canonical IANA URL).
+  Primary source IANA; compiled via the peer feed.
+
+### Schemas
+- `registrar`, `api-capabilities`, `dns-capabilities`, `pricing`: `sources`
+  enum extended with `cross_site_feed` (values imported from another neutral
+  site's machine-readable feed, always alongside a canonical `source_url`).
+
 ## 2026.06 — 2026-06-28
 
 ### `registrar_api_capabilities@2026.06` · schema `api-capabilities@2026.06`

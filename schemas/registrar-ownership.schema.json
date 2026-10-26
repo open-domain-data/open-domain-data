@@ -1,0 +1,53 @@
+{
+  "$id": "https://opendomaindata.org/schemas/registrar-ownership.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RegistrarOwnership",
+  "description": "Corporate ownership record for a retail registrar brand. Facts about who owns which brand — never a judgement about whether that ownership is good or bad.",
+  "version": "2026.08",
+  "type": "object",
+  "required": ["id", "brand_name", "relationship", "sources", "verification_status", "last_checked"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Stable slug identifier for the brand."
+    },
+    "registrar_id": {
+      "type": ["string", "null"],
+      "description": "Foreign key to registrars.id when the brand has a canonical registrar record; null for brands not (yet) in the registrars dataset."
+    },
+    "brand_name": { "type": "string", "description": "Consumer-facing brand name." },
+    "relationship": {
+      "type": "string",
+      "enum": ["subsidiary", "brand", "independent"],
+      "description": "subsidiary/brand: operated by a parent group; independent: the brand and the owner are the same entity."
+    },
+    "parent_group_id": {
+      "type": ["string", "null"],
+      "pattern": "^[a-z0-9][a-z0-9-]*$",
+      "description": "Slug of the owning corporate group; null when independent."
+    },
+    "parent_group_name": { "type": ["string", "null"], "description": "Name of the owning corporate group; null when independent." },
+    "parent_type": {
+      "type": ["string", "null"],
+      "enum": ["public", "private", null],
+      "description": "Whether the owning group is publicly listed or privately held; null when unknown or independent."
+    },
+    "source_url": {
+      "type": "string",
+      "format": "uri",
+      "description": "Primary source for the ownership claim (corporate filing, acquisition announcement, or canonical cross-site feed record)."
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "enum": ["iana", "rdap", "registrar_docs", "submission", "cross_site_feed"] }
+    },
+    "verification_status": {
+      "type": "string",
+      "enum": ["unknown", "public_sources", "independently_tested", "registrar_submitted", "registrar_verified", "deprecated"]
+    },
+    "last_checked": { "type": "string", "format": "date-time" }
+  },
+  "additionalProperties": false
+}

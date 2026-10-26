@@ -30,6 +30,7 @@ export function OdLogo() {
 
 const NAV: { label: string; href: string; match: RegExp }[] = [
   { label: "Datasets", href: "/datasets", match: /^\/datasets/ },
+  { label: "Landscape", href: "/landscape", match: /^\/landscape/ },
   { label: "Schemas", href: "/schemas", match: /^\/schemas/ },
   { label: "Registrars", href: "/registrars", match: /^\/registrars/ },
   { label: "Methodology", href: "/methodology", match: /^\/methodology/ },

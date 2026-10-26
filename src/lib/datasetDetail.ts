@@ -11,8 +11,14 @@ import {
   RDAP_METADATA,
   SECURITY_CONTACTS,
   AGENT_SIGNALS,
+  LANDSCAPE_SCHEMA,
+  OWNERSHIP_SCHEMA,
+  TLD_REGISTRY_SCHEMA,
+  REGISTRAR_OWNERSHIP,
+  TLD_REGISTRY,
   type Dataset,
 } from "./data";
+import { LANDSCAPE_STATS } from "./landscape";
 
 export type DatasetDetail = {
   fields: { f: string; t: string; r: boolean; d: string }[];
@@ -22,7 +28,7 @@ export type DatasetDetail = {
   sources: [string, string, string][];
   records: unknown[];
   recordTableHeader: string[];
-  rowRenderer: "registrar" | "api_caps" | "dns_caps" | "pricing" | "rdap" | "security" | "agent";
+  rowRenderer: "registrar" | "api_caps" | "dns_caps" | "pricing" | "rdap" | "security" | "agent" | "landscape" | "ownership" | "tld_registry";
 };
 
 export function getDatasetDetail(slug: string): DatasetDetail | null {
@@ -76,9 +82,34 @@ export function getDatasetDetail(slug: string): DatasetDetail | null {
         sources: [
           ["registrar_docs", "Published registrar pricing pages", "various"],
         ],
-        records: TLD_PRICING,
+        records: TLD_PRICING.slice(0, 24),
         recordTableHeader: ["registrar_id", "tld", "register_usd", "renew_usd", "transfer_usd", "verification_status"],
         rowRenderer: "pricing",
+      };
+    case "registrar-ownership":
+      return {
+        fields: OWNERSHIP_SCHEMA,
+        schemaSlug: "registrar-ownership.schema.json",
+        jsonHref: "/api/registrar_ownership.json",
+        sources: [
+          ["cross_site_feed", "Compiled ownership records citing corporate reporting per claim", "various (source_url per record)"],
+        ],
+        records: REGISTRAR_OWNERSHIP,
+        recordTableHeader: ["brand_name", "relationship", "parent_group_name", "parent_type", "verification_status"],
+        rowRenderer: "ownership",
+      };
+    case "tld-registry":
+      return {
+        fields: TLD_REGISTRY_SCHEMA,
+        schemaSlug: "tld-registry.schema.json",
+        jsonHref: "/api/tld_registry.json",
+        sources: [
+          ["iana", "IANA Root Zone Database", "iana.org/domains/root/db"],
+          ["cross_site_feed", "Machine-readable compilation of the IANA records", "various"],
+        ],
+        records: TLD_REGISTRY.slice(0, 24),
+        recordTableHeader: ["tld", "type", "operator", "country", "verification_status"],
+        rowRenderer: "tld_registry",
       };
     case "rdap-metadata":
       return {
@@ -134,6 +165,23 @@ export function getDatasetDetail(slug: string): DatasetDetail | null {
         records: AGENT_SIGNALS,
         recordTableHeader: ["registrar_id", "api_available", "scoped_tokens", "dns_api", "webhooks", "verification_status"],
         rowRenderer: "agent",
+      };
+    case "registrar-landscape":
+      return {
+        fields: LANDSCAPE_SCHEMA,
+        schemaSlug: "registrar-landscape.schema.json",
+        jsonHref: "/api/registrar_landscape.json",
+        csvHref: "/api/registrar_landscape.csv",
+        sources: [
+          ["registrar_api_capabilities", "API-surface shares, computed from the API-capabilities dataset", "opendomaindata.org/datasets/registrar-api-capabilities"],
+          ["dns_capabilities", "DNSSEC, DNS-API and TTL stats, computed from the DNS-capabilities dataset", "opendomaindata.org/datasets/dns-capabilities"],
+          ["agent_capability_signals", "Agent-readiness shares (MCP, audit logs, approval flow), computed from the agent-signals dataset", "opendomaindata.org/datasets/agent-capability-signals"],
+          ["rdap_metadata", "RDAP-conformance share, computed from the RDAP-metadata dataset", "opendomaindata.org/datasets/rdap-metadata"],
+          ["registrar_security_contacts", "security.txt share, computed from the security-contacts dataset", "opendomaindata.org/datasets/registrar-security-contacts"],
+        ],
+        records: LANDSCAPE_STATS as unknown[],
+        recordTableHeader: ["metric", "value", "percent", "headline", "edition"],
+        rowRenderer: "landscape",
       };
     default:
       return null;

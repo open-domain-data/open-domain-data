@@ -11,6 +11,10 @@ import {
   PRICING_SCHEMA,
   RDAP_METADATA_SCHEMA,
   SECURITY_CONTACTS_SCHEMA,
+  AGENT_SIGNALS_SCHEMA,
+  LANDSCAPE_SCHEMA,
+  OWNERSHIP_SCHEMA,
+  TLD_REGISTRY_SCHEMA,
 } from "@/lib/data";
 import { DocShell, PageHead, H2A, FieldTable } from "@/components/DocShell";
 import { CodeBlock } from "@/components/CodeBlock";
@@ -24,6 +28,10 @@ const FIELDS_BY_SLUG: Record<string, { f: string; t: string; r: boolean; d: stri
   "pricing.schema.json": PRICING_SCHEMA,
   "rdap-metadata.schema.json": RDAP_METADATA_SCHEMA,
   "security-contacts.schema.json": SECURITY_CONTACTS_SCHEMA,
+  "agent-capability-signals.schema.json": AGENT_SIGNALS_SCHEMA,
+  "registrar-landscape.schema.json": LANDSCAPE_SCHEMA,
+  "registrar-ownership.schema.json": OWNERSHIP_SCHEMA,
+  "tld-registry.schema.json": TLD_REGISTRY_SCHEMA,
 };
 
 export function generateStaticParams() {
