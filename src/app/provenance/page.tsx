@@ -90,6 +90,14 @@ export default function ProvenancePage() {
         <span className="mono">npm run check</span> or{" "}
         <span className="mono">node scripts/check-provenance.mjs --check-urls</span>.
       </p>
+      <p className="od-micro" style={{ marginTop: 10 }}>
+        This index is also published as machine-readable JSON at{" "}
+        <Link href="/api/provenance.json" className="mono">
+          /api/provenance.json
+        </Link>{" "}
+        — the same per-source citations, grouped and counted, for tools, agents
+        and anyone auditing the data programmatically.
+      </p>
 
       <H2A id="sources">Sources by citation count</H2A>
       <p className="od-body" style={{ fontSize: 13.5, maxWidth: 680, marginBottom: 8 }}>
